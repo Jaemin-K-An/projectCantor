@@ -263,25 +263,63 @@ end
 # ---------------------------------------------------------------------------
 
 """
-    evaluate_neural_ode(nvf, ps, gate, δ; h0, T, dt_save, ...) -> (ts, hs, gs)
+    evaluate_neural_ode(nvf, ps, gate, δ; h0, T, dt_save) -> (ts, hs, gs)
 
-Integrate the *trained* field with the adaptive SciML solver for one initial
-condition and one disturbance. `gate` is the scalar [`Gate`](@ref).
+PRIMARY evaluation of the *trained* field: fixed-step RK4, matching the
+integrator used everywhere else in this study. The hard gate makes the closed
+loop `f_θ + g·δ` discontinuous exactly as in the untrained system, so the same
+argument applies (see `src/Dynamics.jl`): a fixed step is a well-defined
+regularisation, an adaptive one can stall on a sliding mode.
 """
 function evaluate_neural_ode(nvf::NeuralVectorField, ps, gate, δ;
                              h0::Float64 = 0.15, T::Float64 = 20.0,
-                             dt_save::Float64 = 0.005, alg = Tsit5(),
-                             abstol = 1e-8, reltol = 1e-6, dtmax = 0.005)
+                             dt_save::Float64 = 0.005)
+    dt = dt_save / 2
+    f(h, t) = nvf_apply(nvf, ps, [h], t)[1] +
+              gate_value(gate, clamp(h, 0.0, 1.0)) * δ(t)
+    nsteps = round(Int, T / dt)
+    ts = Float64[0.0]; hs = Float64[h0]
+    h = h0
+    for k in 1:nsteps
+        t = (k - 1) * dt
+        k1 = f(h, t); k2 = f(h + dt/2*k1, t + dt/2)
+        k3 = f(h + dt/2*k2, t + dt/2); k4 = f(h + dt*k3, t + dt)
+        h += dt/6 * (k1 + 2k2 + 2k3 + k4)
+        if k % 2 == 0
+            push!(ts, k * dt); push!(hs, h)
+        end
+    end
+    gs = [gate_value(gate, clamp(x, 0.0, 1.0)) for x in hs]
+    return ts, hs, gs
+end
+
+"""
+    evaluate_neural_ode_adaptive(nvf, ps, gate, δ; ..., maxiters)
+        -> (ts, hs, gs, ok)
+
+CROSS-CHECK evaluation with the adaptive SciML solver. `ok` is `false` when the
+solver did not return `:Success` — most often because it hit `maxiters` while
+chattering on a switching surface, exactly the failure documented for the
+untrained system in `docs/BASELINE_AUDIT.md`. `maxiters` is capped (default
+2·10⁵, ≈50× the nominal step count) so a stall is REPORTED rather than hanging
+the benchmark; failed runs are counted, not silently dropped.
+"""
+function evaluate_neural_ode_adaptive(nvf::NeuralVectorField, ps, gate, δ;
+                                      h0::Float64 = 0.15, T::Float64 = 20.0,
+                                      dt_save::Float64 = 0.005, alg = Tsit5(),
+                                      abstol = 1e-8, reltol = 1e-6,
+                                      dtmax = 0.005, maxiters::Int = 200_000)
     fθ(h, t) = nvf_apply(nvf, ps, [h], t)[1]
     rhs!(du, u, p, t) =
         (du[1] = fθ(u[1], t) + gate_value(gate, clamp(u[1], 0.0, 1.0)) * δ(t))
     prob = ODEProblem(rhs!, [h0], (0.0, T))
     sol = solve(prob, alg; saveat = dt_save, dtmax = dtmax,
-                abstol = abstol, reltol = reltol, maxiters = 10^8)
+                abstol = abstol, reltol = reltol, maxiters = maxiters)
     ts = collect(sol.t)
     hs = [u[1] for u in sol.u]
     gs = [gate_value(gate, clamp(h, 0.0, 1.0)) for h in hs]
-    return ts, hs, gs
+    ok = (Symbol(sol.retcode) == :Success) && length(ts) > 1
+    return ts, hs, gs, ok
 end
 
 """

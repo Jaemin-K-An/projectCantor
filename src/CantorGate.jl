@@ -57,7 +57,7 @@ export riemann_integral_left, riemann_integral_midpoint,
 export NeuralVectorField, init_nvf, nvf_apply, rk4_rollout, train_neural_ode,
        BatchGate, BNone, BHard, BSmooth, apply_gate, to_batch_gate,
        batch_gate_label, reference_trajectory, sample_train_batch, tracking_mse,
-       reference_field, generate_reference_data, evaluate_neural_ode
+       reference_field, evaluate_neural_ode, evaluate_neural_ode_adaptive
 # Utils
 export load_config, provenance, git_commit, write_raw, write_table, seed_for,
        phase_checkpoint, cfgpath, rawpath, procpath, tabpath, figpath, logpath, fmtf

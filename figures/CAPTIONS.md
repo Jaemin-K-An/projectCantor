@@ -66,3 +66,18 @@ Cantor is never compared to a single random draw. Histograms are the pooled R_sa
 ### FIG 11 — `fig11_hard_vs_smooth.png`
 
 (a) occupancy vs β. (b) the gate profile near ∂S. (c) g_β(1/3) → 1/2 as β → ∞ because 1/3 is an ENDPOINT of a pass interval, so the Theorem-2 guarantee A·g(∂S) < α/6 can never be met for A ≥ α/3 no matter how sharp the gate. (d) every run to the right of the red line is guaranteed invariant; the guarantee is sufficient, not necessary.
+
+
+### FIG 12 — `fig12_neural_training.png`
+
+Every gate variant is trained from the SAME network initialisation on the SAME sinusoidal training distribution. Loss is the tracking MSE against the clean reference trajectory of dh/dt = −1.2(h−½) − 2(h−½)³.
+
+
+### FIG 13 — `fig13_neural_id_vs_ood.png`
+
+TEST-ID = fresh sinusoids from the training distribution (A∈[0.5,1.5], ω∈[2,6]); TEST-OOD = square, chirp, multi-frequency, impulse train, OU noise, piecewise-random, amplitude extrapolation A=3, frequency extrapolation ω=16 and an adversarial search — all fixed before training.
+
+
+### FIG 14 — `fig14_ood_trajectories.png`
+
+Trained f_θ evaluated with the adaptive Tsit5 solver on four disturbances never seen in training. The dashed black curve is the clean reference trajectory the models were trained to track.

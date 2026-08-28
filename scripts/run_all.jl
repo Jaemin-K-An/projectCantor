@@ -8,7 +8,8 @@ const STEPS = [
     ("PHASE F  ablation",           `julia --project=. -t auto scripts/run_ablation.jl`),
     ("PHASE F' ablation stats",     `julia --project=. scripts/run_ablation_stats.jl`),
     ("PHASE G  math verification",  `julia --project=. scripts/run_math_analysis.jl`),
-    ("PHASE H  neural ODE + OOD",   `julia --project=. scripts/run_neural_ode.jl`),
+    ("PHASE H  neural ODE training", `julia --project=. scripts/run_neural_ode.jl`),
+    ("PHASE I  ID/OOD benchmark",   `julia --project=. scripts/run_neural_benchmark.jl`),
     ("POST-HOC hitting time",       `julia --project=. scripts/run_posthoc_hitting.jl`),
     ("FIGURES",                     `julia --project=. scripts/generate_all_figures.jl`),
 ]

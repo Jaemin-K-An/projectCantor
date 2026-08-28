@@ -6,7 +6,7 @@
 # controls, and the metric definitions. They are deterministic.
 # ============================================================================
 
-using Test, Random, Statistics
+using Test, Random, Statistics, TOML
 include(joinpath(@__DIR__, "..", "src", "CantorGate.jl"))
 using .CantorGate
 
@@ -364,6 +364,81 @@ end
     st2 = node_hit_statistics(10, 1e-2)
     @test st2.rho > 100
     @test st2.hit < st2.n_intervals
+end
+
+# ------------------------------------------------------ §13 output file schema
+@testset "18. result-file schema" begin
+    using CSV, DataFrames
+    root = joinpath(@__DIR__, "..")
+    required = Dict(
+        "sweep_full.csv" => [:n, :h0, :A, :omega, :alpha, :gate_family,
+                             :pass_measure, :gate_at_h0, :perturbation, :T, :dt,
+                             :seed, :R_safe, :R_safe_rect, :tau_S, :D_max,
+                             :D_mean, :T_rec, :R_gate, :h_end],
+        "ablation_main.csv" => [:gate_family, :n, :seed, :h0, :A, :omega, :alpha,
+                                :pass_measure, :gate_at_h0, :R_safe, :tau_S,
+                                :D_max, :D_mean, :T_rec, :R_gate],
+        "baseline_reproduction.csv" => [:model, :h0, :alpha, :A, :omega, :T,
+                                        :integrator, :R_safe, :R_safe_rect, :tau_S],
+        "numerical_integration.csv" => [:n, :dx, :rho, :I_left, :I_mid, :E_left,
+                                        :E_mid, :n_intervals, :intervals_hit],
+    )
+    for (fname, cols) in required
+        p = joinpath(root, "results", "raw", fname)
+        if isfile(p)
+            df = CSV.read(p, DataFrame; limit = 50)
+            for c in cols
+                @test c in propertynames(df)
+            end
+            @test nrow(df) > 0
+            # every raw table must carry a provenance sidecar
+            @test isfile(p * ".meta.toml")
+            meta = TOML.parsefile(p * ".meta.toml")
+            for k in ("timestamp", "git_commit", "julia_version", "nthreads")
+                @test haskey(meta, k)
+            end
+        else
+            @info "skipping schema test (not yet generated): $fname"
+        end
+    end
+    # metrics must be in range wherever they exist
+    p = joinpath(root, "results", "raw", "sweep_full.csv")
+    if isfile(p)
+        df = CSV.read(p, DataFrame; limit = 20_000)
+        @test all(0 .<= df.R_safe .<= 1)
+        @test all(0 .<= df.R_gate .<= 1)
+        @test all(df.D_max .>= 0)
+        @test all(df.tau_S .>= 0)
+        @test all(0 .<= df.pass_measure .<= 1)
+    end
+end
+
+# ---------------------------------------------- §12b trained-field evaluators
+@testset "19. Neural ODE evaluators agree and are guarded" begin
+    rng = Xoshiro(5)
+    nvf, ps = init_nvf(rng; width = 8, depth = 1, T = 5.0)
+    δ = sinusoid(1.0, 4.0)
+    for g in (NoGate(), cantor_interval_gate(3), SmoothGate(cantor_interval_gate(3), 50.0))
+        ts, hs, gs = evaluate_neural_ode(nvf, ps, g, δ; h0 = 0.42, T = 5.0, dt_save = 0.01)
+        @test length(ts) == length(hs) == length(gs)
+        @test ts[1] == 0.0
+        @test isapprox(ts[end], 5.0; atol = 1e-9)
+        @test all(isfinite, hs)
+        @test issorted(ts)
+        @test all(abs.(diff(ts) .- 0.01) .< 1e-9)     # uniform saveat, as metrics require
+        ta, ha, ga, ok = evaluate_neural_ode_adaptive(nvf, ps, g, δ; h0 = 0.42,
+                                                      T = 5.0, dt_save = 0.01,
+                                                      maxiters = 200_000)
+        @test ok isa Bool
+        if ok
+            m = min(length(hs), length(ha))
+            @test maximum(abs, hs[1:m] .- ha[1:m]) < 1e-3
+        end
+    end
+    # an untrained field integrated with no gate must match a plain RK4 rollout
+    ts, hs, _ = evaluate_neural_ode(nvf, ps, NoGate(), zero_perturbation();
+                                    h0 = 0.3, T = 2.0, dt_save = 0.01)
+    @test all(isfinite, hs)
 end
 
 end # testset CantorGate

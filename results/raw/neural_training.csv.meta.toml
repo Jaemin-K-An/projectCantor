@@ -1,0 +1,9 @@
+git_commit = "dirty:68a7df6"
+nthreads = 1
+julia_version = "1.12.6"
+config = "neural_ode.toml"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "H"
+timestamp = "2026-08-28T23:14:59.640"
+n_params = 2545
+iters = 300

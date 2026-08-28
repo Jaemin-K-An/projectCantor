@@ -1,0 +1,165 @@
+
+[11887] signal 15: Terminated: 15
+in expression starting at /Users/jaeminahn/Desktop/development/Cantor/scripts/run_neural_ode.jl:112
+__psynch_cvwait at /usr/lib/system/libsystem_kernel.dylib (unknown line)
+unknown function (ip: 0x0) at (unknown file)
+.Lgemv_n_kernel_F32 at /Users/jaeminahn/.julia/juliaup/julia-1.12.6+0.aarch64.apple.darwin14/Julia-1.12.app/Contents/Resources/julia/lib/julia/libopenblas64_.dylib (unknown line)
+unknown function (ip: 0x0) at (unknown file)
+Allocations: 46072766138 (Pool: 46065564965; Big: 7201173); GC: 47574
+[ Info: wrote 2400×4 rows → /Users/jaeminahn/Desktop/development/Cantor/results/raw/neural_training.csv
+f_θ: MLP 2→48(×2, tanh)→1,  2545 parameters
+
+==========================================================================================
+TRAINING
+==========================================================================================
+── neural_none
+  [none] iter    1  loss 7.487594e-01  |∇| 1.2959e+01
+  [none] iter   20  loss 1.518473e-02  |∇| 5.1885e-02
+  [none] iter   40  loss 7.316887e-03  |∇| 1.9570e-02
+  [none] iter   60  loss 5.415408e-03  |∇| 7.3612e-03
+  [none] iter   80  loss 4.937373e-03  |∇| 8.5116e-03
+  [none] iter  100  loss 4.513898e-03  |∇| 5.2394e-03
+  [none] iter  120  loss 4.476747e-03  |∇| 7.8510e-03
+  [none] iter  140  loss 4.516600e-03  |∇| 4.2968e-03
+  [none] iter  160  loss 4.061772e-03  |∇| 5.3145e-03
+  [none] iter  180  loss 4.115191e-03  |∇| 4.2198e-03
+  [none] iter  200  loss 4.333600e-03  |∇| 5.8100e-03
+  [none] iter  220  loss 4.343415e-03  |∇| 7.6141e-03
+  [none] iter  240  loss 4.097621e-03  |∇| 7.0059e-03
+  [none] iter  260  loss 3.252487e-03  |∇| 4.2580e-03
+  [none] iter  280  loss 2.961892e-03  |∇| 6.0211e-03
+  [none] iter  300  loss 3.237958e-03  |∇| 2.0092e-03
+── neural_cantor_n3
+  [cantor_n3] iter    1  loss 7.796883e-01  |∇| 1.3369e+01
+  [cantor_n3] iter   20  loss 7.867263e-03  |∇| 5.3621e-02
+  [cantor_n3] iter   40  loss 2.118878e-03  |∇| 1.4436e-02
+  [cantor_n3] iter   60  loss 1.519032e-03  |∇| 1.5595e-03
+  [cantor_n3] iter   80  loss 1.148502e-03  |∇| 6.0126e-03
+  [cantor_n3] iter  100  loss 1.497595e-03  |∇| 1.8630e-03
+  [cantor_n3] iter  120  loss 1.269769e-03  |∇| 7.3626e-03
+  [cantor_n3] iter  140  loss 1.524314e-03  |∇| 1.9838e-03
+  [cantor_n3] iter  160  loss 1.134619e-03  |∇| 7.1215e-03
+  [cantor_n3] iter  180  loss 1.240245e-03  |∇| 1.8395e-03
+  [cantor_n3] iter  200  loss 1.220981e-03  |∇| 1.0693e-02
+  [cantor_n3] iter  220  loss 1.432576e-03  |∇| 1.7070e-02
+  [cantor_n3] iter  240  loss 1.063830e-03  |∇| 1.2097e-02
+  [cantor_n3] iter  260  loss 9.218082e-04  |∇| 2.9531e-03
+  [cantor_n3] iter  280  loss 8.661520e-04  |∇| 9.3239e-03
+  [cantor_n3] iter  300  loss 8.986868e-04  |∇| 3.0301e-03
+── neural_random_n3_s1
+  [random_n3] iter    1  loss 6.832719e-01  |∇| 1.2396e+01
+  [random_n3] iter   20  loss 6.965025e-03  |∇| 5.1324e-02
+  [random_n3] iter   40  loss 1.916725e-03  |∇| 1.0491e-02
+  [random_n3] iter   60  loss 1.733134e-03  |∇| 1.5023e-03
+  [random_n3] iter   80  loss 1.417988e-03  |∇| 6.1708e-03
+  [random_n3] iter  100  loss 1.620953e-03  |∇| 1.5938e-03
+  [random_n3] iter  120  loss 1.557025e-03  |∇| 6.1980e-03
+  [random_n3] iter  140  loss 1.619823e-03  |∇| 3.5399e-03
+  [random_n3] iter  160  loss 1.467232e-03  |∇| 4.6074e-03
+  [random_n3] iter  180  loss 1.575404e-03  |∇| 6.4008e-03
+  [random_n3] iter  200  loss 1.506328e-03  |∇| 9.8343e-03
+  [random_n3] iter  220  loss 1.663344e-03  |∇| 7.6118e-03
+  [random_n3] iter  240  loss 1.312691e-03  |∇| 1.6979e-02
+  [random_n3] iter  260  loss 1.455016e-03  |∇| 8.8173e-03
+  [random_n3] iter  280  loss 1.398214e-03  |∇| 8.2340e-03
+  [random_n3] iter  300  loss 1.314926e-03  |∇| 2.1853e-03
+── neural_random_n3_s2
+  [random_n3] iter    1  loss 6.841860e-01  |∇| 1.2403e+01
+  [random_n3] iter   20  loss 7.061524e-03  |∇| 4.9422e-02
+  [random_n3] iter   40  loss 1.788173e-03  |∇| 1.1273e-02
+  [random_n3] iter   60  loss 1.384030e-03  |∇| 4.1455e-03
+  [random_n3] iter   80  loss 1.116371e-03  |∇| 5.5839e-03
+  [random_n3] iter  100  loss 1.285790e-03  |∇| 2.1960e-03
+  [random_n3] iter  120  loss 1.238941e-03  |∇| 7.5060e-03
+  [random_n3] iter  140  loss 1.326555e-03  |∇| 2.6410e-03
+  [random_n3] iter  160  loss 1.148616e-03  |∇| 7.4008e-03
+  [random_n3] iter  180  loss 1.214925e-03  |∇| 1.9050e-03
+  [random_n3] iter  200  loss 1.214737e-03  |∇| 1.1956e-02
+  [random_n3] iter  220  loss 1.289568e-03  |∇| 1.7757e-02
+  [random_n3] iter  240  loss 9.235046e-04  |∇| 1.1902e-02
+  [random_n3] iter  260  loss 8.627337e-04  |∇| 4.7649e-03
+  [random_n3] iter  280  loss 8.063887e-04  |∇| 1.1967e-02
+  [random_n3] iter  300  loss 8.891616e-04  |∇| 4.5815e-03
+── neural_random_n3_s3
+  [random_n3] iter    1  loss 6.861472e-01  |∇| 1.2420e+01
+  [random_n3] iter   20  loss 6.951146e-03  |∇| 5.0834e-02
+  [random_n3] iter   40  loss 1.815434e-03  |∇| 1.0998e-02
+  [random_n3] iter   60  loss 1.467542e-03  |∇| 3.5942e-03
+  [random_n3] iter   80  loss 1.123792e-03  |∇| 6.0708e-03
+  [random_n3] iter  100  loss 1.360346e-03  |∇| 2.2808e-03
+  [random_n3] iter  120  loss 1.249734e-03  |∇| 7.9953e-03
+  [random_n3] iter  140  loss 1.459213e-03  |∇| 2.0601e-03
+  [random_n3] iter  160  loss 1.078512e-03  |∇| 7.4135e-03
+  [random_n3] iter  180  loss 1.125509e-03  |∇| 1.8807e-03
+  [random_n3] iter  200  loss 1.135542e-03  |∇| 1.1907e-02
+  [random_n3] iter  220  loss 1.282028e-03  |∇| 1.8204e-02
+  [random_n3] iter  240  loss 9.349347e-04  |∇| 1.2455e-02
+  [random_n3] iter  260  loss 8.093314e-04  |∇| 4.3846e-03
+  [random_n3] iter  280  loss 7.599872e-04  |∇| 1.1313e-02
+  [random_n3] iter  300  loss 7.873139e-04  |∇| 4.8697e-03
+── neural_smooth_b10
+  [cantor_n3-smooth(β=10.0)] iter    1  loss 7.116741e-01  |∇| 1.2953e+01
+  [cantor_n3-smooth(β=10.0)] iter   20  loss 1.087062e-02  |∇| 5.6272e-02
+  [cantor_n3-smooth(β=10.0)] iter   40  loss 3.740332e-03  |∇| 1.3265e-02
+  [cantor_n3-smooth(β=10.0)] iter   60  loss 3.055575e-03  |∇| 6.4028e-03
+  [cantor_n3-smooth(β=10.0)] iter   80  loss 2.717792e-03  |∇| 7.1060e-03
+  [cantor_n3-smooth(β=10.0)] iter  100  loss 2.757764e-03  |∇| 2.1183e-03
+  [cantor_n3-smooth(β=10.0)] iter  120  loss 2.767921e-03  |∇| 7.2832e-03
+  [cantor_n3-smooth(β=10.0)] iter  140  loss 2.987637e-03  |∇| 1.7351e-03
+  [cantor_n3-smooth(β=10.0)] iter  160  loss 2.599551e-03  |∇| 4.2598e-03
+  [cantor_n3-smooth(β=10.0)] iter  180  loss 2.755306e-03  |∇| 1.9187e-03
+  [cantor_n3-smooth(β=10.0)] iter  200  loss 2.958031e-03  |∇| 7.3077e-03
+  [cantor_n3-smooth(β=10.0)] iter  220  loss 3.144502e-03  |∇| 1.2165e-02
+  [cantor_n3-smooth(β=10.0)] iter  240  loss 2.953097e-03  |∇| 1.0743e-02
+  [cantor_n3-smooth(β=10.0)] iter  260  loss 2.336063e-03  |∇| 4.6604e-03
+  [cantor_n3-smooth(β=10.0)] iter  280  loss 2.167259e-03  |∇| 6.0658e-03
+  [cantor_n3-smooth(β=10.0)] iter  300  loss 2.467949e-03  |∇| 1.0868e-03
+── neural_smooth_b50
+  [cantor_n3-smooth(β=50.0)] iter    1  loss 7.007699e-01  |∇| 1.2792e+01
+  [cantor_n3-smooth(β=50.0)] iter   20  loss 7.933992e-03  |∇| 5.7048e-02
+  [cantor_n3-smooth(β=50.0)] iter   40  loss 1.925262e-03  |∇| 1.0241e-02
+  [cantor_n3-smooth(β=50.0)] iter   60  loss 1.538324e-03  |∇| 3.3502e-03
+  [cantor_n3-smooth(β=50.0)] iter   80  loss 1.190527e-03  |∇| 6.1319e-03
+  [cantor_n3-smooth(β=50.0)] iter  100  loss 1.506027e-03  |∇| 1.9399e-03
+  [cantor_n3-smooth(β=50.0)] iter  120  loss 1.337667e-03  |∇| 8.8595e-03
+  [cantor_n3-smooth(β=50.0)] iter  140  loss 1.541001e-03  |∇| 2.0767e-03
+  [cantor_n3-smooth(β=50.0)] iter  160  loss 1.153090e-03  |∇| 6.2687e-03
+  [cantor_n3-smooth(β=50.0)] iter  180  loss 1.255706e-03  |∇| 2.1480e-03
+  [cantor_n3-smooth(β=50.0)] iter  200  loss 1.256377e-03  |∇| 1.3275e-02
+  [cantor_n3-smooth(β=50.0)] iter  220  loss 1.382898e-03  |∇| 1.8721e-02
+  [cantor_n3-smooth(β=50.0)] iter  240  loss 1.004928e-03  |∇| 1.3098e-02
+  [cantor_n3-smooth(β=50.0)] iter  260  loss 8.404505e-04  |∇| 6.0086e-03
+  [cantor_n3-smooth(β=50.0)] iter  280  loss 7.485430e-04  |∇| 1.3754e-02
+  [cantor_n3-smooth(β=50.0)] iter  300  loss 7.455863e-04  |∇| 2.9246e-03
+── neural_smooth_b200
+  [cantor_n3-smooth(β=200.0)] iter    1  loss 7.044400e-01  |∇| 1.2278e+01
+  [cantor_n3-smooth(β=200.0)] iter   20  loss 8.180190e-03  |∇| 5.8907e-02
+  [cantor_n3-smooth(β=200.0)] iter   40  loss 2.011743e-03  |∇| 1.1219e-02
+  [cantor_n3-smooth(β=200.0)] iter   60  loss 1.511114e-03  |∇| 3.0330e-03
+  [cantor_n3-smooth(β=200.0)] iter   80  loss 1.153130e-03  |∇| 6.5742e-03
+  [cantor_n3-smooth(β=200.0)] iter  100  loss 1.471262e-03  |∇| 1.9267e-03
+  [cantor_n3-smooth(β=200.0)] iter  120  loss 1.256838e-03  |∇| 8.3732e-03
+  [cantor_n3-smooth(β=200.0)] iter  140  loss 1.464594e-03  |∇| 2.1616e-03
+  [cantor_n3-smooth(β=200.0)] iter  160  loss 1.086102e-03  |∇| 6.8448e-03
+  [cantor_n3-smooth(β=200.0)] iter  180  loss 1.159351e-03  |∇| 2.2617e-03
+  [cantor_n3-smooth(β=200.0)] iter  200  loss 1.115956e-03  |∇| 1.3059e-02
+  [cantor_n3-smooth(β=200.0)] iter  220  loss 1.239020e-03  |∇| 1.7931e-02
+  [cantor_n3-smooth(β=200.0)] iter  240  loss 8.575036e-04  |∇| 1.0895e-02
+  [cantor_n3-smooth(β=200.0)] iter  260  loss 7.277989e-04  |∇| 4.4243e-03
+  [cantor_n3-smooth(β=200.0)] iter  280  loss 6.496613e-04  |∇| 1.6580e-02
+  [cantor_n3-smooth(β=200.0)] iter  300  loss 6.223545e-04  |∇| 4.8928e-03
+
+final training loss and mean gradient norm:
+  model                               loss[1]      loss[end]       mean |∇|
+  neural_none                    7.487594e-01   3.237958e-03     5.9978e-02
+  neural_cantor_n3               7.796883e-01   8.986868e-04     6.0432e-02
+  neural_random_n3_s1            6.832719e-01   1.314926e-03     5.8351e-02
+  neural_random_n3_s2            6.841860e-01   8.891616e-04     5.7154e-02
+  neural_random_n3_s3            6.861472e-01   7.873139e-04     5.7410e-02
+  neural_smooth_b10              7.116741e-01   2.467949e-03     5.9264e-02
+  neural_smooth_b50              7.007699e-01   7.455863e-04     5.8707e-02
+  neural_smooth_b200             7.044400e-01   6.223545e-04     5.6559e-02
+
+==========================================================================================
+BENCHMARK — TEST-ID vs TEST-OOD
+==========================================================================================

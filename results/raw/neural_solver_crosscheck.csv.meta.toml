@@ -1,0 +1,7 @@
+git_commit = "dirty:68a7df6"
+nthreads = 1
+julia_version = "1.12.6"
+note = "RK4 vs Tsit5 (maxiters capped at 2e5)"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "I"
+timestamp = "2026-08-29T00:42:54.880"

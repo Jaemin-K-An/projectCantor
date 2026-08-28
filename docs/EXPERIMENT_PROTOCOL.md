@@ -22,6 +22,30 @@
 | baseline 실행 전 | `DifferentialEquations.jl` → `OrdinaryDiffEqTsit5`/`OrdinaryDiffEqVerner` + `SciMLBase` | 8 GB 메모리 환경에서 설치·선컴파일 비용. 동일 SciML 스택의 유지보수되는 하위 패키지이며 `DifferentialEquations`가 ODE에 대해 재수출하는 바로 그 솔버들 | **아니오** |
 | baseline 실행 전 | 주 적분기를 **고정스텝 RK4**로 결정 | §7 MATHEMATICAL_ANALYSIS: 불연속 우변에서 적응형 오차제어는 의미가 없고 슬라이딩 모드에서 실패한다 | **아니오** (이후 A단계에서 Vern9 실패가 이 결정을 사후 정당화했다) |
 
+### 2.1 실행 **중** 변경 — 정직하게 기록한다
+
+| 시점 | 변경 | 사유 | 결과를 보았는가 |
+|---|---|---|---|
+| Neural ODE 벤치마크 1차 실행 **중단 후** | 학습된 `f_θ`의 평가 적분기를 **적응형 Tsit5 → 고정스텝 RK4**로 교체하고, 적응형은 `maxiters` 상한(2×10⁵)을 둔 **교차검증**으로 강등 | 1차 실행이 `maxiters = 10⁸`으로 90분 이상 진행이 멈췄다. 원인은 PHASE A에서 이미 문서화한 것과 같은 슬라이딩 모드 채터링이다 | **부분적으로 — 예** |
+
+**이 변경은 사후(post-execution)이며 그 사실을 감추지 않는다.** 다음을 근거로
+결과 조작이 아님을 확인할 수 있다.
+
+* 중단 시점에 **어떤 벤치마크 수치도 기록되지 않았다.** 1차 실행은
+  `neural_benchmark.csv`를 쓰기 전에 멈췄고, 본 것은 학습 손실 곡선
+  (`neural_training.csv`, 이미 저장됨)뿐이다. 학습은 재사용했고 재학습하지 않았다.
+* 변경 방향은 **연구의 나머지 전부와 일치**한다. 고정스텝 RK4는 PHASE A~G의
+  주 적분기이며, 그 선택 근거(`src/Dynamics.jl` 머리말, MATHEMATICAL_ANALYSIS §7)는
+  Neural ODE 결과를 보기 훨씬 전에 작성되었다. 오히려 1차 설정이 프로토콜과
+  불일치했던 것이다.
+* 두 적분기의 **불일치를 측정하여 보고**한다 (`neural_solver_crosscheck.csv`):
+  적응형이 성공한 160건에서 `max|ΔR_safe| = 5.0×10⁻⁴`, 중앙값 0.
+  실패한 32건(16.7 %)도 삭제하지 않고 모델별로 집계한다 — 그 자체가 §14.3의
+  결과가 되었다.
+* 어떤 게이트족에 유리하도록 바꾼 것이 아니다. 실패는 오히려 **무작위 대조군**에
+  집중되었고, 그 사실이 칸토어에 유리한 방향의 관측(§14.3)을 낳았으므로,
+  이 관측은 특히 보수적으로 — "강건성 이점이 아니라 적격성 이점" — 서술했다.
+
 그 외의 격자·시드·지표 정의는 최초 작성 이후 변경하지 않았다.
 
 ## 3. 단계별 실행 순서와 산출물
@@ -35,7 +59,8 @@
 | F (ablation) | `run_ablation.jl` | `ablation.toml` | `ablation_{main,smooth}.csv` (113 625 + 3 150행) |
 | F′ (통계) | `run_ablation_stats.jl` | — | `tables/ablation_{stats,delta_grid}.csv` |
 | G (수학 검증) | `run_math_analysis.jl` | — | `math_{invariance_check,smooth_invariance}.csv` |
-| H+I (Neural ODE) | `run_neural_ode.jl` | `neural_ode.toml` | `neural_{training,benchmark}.csv` |
+| H (Neural ODE 학습) | `run_neural_ode.jl` | `neural_ode.toml` | `neural_training.csv`, `processed/trained_params.jls` |
+| I (ID/OOD 벤치마크) | `run_neural_benchmark.jl` | `neural_ode.toml` | `neural_benchmark.csv`, `neural_solver_crosscheck.csv` |
 | POST-HOC | `run_posthoc_hitting.jl` | — | `tables/posthoc_hitting.csv` |
 | 그림 | `generate_all_figures.jl` | — | `figures/*.png`, `figures/CAPTIONS.md` |
 
@@ -45,9 +70,10 @@
 따랐다. 실측 처리량은 8스레드에서 **1.4 ms/궤적**(T = 30, RK4 Δt = 10⁻³)이었고,
 sweep 278 s / ablation 155 s로 축소가 불필요했다. 축소한 실험은 없다.
 
-Neural ODE만 예외적으로 비싸다 (Zygote를 통한 500스텝 RK4 롤아웃의 역전파,
-변형당 약 7분 × 8변형). 반복수 300, 배치 24, `T_train = 10`은 사전 고정값이며
-결과를 본 뒤 조정하지 않았다.
+Neural ODE 학습만 예외적으로 비싸다 (Zygote를 통한 500스텝 RK4 롤아웃의 역전파,
+변형당 약 7분 × 8변형 = 57분). 반복수 300, 배치 24, `T_train = 10`은 사전
+고정값이며 결과를 본 뒤 조정하지 않았다. 벤치마크는 §2.1의 적분기 교체 이후
+11분으로 줄었다 (교체 전에는 90분 이상 진행이 멈춰 있었다).
 
 ## 5. 난수와 재현성
 

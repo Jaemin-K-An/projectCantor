@@ -85,10 +85,14 @@ for ctrl in ("G2_random", "G5_shuffled")
                     (df.A .== c.A) .& (df.omega .== c.omega) .& (df.alpha .== c.alpha), :R_safe]
         rc = sel("G1_cantor"); rr = sel(ctrl)
         (isempty(rc) || isempty(rr)) && continue
+        # tie-aware (mid-rank) percentile: when a control layout is EXACTLY the
+        # Cantor layout — which happens for G5 at n = 1, where there is only one
+        # gap to permute — the rank must be 50, not 0.
         push!(grid, (control = ctrl, n = c.n, h0 = c.h0, A = c.A, omega = c.omega,
                      alpha = c.alpha, R_cantor = rc[1], R_ctrl_mean = mean(rr),
                      R_ctrl_sd = std(rr), delta = rc[1] - mean(rr),
-                     pct_rank = 100 * count(<(rc[1]), rr) / length(rr)))
+                     pct_rank = 100 * (count(<(rc[1]), rr) +
+                                       0.5 * count(==(rc[1]), rr)) / length(rr)))
     end
 end
 write_table(grid, "ablation_delta_grid.csv")

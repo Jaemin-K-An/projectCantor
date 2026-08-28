@@ -22,6 +22,15 @@ cap(name, text) = push!(CAP, "\n### $name\n\n$text\n")
 save(p, name) = (savefig(p, figpath(name)); println("  ✓ $name"))
 has(f) = isfile(rawpath(f))
 
+"""Two-series grouped bar chart (avoids a StatsPlots dependency)."""
+function grouped2(names, v1, v2, l1, l2; kwargs...)
+    x = 1:length(names)
+    p = bar(x .- 0.19, v1; bar_width = 0.36, label = l1, color = :steelblue,
+            lc = :white, xticks = (x, names), kwargs...)
+    bar!(p, x .+ 0.19, v2; bar_width = 0.36, label = l2, color = :indianred, lc = :white)
+    return p
+end
+
 println("generating figures…")
 
 # ------------------------------------------------------------------- FIG 1
@@ -278,16 +287,19 @@ if has("ablation_main.csv")
     # two random intervals of width 1/3 usually miss S) and is annotated instead
     # of being allowed to compress every other curve into a flat line.
     allv = vcat([means[f][2:end] for f in fams]...)
-    p1 = plot(xlabel = L"n", ylabel = "mean R_safe", legend = :bottomright,
-              title = "(a) mean over 225 conditions", xticks = ns,
-              ylims = (minimum(allv) - 0.004, maximum(allv) + 0.004))
+    p1 = plot(xlabel = L"n", ylabel = "mean R_safe", legend = :bottomleft,
+              title = "(a) mean over 225 conditions (ribbon = ±1 SEM)", xticks = ns,
+              ylims = (minimum(allv) - 0.0025, maximum(allv) + 0.0035))
     for f in fams
-        sd = [std(ab[(ab.gate_family .== f) .& (ab.n .== n), :R_safe]) for n in ns]
-        plot!(p1, ns, means[f]; ribbon = sd ./ 8, label = f, color = cols[f],
-              lw = 2, marker = :circle, ms = 3)
+        # ±1 standard error of the MEAN. The raw sd is a spread across
+        # heterogeneous (h0, A, ω) conditions, not an uncertainty on the mean.
+        sem = [std(ab[(ab.gate_family .== f) .& (ab.n .== n), :R_safe]) /
+               sqrt(count((ab.gate_family .== f) .& (ab.n .== n))) for n in ns]
+        plot!(p1, ns, means[f]; ribbon = sem, fillalpha = 0.18, label = f,
+              color = cols[f], lw = 2, marker = :circle, ms = 3)
     end
-    annotate!(p1, 1.35, minimum(allv) + 0.001,
-              text("G2 at n=1 is 0.841 (off scale):\ntwo width-1/3 intervals\nusually miss S",
+    annotate!(p1, 4.6, maximum(allv) + 0.0022,
+              text("G2 at n=1 is 0.841, off scale: two width-1/3 intervals usually miss S",
                    6, :left, :steelblue))
     p2 = plot(xlabel = L"n", ylabel = "mean D_mean (lower better)", legend = :topleft,
               title = "(b) mean deviation", xticks = ns)
@@ -316,8 +328,9 @@ if has("ablation_main.csv")
     end
     hline!(p4, [50.0]; color = :black, ls = :dash, lw = 1.5,
            label = "50 % = indistinguishable")
-    annotate!(p4, 4.5, 88, text("above 50 %: Cantor arrangement helps", 6, :left, :gray30))
-    annotate!(p4, 4.5, 12, text("below 50 %: control arrangement is better", 6, :left, :gray30))
+    annotate!(p4, 1.2, 92, text("above 50 %: the Cantor arrangement helps", 6, :left, :gray30))
+    annotate!(p4, 1.2, 8, text("below 50 %: the control arrangement is better", 6, :left, :gray30))
+    plot!(p4; legend = :bottomright)
     p = plot(p1, p2, p3, p4; layout = (2,2), size = (1250, 880),
              plot_title = "FIG 8  Ablation: five gate families at IDENTICAL pass measure (2/3)ⁿ")
     save(p, "fig08_ablation_families.png")
@@ -456,19 +469,48 @@ if has("neural_benchmark.csv")
     short(l) = replace(l, "neural_" => "")
     idm  = [mean(nb[(nb.model .== l) .& (nb.split .== "ID"),  :R_safe]) for l in labs]
     oodm = [mean(nb[(nb.model .== l) .& (nb.split .== "OOD"), :R_safe]) for l in labs]
-    p1 = groupedbar(short.(labs), hcat(idm, oodm); label = ["TEST-ID" "TEST-OOD"],
-                    ylabel = "mean R_safe", xrotation = 40, legend = :bottomright,
-                    title = "(a) occupancy, in- vs out-of-distribution", ylims = (0, 1.05))
+    p1 = grouped2(short.(labs), idm, oodm, "TEST-ID", "TEST-OOD";
+                  ylabel = "mean R_safe", xrotation = 40, legend = :bottomright,
+                  title = "(a) occupancy, in- vs out-of-distribution",
+                  ylims = (0.95, 1.0))
     idms  = [mean(nb[(nb.model .== l) .& (nb.split .== "ID"),  :mse]) for l in labs]
     oodms = [mean(nb[(nb.model .== l) .& (nb.split .== "OOD"), :mse]) for l in labs]
-    p2 = groupedbar(short.(labs), hcat(idms, oodms); label = ["TEST-ID" "TEST-OOD"],
-                    ylabel = "tracking MSE vs clean reference", xrotation = 40,
-                    yscale = :log10, legend = :topleft, title = "(b) tracking error")
+    p2 = grouped2(short.(labs), idms, oodms, "TEST-ID", "TEST-OOD";
+                  ylabel = "tracking MSE vs clean reference", xrotation = 40,
+                  legend = :topleft, title = "(b) tracking error vs the clean reference",
+                  ylims = (0, 1.15 * maximum(vcat(idms, oodms))))
     kinds = unique(nb[nb.split .== "OOD", :kind])
     M = [mean(nb[(nb.model .== l) .& (nb.kind .== k), :R_safe]) for l in labs, k in kinds]
-    p3 = heatmap(kinds, short.(labs), M; c = :viridis, clims = (0, 1), xrotation = 40,
-                 title = "(c) R_safe by OOD family", colorbar_title = "R_safe")
-    p = plot(p1, p2, p3; layout = @layout([a b; c]), size = (1300, 950),
+    p3 = heatmap(kinds, short.(labs), M; c = :viridis,
+                 clims = (minimum(M), 1.0), xrotation = 40,
+                 title = "(c) R_safe by OOD family — only amplitude extrapolation separates them",
+                 colorbar_title = "R_safe")
+    # (d) the solver cross-check: chattering is caused by switching surfaces
+    # sitting near the LEARNED equilibrium, which the Cantor gate cannot have
+    # inside S (Theorem 1) but a random measure-matched layout can.
+    p4 = plot(xlabel = "switching surfaces inside S", ylabel = "adaptive-solver failures (%)",
+              title = "(d) chattering vs gate geometry inside S", legend = :topleft,
+              xlims = (-0.5, 5.5), ylims = (-5, 100))
+    if has("neural_solver_crosscheck.csv")
+        cc = CSV.read(rawpath("neural_solver_crosscheck.csv"), DataFrame)
+        gates_d = Dict("neural_cantor_n3" => cantor_interval_gate(3),
+                       ("neural_random_n3_s$(i)" => random_matched_gate(3,
+                            Xoshiro(seed_for("node_random", 3, i))) for i in 1:3)...)
+        xs = Float64[]; ys = Float64[]; ls = String[]
+        for (l, g) in gates_d
+            haskey(gates_d, l) || continue
+            surf = count(x -> 1/3 < x < 2/3, vcat(g.los, g.his))
+            sc = cc[cc.model .== l, :]
+            isempty(sc) && continue
+            push!(xs, surf); push!(ys, 100*count(.!sc.adaptive_ok)/nrow(sc))
+            push!(ls, short(l))
+        end
+        scatter!(p4, xs, ys; ms = 8, color = :crimson, label = "")
+        for i in eachindex(xs)
+            annotate!(p4, xs[i], ys[i] + 7, text(ls[i], 7, :center))
+        end
+    end
+    p = plot(p1, p2, p3, p4; layout = @layout([a b; c d]), size = (1400, 1000),
              plot_title = "FIG 13  Neural ODE: seen vs unseen perturbations")
     save(p, "fig13_neural_id_vs_ood.png")
     cap("FIG 13 — `fig13_neural_id_vs_ood.png`",

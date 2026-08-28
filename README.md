@@ -53,7 +53,8 @@ julia --project=. -t auto scripts/run_parameter_sweep.jl  # (~5 min) PHASE D
 julia --project=. -t auto scripts/run_ablation.jl         # (~3 min) PHASE F
 julia --project=. scripts/run_ablation_stats.jl           # (~2 min) PHASE F'
 julia --project=. scripts/run_math_analysis.jl            # (~2 min) PHASE G
-julia --project=. scripts/run_neural_ode.jl               # (~70 min) PHASE H+I
+julia --project=. scripts/run_neural_ode.jl               # (~60 min) PHASE H  (training)
+julia --project=. scripts/run_neural_benchmark.jl         # (~11 min) PHASE I  (ID/OOD)
 julia --project=. scripts/run_posthoc_hitting.jl          # (~1 min) POST-HOC
 julia --project=. scripts/generate_all_figures.jl         # (~2 min) 모든 그림
 ```
@@ -64,8 +65,14 @@ julia --project=. scripts/generate_all_figures.jl         # (~2 min) 모든 그�
 julia --project=. scripts/run_all.jl
 ```
 
+`scripts/run_neural_ode.jl`은 학습된 파라미터를
+`results/processed/trained_params.jls`에 저장하므로, 벤치마크만 다시 돌릴 때는
+`run_neural_benchmark.jl`만 실행하면 된다 (재학습 불필요).
+
 `scripts/reproduce_baseline.jl`은 PHASE A에서 의도적으로 76초짜리 Vern9 실패를
 포함한다 — 이는 버그가 아니라 보고 대상 결과다 (`docs/BASELINE_AUDIT.md`).
+같은 이유로 테스트와 벤치마크 실행 중에 `maxiters` 경고가 출력되는데, 이는
+가드가 채터링을 **정상적으로 검출**하고 있다는 뜻이다.
 
 ### 결과가 이미 있는 상태에서 다시 돌리기
 

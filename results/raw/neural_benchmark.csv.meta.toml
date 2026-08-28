@@ -1,0 +1,11 @@
+T = 20.0
+integrator = "rk4_fixed_step"
+config = "neural_ode.toml"
+hostname = "Jaeminui-MacBookPro.local"
+dt = 0.0025
+n_rows = 2312
+git_commit = "dirty:68a7df6"
+nthreads = 1
+julia_version = "1.12.6"
+phase = "I"
+timestamp = "2026-08-29T00:42:54.606"
