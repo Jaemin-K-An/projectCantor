@@ -1,0 +1,24 @@
+# Ablation — gate families G0..G6 at matched pass measure (2/3)^n.
+# Grid and seed count fixed BEFORE execution.
+[gates]
+families    = ["G0_none", "G1_cantor", "G2_random", "G3_periodic",
+               "G4_central", "G5_shuffled"]
+n           = [1, 2, 3, 4, 5, 6, 7, 8]
+random_seeds = 30          # replicates for the two randomised families G2, G5
+
+[conditions]
+h0    = "0.02:0.04:0.98"   # 25 initial conditions
+A     = [0.5, 1.5, 3.0]
+omega = [1.0, 4.0, 16.0]
+alpha = [0.8]
+
+[smooth]
+family = "G6_smooth_cantor"
+n      = [3, 5]
+beta   = [5.0, 10.0, 25.0, 50.0, 100.0, 250.0, 1000.0]
+
+[solver]
+T          = 30.0
+dt         = 0.001
+save_every = 2
+hold       = 5.0

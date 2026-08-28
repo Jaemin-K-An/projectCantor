@@ -1,0 +1,33 @@
+# Baseline audit — the ORIGINAL study's settings, reproduced exactly.
+# Nothing in this file may be tuned. It is a fixed reference point.
+[system]
+alpha   = 0.8      # restoring-force constant α
+A       = 1.5      # perturbation amplitude
+omega   = 4.0      # perturbation angular frequency
+h0      = 0.15     # ORIGINAL initial condition (audited: inside a flat interval)
+T       = 30.0     # horizon
+h_safe  = 0.5
+safe_lo = 0.3333333333333333
+safe_hi = 0.6666666666666666
+
+[solver]
+dt          = 0.001   # RK4 fixed step (primary integrator)
+save_every  = 2       # → saveat grid of 0.002
+hold        = 5.0     # recovery-time hold window
+# cross-check settings
+adaptive_abstol_normal = 1e-8
+adaptive_reltol_normal = 1e-6
+adaptive_dtmax_normal  = 0.005
+adaptive_abstol_strict = 1e-12
+adaptive_reltol_strict = 1e-10
+adaptive_dtmax_strict  = 0.0005
+
+[reproduce]
+orders          = [3, 5]      # the original's C3 / C5 filters
+original_nofilter = 29.8      # reported %, for comparison
+original_c3       = 98.2
+original_c5       = 97.4
+# extra initial conditions used ONLY to expose the h0 = 0.15 artefact.
+# Fixed before running: 0.15 (original), plus one point in K_n for n<=5 and
+# two points chosen without reference to any result.
+audit_h0 = [0.15, 0.05, 0.10, 0.25, 0.75, 0.90]

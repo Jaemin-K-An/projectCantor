@@ -1,0 +1,47 @@
+# Neural ODE experiment.
+#
+# ==== TRAIN / TEST SPLIT WAS FIXED BEFORE THE FIRST TRAINING RUN ====
+# TRAIN  : sinusoids only, A ∈ [0.5,1.5], ω ∈ [2,6], h0 ∈ [0.05,0.95]
+# TEST-ID: fresh sinusoids from exactly that distribution
+# TEST-OOD: waveforms and amplitude/frequency ranges never seen in training
+# No test condition was used to choose any training setting.
+[reference]
+kappa = 1.2
+gamma = 2.0
+
+[train]
+h0_lo = 0.05
+h0_hi = 0.95
+A_lo  = 0.5
+A_hi  = 1.5
+w_lo  = 2.0
+w_hi  = 6.0
+T          = 10.0
+dt         = 0.02
+save_every = 5
+batch      = 24
+iters      = 300
+lr         = 0.01
+kappa      = 1.2
+gamma      = 2.0
+width      = 48
+depth      = 2
+seed       = 20260828
+
+[models]
+# gate variants, each trained from the SAME network initialisation
+families      = ["G0_none", "G1_cantor", "G2_random", "G6_smooth_cantor"]
+n             = 3
+random_seeds  = 3            # replicates for the G2 layout
+smooth_betas  = [10.0, 50.0, 200.0]
+
+[eval]
+T          = 20.0
+dt_save    = 0.005
+h0_test    = [0.08, 0.20, 0.42, 0.58, 0.72, 0.93]
+n_id       = 24              # TEST-ID samples
+# TEST-OOD conditions (fixed a priori)
+ood_A_extrap  = 3.0
+ood_w_extrap  = 16.0
+ood_seeds     = [11, 22, 33]
+adversarial_budget = 200     # random-search evaluations per model

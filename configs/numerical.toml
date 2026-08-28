@@ -1,0 +1,6 @@
+# Numerical-analysis study of  ∫₀¹ C'_n(x) dx  (analytic truth = 1 exactly).
+[grid]
+n  = [1,2,3,4,5,6,7,8,9,10,11,12]
+dx = [1e-2, 3e-3, 1e-3, 3e-4, 1e-4, 3e-5, 1e-5]
+[rules]
+compare = ["riemann_left", "riemann_midpoint", "adaptive_simpson", "exact_interval"]

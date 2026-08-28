@@ -1,0 +1,12 @@
+A = 1.5
+note = "reproduction of the original study; no parameter was tuned"
+T = 30.0
+config = "baseline.toml"
+alpha = 0.8
+hostname = "Jaeminui-MacBookPro.local"
+git_commit = "nogit"
+nthreads = 1
+julia_version = "1.12.6"
+omega = 4.0
+phase = "A"
+timestamp = "2026-08-28T22:25:31.051"
