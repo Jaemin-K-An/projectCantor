@@ -171,9 +171,10 @@ interval widths, all gap widths and the total measure, differing from G1 only
 in the *arrangement* of the multiscale gaps. If G1 beats G5 the effect is
 genuinely about self-similar spatial organisation.
 """
-function shuffled_multiscale_gate(n::Int, rng::AbstractRNG)
+function shuffled_multiscale_gate(n::Int, rng::AbstractRNG;
+                                  gap_cache::Union{Nothing,Vector{Float64}} = nothing)
     w = 3.0^(-n)
-    gaps = Float64.(cantor_gap_widths(n))
+    gaps = copy(gap_cache === nothing ? Float64.(cantor_gap_widths(n)) : gap_cache)
     shuffle!(rng, gaps)
     m = 2^n
     los = Vector{Float64}(undef, m)
@@ -194,13 +195,14 @@ Dispatch table used by the config-driven scripts. `family` ∈
 `"G5_shuffled"`, `"G6_smooth_cantor"`.
 """
 function build_gate(family::AbstractString, n::Int;
-                    rng::AbstractRNG = Random.default_rng(), β::Real = 50.0)
+                    rng::AbstractRNG = Random.default_rng(), β::Real = 50.0,
+                    gap_cache::Union{Nothing,Vector{Float64}} = nothing)
     family == "G0_none"        && return NoGate()
     family == "G1_cantor"      && return cantor_interval_gate(n)
     family == "G2_random"      && return random_matched_gate(n, rng)
     family == "G3_periodic"    && return periodic_gate(n)
     family == "G4_central"     && return central_gate(n)
-    family == "G5_shuffled"    && return shuffled_multiscale_gate(n, rng)
+    family == "G5_shuffled"    && return shuffled_multiscale_gate(n, rng; gap_cache = gap_cache)
     family == "G6_smooth_cantor" && return SmoothGate(cantor_interval_gate(n), β)
     throw(ArgumentError("unknown gate family: $family"))
 end

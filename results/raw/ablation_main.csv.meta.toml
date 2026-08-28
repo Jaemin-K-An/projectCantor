@@ -1,0 +1,10 @@
+git_commit = "dirty:60f1acd"
+nthreads = 8
+julia_version = "1.12.6"
+n_cases = 113625
+random_seeds = 30
+integrator = "rk4_fixed_step"
+config = "ablation.toml"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "F"
+timestamp = "2026-08-28T22:35:00.492"

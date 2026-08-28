@@ -1,0 +1,8 @@
+git_commit = "dirty:60f1acd"
+nthreads = 1
+julia_version = "1.12.6"
+config = "numerical.toml"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "C"
+analytic_truth = 1.0
+timestamp = "2026-08-28T22:27:06.734"

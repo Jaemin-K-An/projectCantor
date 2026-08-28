@@ -1,0 +1,8 @@
+git_commit = "dirty:60f1acd"
+nthreads = 8
+julia_version = "1.12.6"
+note = "G6 smooth Cantor gate, β sweep"
+config = "ablation.toml"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "F"
+timestamp = "2026-08-28T22:35:36.488"

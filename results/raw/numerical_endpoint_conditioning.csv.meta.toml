@@ -1,0 +1,6 @@
+git_commit = "dirty:60f1acd"
+nthreads = 1
+julia_version = "1.12.6"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "C"
+timestamp = "2026-08-28T22:27:09.270"

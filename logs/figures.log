@@ -1,0 +1,27 @@
+Polygon too complex for filling.
+Polygon too complex for filling.
+Polygon too complex for filling.
+Polygon too complex for filling.
+Polygon too complex for filling.
+Polygon too complex for filling.
+┌ Warning: Assignment to `h0s` in soft scope is ambiguous because a global variable by the same name exists: `h0s` will be treated as a new local. Disambiguate by using `local h0s` to suppress this warning or `global h0s` to assign to the existing global variable.
+└ @ ~/Desktop/development/Cantor/scripts/generate_all_figures.jl:305
+┌ Warning: Assignment to `M` in soft scope is ambiguous because a global variable by the same name exists: `M` will be treated as a new local. Disambiguate by using `local M` to suppress this warning or `global M` to assign to the existing global variable.
+└ @ ~/Desktop/development/Cantor/scripts/generate_all_figures.jl:306
+generating figures…
+  ✓ fig01_cantor_staircase.png
+  ✓ fig02_derivative_support.png
+  ✓ fig03_numerical_integration.png
+  ✓ fig04_baseline_reproduction.png
+  ✓ fig05_h0_n_occupancy.png
+  ✓ fig06_h0_n_hitting_time.png
+  ✓ fig07_A_omega_phase.png
+  ✓ fig07b_alpha_A_phase.png
+  ✓ fig05b_n_distribution.png
+  ✓ fig08_ablation_families.png
+  ✓ fig09_cantor_minus_control.png
+  ✓ fig10_seed_distribution.png
+  ✓ fig11_hard_vs_smooth.png
+
+figures → /Users/jaeminahn/Desktop/development/Cantor/figures/
+captions → /Users/jaeminahn/Desktop/development/Cantor/figures/CAPTIONS.md

@@ -1,0 +1,29 @@
+[ Info: wrote 196020×20 rows → /Users/jaeminahn/Desktop/development/Cantor/results/raw/sweep_full.csv
+sweep: 196020 cases on 8 threads
+elapsed 278.5 s  (1.42 ms/case)
+
+mean R_safe by n (over the WHOLE grid):
+  n= 0   mean 0.4896  median 0.3631  IQR [0.1421, 0.9539]  min 0.0157
+  n= 1   mean 0.9676  median 0.9923  IQR [0.9670, 1.0000]  min 0.7018
+  n= 2   mean 0.9667  median 0.9903  IQR [0.9656, 1.0000]  min 0.6469
+  n= 3   mean 0.9630  median 0.9863  IQR [0.9544, 1.0000]  min 0.6060
+  n= 4   mean 0.9590  median 0.9850  IQR [0.9463, 1.0000]  min 0.6308
+  n= 5   mean 0.9565  median 0.9839  IQR [0.9435, 1.0000]  min 0.6506
+  n= 6   mean 0.9550  median 0.9833  IQR [0.9415, 1.0000]  min 0.6422
+  n= 7   mean 0.9543  median 0.9832  IQR [0.9411, 1.0000]  min 0.6324
+  n= 8   mean 0.9557  median 0.9842  IQR [0.9436, 1.0000]  min 0.6352
+  n= 9   mean 0.9607  median 0.9858  IQR [0.9547, 1.0000]  min 0.6408
+  n=10   mean 0.9642  median 0.9864  IQR [0.9605, 1.0000]  min 0.6577
+
+mean R_safe by n at the ORIGINAL operating point (A=1.5, ω=4, α=0.8):
+  n= 0   mean over h0 0.2980   at h0=0.15 0.2980
+  n= 1   mean over h0 0.9846   at h0=0.15 0.9927
+  n= 2   mean over h0 0.9805   at h0=0.15 0.9881
+  n= 3   mean over h0 0.9762   at h0=0.15 0.9818
+  n= 4   mean over h0 0.9738   at h0=0.15 0.9775
+  n= 5   mean over h0 0.9722   at h0=0.15 0.9744
+  n= 6   mean over h0 0.9713   at h0=0.15 0.9472
+  n= 7   mean over h0 0.9715   at h0=0.15 0.9472
+  n= 8   mean over h0 0.9714   at h0=0.15 0.9461
+  n= 9   mean over h0 0.9772   at h0=0.15 0.9480
+  n=10   mean over h0 0.9798   at h0=0.15 0.9692

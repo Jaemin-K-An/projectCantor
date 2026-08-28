@@ -1,0 +1,13 @@
+n_cases = 196020
+T = 30.0
+integrator = "rk4_fixed_step"
+config = "sweep.toml"
+hostname = "Jaeminui-MacBookPro.local"
+save_dt = 0.002
+dt = 0.001
+git_commit = "dirty:60f1acd"
+nthreads = 8
+julia_version = "1.12.6"
+phase = "D"
+hold = 5.0
+timestamp = "2026-08-28T22:31:20.368"

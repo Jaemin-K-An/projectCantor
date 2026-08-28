@@ -1,0 +1,7 @@
+git_commit = "dirty:60f1acd"
+nthreads = 1
+julia_version = "1.12.6"
+theorem = "1 forward invariance of S-open"
+hostname = "Jaeminui-MacBookPro.local"
+phase = "G"
+timestamp = "2026-08-28T22:38:03.934"

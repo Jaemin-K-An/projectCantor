@@ -1,0 +1,63 @@
+[ Info: wrote 4704×9 rows → /Users/jaeminahn/Desktop/development/Cantor/results/raw/math_invariance_check.csv
+[ Info: wrote 128×11 rows → /Users/jaeminahn/Desktop/development/Cantor/results/raw/math_smooth_invariance.csv
+============================================================================================
+THEOREM 1 — forward invariance of S° = (1/3, 2/3) under a hard Cantor
+gate, for ARBITRARY disturbance amplitude.
+Claim: h(t) = 1/2 + (h₀-1/2)e^{-αt} exactly, independent of δ.
+============================================================================================
+  4704 configurations tested (n=1..8, α∈{0.2,0.8,2}, A up to 1000, 7 waveforms, 7 h₀)
+  trajectories that ever left S      : 0
+  max gate value ever seen inside S  : 0.000e+00
+  max |h(t) − linear solution|       : 2.776e-14   (RK4 truncation only)
+  min R_safe over all configurations : 1.000000
+  ⇒ Theorem 1 holds numerically: the disturbance amplitude is IRRELEVANT
+    once the state is inside S°. Robustness there is an identity, not a finding.
+
+============================================================================================
+BOUNDARY SIGNS — the Nagumo inward condition on ∂S under a hard gate
+============================================================================================
+  α = 0.2 :  f(1/3⁺) = +α/6 = +0.033333 ,  f(2/3⁻) = −α/6 = -0.033333
+  α = 0.5 :  f(1/3⁺) = +α/6 = +0.083333 ,  f(2/3⁻) = −α/6 = -0.083333
+  α = 0.8 :  f(1/3⁺) = +α/6 = +0.133333 ,  f(2/3⁻) = −α/6 = -0.133333
+  α = 1.2 :  f(1/3⁺) = +α/6 = +0.200000 ,  f(2/3⁻) = −α/6 = -0.200000
+  α = 2.0 :  f(1/3⁺) = +α/6 = +0.333333 ,  f(2/3⁻) = −α/6 = -0.333333
+
+  gate ON the boundary points (closed-interval convention): g(1/3) = 1 , g(2/3) = 1
+  gate just INSIDE: g(1/3+1e-12) = 0 , g(2/3-1e-12) = 0
+  ⇒ the CLOSED set S is not invariant at the two endpoint states themselves;
+    the OPEN set S° is. This distinction is why Theorem 1 is stated on S°.
+
+============================================================================================
+THEOREM 2 — robust invariance for a GENERAL gate:  B·g(∂S) < α/6 .
+Tested on the smooth Cantor gate, where g(∂S) > 0 by construction.
+============================================================================================
+  configurations where Theorem 2 GUARANTEES invariance : 31
+    of these, how many actually escaped S              : 0  (must be 0)
+  configurations where the guarantee FAILS             : 97
+    of these, how many actually escaped S              : 65  (67.0%)
+  ⇒ the condition is SUFFICIENT, not necessary: many configurations that
+    violate it still stay inside, because escape also requires crossing a
+    leaky boundary layer of width ≈ ln(6A/α − 1)/β before the disturbance
+    reverses sign.
+
+  g_β(1/3) as β → ∞ (the endpoint is PINNED, it does not converge to 0):
+    β =       10   g_β(1/3) = 0.732886
+    β =      100   g_β(1/3) = 0.488586
+    β =     1000   g_β(1/3) = 0.500000
+    β =    10000   g_β(1/3) = 0.500000
+  ⇒ with α = 0.8, Theorem 2 can never guarantee invariance for A ≥ α/(6·½) = 0.2667
+    no matter how large β is. Sharpness/robustness cannot be recovered by β alone.
+
+  measured escape from S (● = escaped) in the (β, A) plane, n = 3:
+       A\β       2       5      10      25      50     100     250    1000
+      0.10      ✓G      ✓G      ✓G      ✓G      ✓G      ✓G      ✓G      ✓G
+      0.20       ●       ●       ·      ✓G      ✓G      ✓G      ✓G      ✓G
+      0.25       ●       ●       ·      ✓G      ✓G      ✓G      ✓G      ✓G
+      0.30       ●       ●       ●       ·       ·       ·       ·       ·
+      0.50       ●       ●       ●       ●       ·       ·       ·       ·
+      1.00       ●       ●       ●       ●       ●       ●       ·       ·
+      1.50       ●       ●       ●       ●       ●       ●       ·       ·
+      3.00       ●       ●       ●       ●       ●       ●       ·       ·
+  ✓G = guaranteed by Theorem 2   · = stayed in S but not guaranteed   ● = escaped
+
+done.
