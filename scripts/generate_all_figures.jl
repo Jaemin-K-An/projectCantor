@@ -87,8 +87,8 @@ if has("numerical_integration.csv")
     ni = CSV.read(rawpath("numerical_integration.csv"), DataFrame)
     ex = CSV.read(rawpath("numerical_structure_aware.csv"), DataFrame)
     dxs = sort(unique(ni.dx)); ns = sort(unique(ni.n))
-    p1 = plot(xlabel = L"n", ylabel = L"\hat{I}(n,\Delta x)", legend = :topleft,
-              title = "(a) estimate vs order", ylims = (0, 1.6))
+    p1 = plot(xlabel = L"n", ylabel = L"\hat{I}(n,\Delta x)", legend = :outerbottom,
+              legend_columns = 3, title = "(a) estimate vs order", ylims = (0, 1.6))
     for dx in dxs
         s = sort(ni[ni.dx .== dx, :], :n)
         plot!(p1, s.n, s.I_mid; label = "Δx=$(dx)", marker = :circle, ms = 2.5, lw = 1.2)
@@ -98,7 +98,8 @@ if has("numerical_integration.csv")
     hline!(p1, [1.0]; color = :green, ls = :dot, lw = 1.5, label = "analytic truth = 1")
 
     p2 = plot(xlabel = L"\Delta x", ylabel = L"E=|\hat{I}-1|", xscale = :log10,
-              yscale = :log10, legend = :bottomleft, title = "(b) error vs grid spacing")
+              yscale = :log10, legend = :outerbottom, legend_columns = 6,
+              title = "(b) error vs grid spacing")
     for n in ns
         s = sort(ni[ni.n .== n, :], :dx)
         plot!(p2, s.dx, max.(s.E_mid, 1e-8); label = "n=$n", marker = :circle, ms = 2)
@@ -109,17 +110,29 @@ if has("numerical_integration.csv")
                  xlabel = L"n", ylabel = L"\Delta x",
                  yticks = (1:length(dxs), string.(dxs)),
                  title = "(c) log₁₀ E, midpoint rule", colorbar_title = " ")
-    # ρ = 1 contour: Δx = 3^-n
-    plot!(p3, ns, [something(findfirst(d -> d ≤ 3.0^(-n), dxs), length(dxs)+0.5) - 0.5
-                   for n in ns]; color = :cyan, lw = 2, label = "ρ = 1")
+    # ρ = 1 contour, i.e. Δx = 3^-n. The y axis is a categorical index over the
+    # (roughly log-spaced) dxs, so interpolate the index in log Δx; points off the
+    # sampled range are dropped rather than clamped to a misleading edge value.
+    ρ1x, ρ1y = Float64[], Float64[]
+    ld = log10.(dxs)
+    for n in ns
+        t = -n * log10(3.0)
+        (t < ld[1] || t > ld[end]) && continue
+        i = searchsortedlast(ld, t)
+        i == length(ld) && (i -= 1)
+        push!(ρ1x, n)
+        push!(ρ1y, i + (t - ld[i]) / (ld[i+1] - ld[i]))
+    end
+    plot!(p3, ρ1x, ρ1y; color = :cyan, lw = 2.5, label = "ρ = 1  (Δx = 3⁻ⁿ)")
 
     p4 = scatter(ni.rho, max.(ni.E_mid, 1e-8); xscale = :log10, yscale = :log10,
                  group = ni.n, ms = 3.5, xlabel = L"\rho = \Delta x\cdot 3^n",
-                 ylabel = L"E", legend = :topleft, legendtitle = "n",
-                 legendtitlefontsize = 7,
+                 ylabel = L"E", legend = :outerbottom, legend_columns = 7,
+                 legendtitle = "n", legendtitlefontsize = 7,
                  title = "(d) the error collapses onto ρ")
     vline!(p4, [1.0]; color = :red, ls = :dash, lw = 2, label = "ρ = 1")
-    p = plot(p1, p2, p3, p4; layout = (2,2), size = (1250, 900),
+    for q in (p1, p2, p4); plot!(q; bottom_margin = 12Plots.mm); end
+    p = plot(p1, p2, p3, p4; layout = (2,2), size = (1300, 1020),
              plot_title = "FIG 3  Quadrature of C'_n (analytic truth ≡ 1)")
     save(p, "fig03_numerical_integration.png")
     cap("FIG 3 — `fig03_numerical_integration.png`",
