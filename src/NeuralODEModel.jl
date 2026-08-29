@@ -101,8 +101,9 @@ to_batch_gate(g::SmoothGate; kwargs...) = BSmooth(g.base.los, g.base.his, g.β, 
 """
     NeuralVectorField(model, st, width, depth)
 
-A small MLP `f_θ : (h, t) ↦ dh/dt`. Inputs are `[h; t/T]` (time is normalised
-so both inputs are `O(1)`); `tanh` hidden activations; linear output.
+A small MLP `f_θ : (h, t) ↦ dh/dt`. Inputs are `[h; t/T]` (time normalised so
+both inputs are `O(1)`), or just `[h]` when `use_time = false`; `tanh` hidden
+activations; linear output.
 """
 struct NeuralVectorField
     model::Any
@@ -110,7 +111,10 @@ struct NeuralVectorField
     width::Int
     depth::Int
     T::Float64
+    use_time::Bool          # false ⇒ autonomous f_θ(h); default true = V1 behaviour
 end
+NeuralVectorField(model, st, width, depth, T) =
+    NeuralVectorField(model, st, width, depth, T, true)
 
 """
     init_nvf(rng; width=48, depth=2, T=20.0) -> (nvf, ps)
@@ -118,8 +122,9 @@ end
 Build the field and its `Float64` parameter vector (a `ComponentArray`, so the
 whole θ is one flat differentiable object).
 """
-function init_nvf(rng::AbstractRNG; width::Int = 48, depth::Int = 2, T::Float64 = 20.0)
-    layers = Any[Dense(2 => width, tanh)]
+function init_nvf(rng::AbstractRNG; width::Int = 48, depth::Int = 2, T::Float64 = 20.0,
+                  use_time::Bool = true)
+    layers = Any[Dense((use_time ? 2 : 1) => width, tanh)]
     for _ in 2:depth
         push!(layers, Dense(width => width, tanh))
     end
@@ -127,12 +132,18 @@ function init_nvf(rng::AbstractRNG; width::Int = 48, depth::Int = 2, T::Float64 
     model = Chain(layers...)
     ps, st = Lux.setup(rng, model)
     psf = ComponentArray{Float64}(ComponentArray(ps))
-    return NeuralVectorField(model, st, width, depth, T), psf
+    return NeuralVectorField(model, st, width, depth, T, use_time), psf
 end
 
 """    nvf_apply(nvf, ps, h, t) -> Vector — `f_θ(h,t)` on a batch of states."""
 function nvf_apply(nvf::NeuralVectorField, ps, h::AbstractVector, t::Real)
-    x = vcat(reshape(h, 1, :), fill(t / nvf.T, 1, length(h)))
+    # NOTE (V1 erratum B, docs/v2/V1_ERRATA.md): with use_time = true the time
+    # input is t/nvf.T where nvf.T is the TRAINING horizon (10). Evaluation runs
+    # to T = 20, so the network extrapolates 2× in this input. The teacher
+    # `reference_field` is autonomous, so the input is unnecessary; pass
+    # `use_time = false` to `init_nvf` for the autonomous control experiment.
+    x = nvf.use_time ? vcat(reshape(h, 1, :), fill(t / nvf.T, 1, length(h))) :
+                       reshape(h, 1, :)
     y, _ = Lux.apply(nvf.model, x, ps, nvf.st)
     return vec(y)
 end

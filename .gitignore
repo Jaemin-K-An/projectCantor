@@ -6,3 +6,11 @@
 
 # macOS
 .DS_Store
+
+# ---- V2: never commit raw harmful model outputs ----
+results/v2/private/
+llm/**/__pycache__/
+**/*.egg-info/
+.venv/
+# model / activation caches are large and regenerable
+results/v2/cache/
