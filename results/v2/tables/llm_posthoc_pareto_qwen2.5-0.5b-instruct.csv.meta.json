@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-08-29T12:50:26",
+  "python": "3.9.13",
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "torch": "2.8.0",
+  "device_mps": true,
+  "device_cuda": false,
+  "git_commit": "249d9f20ef766467cc951dd405936726f5a99055",
+  "git_dirty": true,
+  "transformers": "4.57.6",
+  "phase": "V2-POSTHOC",
+  "preregistered": false
+}

@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-08-29T12:28:12",
+  "python": "3.9.13",
+  "platform": "macOS-15.5-arm64-arm-64bit",
+  "torch": "2.8.0",
+  "device_mps": true,
+  "device_cuda": false,
+  "git_commit": "249d9f20ef766467cc951dd405936726f5a99055",
+  "git_dirty": true,
+  "transformers": "4.57.6",
+  "model_key": "qwen2.5-0.5b-instruct",
+  "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "model_family": "qwen2.5",
+  "device": "mps",
+  "dtype": "float32",
+  "n_layers": 24,
+  "d_model": 896,
+  "attn_impl": "eager",
+  "frozen_config_sha256": "42854a0fb552bbdc6f373c4a84cb3b1776f6a1d142dcc045473b3cc0d640f70f",
+  "n_rows": 10800,
+  "phase": "V2-llm-TEST"
+}

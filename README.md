@@ -1,4 +1,11 @@
-# 칸토어 게이트 동역학계와 Neural ODE의 강건성 분석
+# 칸토어 게이트 동역학계·Neural ODE·LLM 잔차 안전 제어의 강건성 분석
+
+> **V2 (CantorGuard) 추가됨** — `docs/v2/FINAL_REPORT_KO.md`
+> V1이 정규화로 버린 척도 정보를 실제 제어장에 복원하고, 실제 open-weight
+> LLM의 refusal 잔차에 적용하여 재검증했다. **두 설계 모두에서 칸토어 배치
+> 고유의 이점은 확인되지 않았다.** 자세한 내용은 아래 §V2.
+
+# V1: 칸토어 게이트 동역학계와 Neural ODE의 강건성 분석
 
 > **Robustness Analysis of Cantor-Gated Dynamical Systems and Neural ODEs**
 >
@@ -126,3 +133,78 @@ ODE 솔버는 `DifferentialEquations.jl` 전체 대신 유지보수되는 하위
 
 원 탐구 보고서의 저작자는 안재민(학번 30720)이며 `original/`의 내용은
 후속 연구를 위해 원형 그대로 보존한다.
+
+
+---
+
+# V2 — CantorGuard: 척도 보상 칸토어 장벽
+
+**브랜치:** `cantor-guard-v2` · **최종 보고서:** [`docs/v2/FINAL_REPORT_KO.md`](docs/v2/FINAL_REPORT_KO.md)
+
+## 한 문단 요약
+
+V1은 칸토어 도함수를 `(3/2)ⁿ`으로 정규화해 **이진 마스크** `1_{K_n}`만
+남겼고, 프랙탈 이점을 찾지 못했다. V2는 그 정규화가 버린
+**레벨별 측도 집중과 `(3/2)^k` 크기 법칙**을 실제 제어장으로 복원했다.
+각 칸토어 gap에 smoothstep 장벽을 놓되 level마다 동일 에너지를 준다.
+
+* **증명:** 정리 A(레벨별 총 작용량 = `E₀`), 정리 B(peak = `3E₀(3/2)^k`,
+  비 정확히 `3/2`), 정리 C(차단 조건).
+* **그러나** 세 정리 모두 **폭 정합 대조군이 똑같이 만족**한다 — 배치와 무관.
+* **합성 55,680 sim:** cantor는 무제어·상수·주기를 이기지만
+  **중앙 단일장벽과 shuffled에는 진다.** center-anchored와는 `d_z = 0.049`.
+* **실제 LLM(Qwen2.5-0.5B):** refusal direction이 **인과적**임을 확인
+  (`+v` 0.625→0.875, `−v` →0.375). 동결 held-out 시험 10,800행에서
+  **사전등록 기준 7개 중 6개 FAIL.**
+* **실용적 기여:** 개입이 활성 노름의 ~15 %를 넘으면 출력 coherence가 무너지고
+  **lexical 안전 지표가 그 붕괴를 "안전"으로 오독**한다.
+
+## V2 재현 절차
+
+```bash
+julia --project=. test/v2/runtests_v2.jl                    # 27 305 assertions
+julia --project=. scripts/v2/export_barrier_reference.jl    # 교차언어 기준표
+julia --project=. scripts/v2/run_theory_validation.jl       # 정리 A/B/C, 명제 D/E
+julia --project=. -t auto scripts/v2/run_synthetic_barrier.jl   # 55 680 sim (~10분)
+PYTHONPATH=llm/src python3 scripts/v2/analyse_synthetic.py
+```
+
+LLM 단계 (Python 3.9+, torch 2.8, transformers 4.57; MPS/CUDA/CPU):
+
+```bash
+cd llm && PYTHONPATH=src python3 -m pytest tests/ -q && cd ..
+PYTHONPATH=llm/src python3 scripts/v2/refusal_smoke.py qwen2.5-0.5b-instruct
+PYTHONPATH=llm/src python3 scripts/v2/extract_and_fit_direction.py --model qwen2.5-0.5b-instruct
+PYTHONPATH=llm/src python3 scripts/v2/tune_controllers.py --model qwen2.5-0.5b-instruct
+PYTHONPATH=llm/src python3 scripts/v2/run_llm_test.py --model qwen2.5-0.5b-instruct   # 동결, ~50분
+PYTHONPATH=llm/src python3 scripts/v2/run_statistics.py
+PYTHONPATH=llm/src python3 scripts/v2/run_posthoc_degradation.py     # POST-HOC
+PYTHONPATH=llm/src python3 scripts/v2/generate_v2_figures.py
+```
+
+`run_llm_test.py`는 `configs/v2/llm_test.yaml`의 SHA-256이
+사전등록 값과 다르면 **실행을 거부한다.** 중간에 끊겨도 이어서 실행된다.
+
+## V2 디렉터리
+
+```
+src/v2/          CantorBarrier.jl, BarrierDynamics.jl
+llm/src/cantor_guard/   Python 패키지 (models, hooks, probes, threat_coordinate,
+                        cantor_barrier, control_baselines, attacks, datasets,
+                        safety_eval, harm_detector, statistics, io, generation)
+llm/tests/       33 pytest assertions (배리어 수학 · 교차언어 · LLM hook)
+configs/v2/      theory.toml, synthetic.toml, llm_test.yaml (FROZEN)
+scripts/v2/      각 단계 실행 스크립트
+results/v2/raw/  원자료 + .meta 사이드카 (유해 텍스트 없음)
+results/v2/private/  유해 completion (gitignored, 커밋 금지)
+figures/v2/      9개 그림 + CAPTIONS.md
+docs/v2/         V1_TO_V2_RATIONALE, V1_ERRATA, MATHEMATICAL_THEORY,
+                 LITERATURE_REVIEW, LLM_METHOD, PREREGISTRATION, RESULTS,
+                 FINAL_REPORT_KO
+```
+
+## 안전 취급
+
+유해 프롬프트에 대한 모델 출력은 **저장소에 커밋하지 않는다.**
+추적 테이블에는 prompt hash와 스칼라 점수만 들어가며,
+`assert_no_raw_completions`가 이를 강제한다(테스트 포함).
