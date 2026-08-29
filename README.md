@@ -1,5 +1,11 @@
 # 칸토어 게이트 동역학계·Neural ODE·LLM 잔차 안전 제어의 강건성 분석
 
+> **V3 추가됨** — `docs/v3/FINAL_REPORT_KO.md` (branch `cantor-guard-v3`)
+> LLM 안전 판정 경계가 **정상적이지 않음**을 측정하고(중앙값 0.34 σ, 최대
+> 1.77 σ), 경계 불확실성 하에서 칸토어 구조를 재검정했다. **정리 S**로
+> 칸토어 고유의 수학적 성질을 처음 확보했으나, 그 성질은 강건성과
+> **무관**했다(r = +0.147). 자세한 내용은 아래 §V3.
+>
 > **V2 (CantorGuard) 추가됨** — `docs/v2/FINAL_REPORT_KO.md`
 > V1이 정규화로 버린 척도 정보를 실제 제어장에 복원하고, 실제 open-weight
 > LLM의 refusal 잔차에 적용하여 재검증했다. **두 설계 모두에서 칸토어 배치
@@ -208,3 +214,65 @@ docs/v2/         V1_TO_V2_RATIONALE, V1_ERRATA, MATHEMATICAL_THEORY,
 유해 프롬프트에 대한 모델 출력은 **저장소에 커밋하지 않는다.**
 추적 테이블에는 prompt hash와 스칼라 점수만 들어가며,
 `assert_no_raw_completions`가 이를 강제한다(테스트 포함).
+
+
+---
+
+# V3 — 안전 판정 경계 불확실성 하의 다중척도 제어
+
+**브랜치:** `cantor-guard-v3` · **최종 보고서:** [`docs/v3/FINAL_REPORT_KO.md`](docs/v3/FINAL_REPORT_KO.md)
+
+## 한 문단 요약
+
+V2는 **판정 경계가 정확히 알려져 있다**고 가정했다. V3는 그 가정을 실제
+LLM에서 검증했고 — **거짓이었다.** 안전 경계는 층·토큰 위치·생성 단계·공격
+계열에 따라 중앙값 **0.34 σ**, q95 **1.19 σ**, 최대 **1.77 σ** 이동한다
+(layer 4에서 prefill → 첫 생성 토큰 사이 **1.65 σ**). 이는 threat 좌표로
+칸토어 level-1 gap 폭의 **절반**이며, V2의 고정 calibration이 무시한 값이다.
+
+* **정리 S (증명):** `V′_n(T_i(r)) = (3/2)V′_{n−1}(r)`.
+  V2의 정리 A·B와 달리 **배치 불변이 아니다** — 폭-정합 대조군 잔차 0.82–0.96,
+  칸토어 10⁻¹³. **칸토어 고유 성질을 처음 확보.**
+* **동적 calibration:** 토큰-bin별 임계값이 held-out 경계오차를
+  0.299 σ → **0.213 σ** (−28.9 %). 그러나 없애지는 못한다.
+* **합성 Δ×ε 41,472 sim** (실현 예산 **±2 %** 정합):
+  budget 0.60에서 `R_worst` = constant **0.524**, minimax 0.524,
+  wide-central 0.439, shuffled 0.104, center-anchored 0.055,
+  **cantor 0.050**, none 0.044. **칸토어가 최악.**
+* **메커니즘 (82 배치):** 자기유사성 r = **+0.147** (기각);
+  최장 무방비 구간 r = **−0.680**. 칸토어는 자기유사성 1.000이면서
+  대조군 분포의 **35.8 백분위**.
+
+> **정리 S는 참이지만 강건성과 무관하다. 경계 위치가 불확실할 때
+> 최선의 귀납 편향은 다중척도 구조가 아니라 상태 무관성이다.**
+
+**미완:** LLM에서 11개 controller의 Δ×ε 직접 시험은 수행하지 못했다
+(합성 모형에서만). 한계 §32에 기록.
+
+## V3 재현 절차
+
+```bash
+julia --project=. -e '
+  include("src/v2/CantorBarrier.jl"); include("src/v3/CantorSelfSimilarity.jl")'   # 정리 S
+julia --project=. -t auto scripts/v3/run_synthetic_uncertainty.jl   # 41 472 sim (~3분)
+julia --project=. -t auto scripts/v3/analyse_mechanism.jl           # 메커니즘 (~7분)
+PYTHONPATH=llm/src python3 scripts/v3/measure_boundary_shift.py     # 경계 이동 (~2분)
+PYTHONPATH=llm/src python3 scripts/v3/fit_dynamic_calibration.py    # calibration (~4분)
+PYTHONPATH=llm/src python3 scripts/v3/generate_v3_figures.py
+```
+
+## V3 디렉터리
+
+```
+src/v3/            CantorSelfSimilarity.jl (정리 S), RobustDynamics.jl,
+                   V3Controllers.jl (L0–L10, wide-central·minimax 포함)
+llm/src/cantor_guard_v3/  boundary_uncertainty.py, calibration.py, io3.py
+configs/v3/        synthetic.toml (지표 도달가능성 근거 포함)
+scripts/v3/        measure_boundary_shift, fit_dynamic_calibration,
+                   run_synthetic_uncertainty, analyse_mechanism, generate_v3_figures
+results/v3/        원자료 + provenance 사이드카 (유해 텍스트 없음)
+figures/v3/        4개 그림 + CAPTIONS.md
+docs/v3/           V2_LLM_AUDIT, V2_TO_V3_RATIONALE, MATHEMATICAL_THEORY,
+                   BOUNDARY_SHIFT_ANALYSIS, RESULTS, FINAL_REPORT_KO
+logs/v3/PROGRESS.md   phase checkpoint (미완 항목 포함)
+```

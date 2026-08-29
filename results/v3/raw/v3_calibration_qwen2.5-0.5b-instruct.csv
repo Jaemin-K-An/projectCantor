@@ -1,0 +1,4 @@
+model,method,err_calibration,err_dev,n_cond
+qwen2.5-0.5b-instruct,C0_fixed,0.2701689750813945,0.29890429435329047,0
+qwen2.5-0.5b-instruct,C1_phase,0.21685676268290885,0.2747663340588949,8
+qwen2.5-0.5b-instruct,C2_token_bin,0.0,0.21266813623319777,24

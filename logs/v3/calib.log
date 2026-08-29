@@ -1,0 +1,8 @@
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+calibration 11520 / dev 7680 projections  (62s)
+  C0_fixed       residual boundary error: calib 0.270 sigma | DEV 0.299 sigma  (0 conditions)
+  C1_phase       residual boundary error: calib 0.217 sigma | DEV 0.275 sigma  (8 conditions)
+  C2_token_bin   residual boundary error: calib 0.000 sigma | DEV 0.213 sigma  (24 conditions)
+[io] wrote 3 rows -> /Users/jaeminahn/Desktop/development/Cantor/results/v2/raw/v3_calibration_qwen2.5-0.5b-instruct.csv
+
+  best method on DEV: C2_token_bin  (28.9% reduction in boundary error vs V2's C0)

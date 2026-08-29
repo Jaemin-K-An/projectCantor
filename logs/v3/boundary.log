@@ -1,0 +1,50 @@
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+qwen2.5-0.5b-instruct: 24 layers, probing [4, 8, 11, 13, 16, 20]
+28 harmful + 28 harmless prompts x 5 templates
+  template plain              done (21s)
+  template suffix_simple      done (40s)
+  template prefix_sure        done (59s)
+  template roleplay_dev       done (78s)
+  template hypothetical_dev   done (97s)
+collected 40320 projections
+[v3-io] wrote 180 rows -> /Users/jaeminahn/Desktop/development/Cantor/results/v3/raw/v3_boundary_shift_qwen2.5-0.5b-instruct.csv
+
+================================================================================================
+DOES THE SAFETY BOUNDARY ACTUALLY MOVE?  (Delta in units of global sigma)
+================================================================================================
+  overall |Delta_norm|: median 0.339  q75 0.601  q90 0.930  q95 1.187  max 1.773
+
+  by phase (prefill vs generation):
+             mean    std    min    max
+phase                                 
+generation  0.076  0.494 -1.618  1.331
+prefill     0.080  0.856 -1.185  1.773
+
+  by token bin (mean Delta_norm per layer):
+layer        4      8      11     13     16     20
+bin                                               
+gen_1     1.046  0.982 -0.230 -0.516  0.717  0.412
+gen_17+   0.075 -0.056 -0.034 -0.141 -0.369 -0.257
+gen_2-4   0.075  0.044 -0.273 -0.283  0.358  0.146
+gen_5-8  -0.025 -0.264  0.093  0.089  0.271  0.387
+gen_9-16 -0.137  0.041  0.189  0.269 -0.158 -0.182
+prefill  -0.603  0.006 -0.592 -0.152  0.971  0.852
+
+  by attack family:
+                   mean    std
+attack                        
+hypothetical_dev  0.281  0.532
+plain             0.091  0.597
+prefix_sure       0.150  0.502
+roleplay_dev      0.021  0.477
+suffix_simple    -0.161  0.645
+
+  sigma ratio (conditional spread / global spread):
+             mean    min    max
+phase                          
+generation  0.839  0.154  1.528
+prefill     0.623  0.294  1.238
+
+  PRE-REGISTERED uncertainty set U_Delta from these measurements: {'q75': 0.6007642561376589, 'q95': 1.1867359051219477, 'median': 0.3389647783438839, 'max': 1.7730780863601436, 'n': 180}
+
+total 97s
