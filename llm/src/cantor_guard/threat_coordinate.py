@@ -61,9 +61,45 @@ class CantorGuardController:
             c = np.minimum(c, self.max_norm)
         return c
 
+    def total_action(self) -> float:
+        return self.layout.total_action()
+
     def describe(self) -> dict:
         return {"family": self.layout.family, "label": self.layout.label,
                 "n": self.layout.n, "E0": self.layout.E0, "eta": self.eta,
                 "gamma": self.gamma, "harm_gate": self.harm_gate,
                 "max_norm": self.max_norm if self.max_norm is not None else -1.0,
                 "total_action": self.layout.total_action()}
+
+
+class ConstantController(CantorGuardController):
+    """L1 -- the LITERATURE baseline: constant activation steering
+    (Turner et al. 2023; Rimsky et al. 2024). The magnitude does not depend on
+    the state at all: c(r) = eta * B_total.
+
+    This must NOT be implemented as a single wide barrier. `smoothstep` has
+    Phi'(0) = Phi'(1) = 0, so a barrier spanning [0,1] applies ZERO force
+    exactly where the state is most unsafe (r -> 1) -- which would hand the
+    barrier controllers an unearned win. Measured on DEV before the freeze: the
+    barrier version of L1 produced int_mean = 0.000 and refusal 0.000, i.e. it
+    was not a baseline at all. Total L1 action is matched: integral of the
+    constant over [0,1] is exactly B_total.
+    """
+
+    def __init__(self, B_total: float, n: int, *, eta: float = 1.0,
+                 gamma: float = 1.0, harm_gate: bool = True,
+                 max_norm: float | None = None):
+        from .cantor_barrier import BarrierLayout
+        layout = BarrierLayout([], n, B_total / n, "constant", "L1_constant")
+        super().__init__(layout, eta=eta, gamma=gamma, harm_gate=harm_gate,
+                         max_norm=max_norm)
+        self.B_total = float(B_total)
+
+    def magnitude(self, m):
+        c = np.full(np.shape(m), self.eta * self.B_total, dtype=float)
+        if self.max_norm is not None:
+            c = np.minimum(c, self.max_norm)
+        return c
+
+    def total_action(self) -> float:
+        return self.B_total

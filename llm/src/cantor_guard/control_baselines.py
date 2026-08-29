@@ -3,6 +3,7 @@ SAME harm detector and the SAME layer set; only the control law differs.
 
   L0 none                 no intervention
   L1 constant             constant refusal steering  (Turner 2023 / Rimsky 2024)
+                          -- state-INDEPENDENT c(r)=eta*B_total, matched action
   L2 central              one barrier on the decision boundary (single scale)
   L3 periodic             matched gaps, coarse->fine lattice
   L4 random               matched widths, random packing
@@ -17,7 +18,7 @@ L1 is the literature baseline; L6 is the control that H4 must beat.
 from __future__ import annotations
 import numpy as np
 from .cantor_barrier import BarrierLayout, Gap, build_layout
-from .threat_coordinate import CantorGuardController
+from .threat_coordinate import CantorGuardController, ConstantController
 
 CONTROLLER_FAMILIES = ["L0_none", "L1_constant", "L2_central", "L3_periodic",
                        "L4_random", "L5_shuffled", "L6_center_anchored",
@@ -58,6 +59,9 @@ def make_controller(family: str, *, n: int, B_total: float, eta: float,
                     spline_weights: np.ndarray | None = None
                     ) -> CantorGuardController:
     E0 = B_total / n
+    if family == "L1_constant":
+        return ConstantController(B_total, n, eta=eta, gamma=gamma,
+                                  harm_gate=harm_gate, max_norm=max_norm)
     if family == "L8_learned_spline":
         if spline_weights is None:
             spline_weights = np.ones(8)

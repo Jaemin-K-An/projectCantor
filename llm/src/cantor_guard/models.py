@@ -52,12 +52,14 @@ class ModelBundle:
     dtype: str
     n_layers: int
     d_model: int
+    attn_impl: str = "eager"
 
     def provenance(self) -> dict:
         return {"model_key": self.key, "model_repo": self.repo,
                 "model_revision": self.revision, "model_family": self.family,
                 "device": self.device, "dtype": self.dtype,
-                "n_layers": self.n_layers, "d_model": self.d_model}
+                "n_layers": self.n_layers, "d_model": self.d_model,
+                "attn_impl": self.attn_impl}
 
 
 def load_model(key: str, *, device: str | None = None,
@@ -72,15 +74,24 @@ def load_model(key: str, *, device: str | None = None,
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     tok.padding_side = "left"          # required for batched generation
+    # attn_implementation="eager" is REQUIRED here, not a preference.
+    # With the default SDPA kernel on MPS, a LEFT-PADDED batch makes the early
+    # query positions attend to nothing but pad tokens; the softmax over an
+    # all -inf row returns NaN, which then propagates through every residual
+    # connection. Measured on Qwen2.5-0.5B: sdpa+left -> 980224 NaNs,
+    # eager+left -> 0, and eager agrees with batch-size-1 SDPA to 4e-5.
+    # Left padding is mandatory for batched generation, so eager it is.
     model = AutoModelForCausalLM.from_pretrained(
-        spec["repo"], revision=spec["revision"], torch_dtype=dtype)
+        spec["repo"], revision=spec["revision"], dtype=dtype,
+        attn_implementation="eager")
     model.to(device).eval()
     model.requires_grad_(False)
     cfg = model.config
     return ModelBundle(key=key, repo=spec["repo"], revision=spec["revision"],
                        family=spec["family"], model=model, tokenizer=tok,
                        device=device, dtype=str(dtype).replace("torch.", ""),
-                       n_layers=cfg.num_hidden_layers, d_model=cfg.hidden_size)
+                       n_layers=cfg.num_hidden_layers, d_model=cfg.hidden_size,
+                       attn_impl="eager")
 
 
 def decoder_layers(bundle: ModelBundle):

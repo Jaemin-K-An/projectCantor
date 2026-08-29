@@ -25,7 +25,13 @@ def last_token_residuals(bundle, prompts: list[str], layers: list[int],
         with capture_residuals(bundle, layers, store, last_token_only=True):
             bundle.model(**enc)
         for j, l in enumerate(layers):
-            out[i:i + len(chunk), j, :] = store[l].numpy()
+            v = store[l].numpy()
+            if not np.isfinite(v).all():
+                raise RuntimeError(
+                    f"non-finite residuals at layer {l}. On MPS this means the "
+                    f"SDPA kernel was used with left padding; load the model "
+                    f"with attn_implementation='eager' (see models.load_model).")
+            out[i:i + len(chunk), j, :] = v
         if progress:
             print(f"  residuals {min(i+batch_size, len(prompts))}/{len(prompts)}",
                   end="\r", flush=True)
