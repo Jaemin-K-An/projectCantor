@@ -1,0 +1,7 @@
+git_commit = "2cea354"
+julia = "1.12.6"
+n_cases = 42768
+config = "configs/v3_1/synthetic.toml"
+phase = "V3.1-PHASE8"
+l9_frozen = "configs/v3_1/l9_frozen_weights.toml"
+timestamp = "2026-08-29T22:19:24.709"

@@ -1,0 +1,3 @@
+frozen L9: DEV worst-case = 0.5375
+  weights = [0.116279, 0.116279, 0.209302, 0.093023, 0.116279, 0.116279, 0.116279, 0.116279]
+wrote configs/v3_1/l9_frozen_weights.toml

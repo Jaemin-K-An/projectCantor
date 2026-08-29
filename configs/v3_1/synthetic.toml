@@ -1,0 +1,29 @@
+# V3.1 synthetic rerun — FIXED BEFORE EXECUTION.
+# Identical uncertainty grid to V3 so the two are directly comparable; the ONLY
+# changes are (a) S1_true_constant is now genuinely constant, (b) the old
+# ones(1) barrier is preserved under the honest name S2_global_smooth, and
+# (c) S10_minimax reads FROZEN weights instead of refitting.
+[uncertainty]
+delta = [-0.155, -0.094, -0.051, -0.017, 0.0, 0.017, 0.051, 0.094, 0.155]
+log_eps_min = -0.52
+log_eps_max = 0.90
+n_eps = 6
+[system]
+n = 5
+field = "bistable"
+x0 = [0.15, 0.35]
+T = 8.0
+attacks = ["sinusoid", "square", "chirp", "ou_noise"]
+log_w_min = -0.3
+log_w_max = 1.5
+[budget]
+targets = [0.15, 0.30, 0.60]
+match_tol = 0.02
+[controllers]
+layout_seeds = 8
+[solver]
+step_safety = 8.0
+dt_max = 2e-3
+n_save = 400
+[primary]
+endpoint = "R_worst_graded"   # min over (Delta, eps, attack) of mean safe_frac
