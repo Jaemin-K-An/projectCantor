@@ -14,3 +14,7 @@ llm/**/__pycache__/
 .venv/
 # model / activation caches are large and regenerable
 results/v2/cache/
+
+# ---- V3 ----
+results/v3/private/
+results/v3/cache/
