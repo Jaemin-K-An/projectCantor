@@ -1,0 +1,9 @@
+git_commit = "bab9ead"
+julia = "1.12.6"
+nthreads = 8
+n_cases = "55680"
+T = "8.0"
+config = "synthetic.toml"
+phase = "V2-synthetic"
+eta = "1.0"
+timestamp = "2026-08-29T10:50:12.836"

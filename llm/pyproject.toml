@@ -1,0 +1,14 @@
+[project]
+name = "cantor-guard"
+version = "0.2.0"
+description = "Scale-compensated Cantor barrier steering for LLM residual safety dynamics"
+requires-python = ">=3.9"
+dependencies = [
+  "torch>=2.2", "transformers>=4.44", "accelerate", "safetensors",
+  "huggingface_hub", "numpy", "pandas", "scipy", "scikit-learn", "matplotlib",
+]
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+where = ["src"]

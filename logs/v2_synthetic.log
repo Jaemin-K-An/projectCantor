@@ -1,0 +1,23 @@
+[ Info: wrote 55680 rows → /Users/jaeminahn/Desktop/development/Cantor/results/v2/raw/synthetic_main.csv
+[ Info: wrote 401 rows → /Users/jaeminahn/Desktop/development/Cantor/results/v2/raw/synthetic_convergence.csv
+synthetic: 55680 simulations on 8 threads
+elapsed 582.8 s (10.47 ms/sim)
+
+step-size convergence check (subset re-run at step_safety = 32.0)
+  401 re-runs: max |Δr_max| = 1.030e+00, median = 0.000e+00, 99th pct = 4.105e-01
+
+====================================================================================================
+PRIMARY: worst excursion r_max, pooled over attacks/phases/r0/fields
+(lower is better; 0.5 is the decision boundary)
+====================================================================================================
+controller                  mean    median  WORST(A)  P(cross)  mean act
+B0_none                   0.9483    0.5387    3.5615    0.5177    0.0000
+B1_constant               0.7799    0.3500    3.5300    0.3365    0.3061
+B2_central                0.7002    0.3500    3.5131    0.1979    0.1934
+B3_periodic               0.7257    0.3500    3.5191    0.3563    0.3525
+B7_cantor                 0.6753    0.3500    3.5176    0.2792    0.3730
+B4_random                 0.6718    0.3500    3.5154    0.2507    0.4033
+B5_shuffled               0.6665    0.3500    3.5159    0.2408    0.3859
+B6_center_anchored        0.6760    0.3500    3.5171    0.2820    0.3926
+
+done.

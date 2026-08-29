@@ -1,0 +1,2 @@
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [00:04<00:32,  4.68s/it]Fetching 8 files:  50%|█████     | 4/8 [00:59<01:03, 15.81s/it]Fetching 8 files: 100%|██████████| 8/8 [00:59<00:00,  7.49s/it]
+OK TinyLlama/TinyLlama-1.1B-Chat-v1.0 -> /Users/jaeminahn/.cache/huggingface/hub/models--TinyLlama--TinyLlama-1.1B-Chat-v1.0/snapshots/fe8a4ea1ffedaf415f4da2f062534de366a451e6

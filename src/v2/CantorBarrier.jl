@@ -81,6 +81,29 @@ struct BarrierLayout
     E0::Float64
     label::String
     family::String
+    # --- precomputed, sorted by position, for O(log m) evaluation -----------
+    # The sweep integrates ~10^5 trajectories × 1.2·10^5 RHS calls; a linear
+    # scan over 2^n gaps would dominate the runtime, so position lookup is a
+    # binary search and the potential uses a prefix sum of the level energies.
+    las::Vector{Float64}      # gap left endpoints
+    lbs::Vector{Float64}      # gap right endpoints
+    wid::Vector{Float64}      # widths
+    est::Vector{Float64}      # e_k for each gap
+    coef::Vector{Float64}     # e_k / w_k
+    cum::Vector{Float64}      # cum[i] = Σ_{j<i} e_j  (energy fully passed before gap i)
+end
+
+function BarrierLayout(gaps::Vector{Gap}, n::Int, E0::Float64,
+                       label::String, family::String)
+    g = sort(gaps; by = x -> x.a)
+    las = [x.a for x in g]; lbs = [x.b for x in g]
+    wid = lbs .- las
+    est = [E0 / 2.0^(x.level - 1) for x in g]
+    coef = est ./ wid
+    cum = Vector{Float64}(undef, length(g) + 1)
+    cum[1] = 0.0
+    for i in eachindex(g); cum[i+1] = cum[i] + est[i]; end
+    BarrierLayout(g, n, E0, label, family, las, lbs, wid, est, coef, cum)
 end
 
 """    level_energy(L, k) = e_k = E0 / 2^{k-1}."""
@@ -167,12 +190,13 @@ end
 
 """    barrier_potential(L, r) = V_C(r), monotone non-decreasing."""
 function barrier_potential(L::BarrierLayout, r::Real)
-    s = 0.0
-    @inbounds for g in L.gaps
-        e = L.E0 / 2.0^(g.level - 1)
-        s += e * smoothstep((r - g.a) / (g.b - g.a))
+    isempty(L.las) && return 0.0
+    i = searchsortedlast(L.las, r)
+    i == 0 && return 0.0
+    @inbounds if r < L.lbs[i]
+        return L.cum[i] + L.est[i] * smoothstep((r - L.las[i]) / L.wid[i])
     end
-    return s
+    @inbounds return L.cum[i+1]
 end
 
 """
@@ -182,15 +206,12 @@ The control term applied to the dynamics is `−η·barrier_field(L, r)`, i.e.
 `u_C = −V_C'`, which always decreases the threat coordinate. Gaps are disjoint,
 so at most one term is non-zero; the loop is short-circuited accordingly.
 """
-function barrier_field(L::BarrierLayout, r::Real)
-    @inbounds for g in L.gaps
-        if g.a < r < g.b
-            w = g.b - g.a
-            e = L.E0 / 2.0^(g.level - 1)
-            return (e / w) * dsmoothstep((r - g.a) / w)
-        end
-    end
-    return 0.0
+@inline function barrier_field(L::BarrierLayout, r::Real)
+    isempty(L.las) && return 0.0
+    i = searchsortedlast(L.las, r)
+    i == 0 && return 0.0
+    @inbounds (r ≥ L.lbs[i]) && return 0.0
+    @inbounds return L.coef[i] * dsmoothstep((r - L.las[i]) / L.wid[i])
 end
 
 """    level_action(L, k) = Σ_j ∫|V'_{k,j}| computed by quadrature (Theorem A ⇒ E0)."""
@@ -219,7 +240,7 @@ total_action(L::BarrierLayout; N::Int = 20_000) =
 # the seven layout families
 # ---------------------------------------------------------------------------
 
-_mk(gs, n, E0, lab, fam) = BarrierLayout(sort(gs; by = g -> g.a), n, E0, lab, fam)
+_mk(gs, n, E0, lab, fam) = BarrierLayout(gs, n, E0, lab, fam)
 
 """B0 — no controller."""
 no_layout(n::Int, E0::Float64) = _mk(Gap[], n, E0, "none", "B0_none")

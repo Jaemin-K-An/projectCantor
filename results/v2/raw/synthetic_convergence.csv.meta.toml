@@ -1,0 +1,5 @@
+git_commit = "bab9ead"
+julia = "1.12.6"
+nthreads = 8
+phase = "V2-synthetic"
+timestamp = "2026-08-29T10:51:18.369"

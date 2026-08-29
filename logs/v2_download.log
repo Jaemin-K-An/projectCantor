@@ -1,0 +1,4 @@
+Fetching 7 files:   0%|          | 0/7 [00:00<?, ?it/s]Fetching 7 files:  14%|█▍        | 1/7 [00:00<00:02,  2.25it/s]Fetching 7 files:  57%|█████▋    | 4/7 [00:26<00:21,  7.21s/it]Fetching 7 files: 100%|██████████| 7/7 [00:26<00:00,  3.83s/it]
+OK Qwen/Qwen2.5-0.5B-Instruct -> /Users/jaeminahn/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files:   8%|▊         | 1/12 [00:00<00:03,  3.61it/s]Fetching 12 files:  50%|█████     | 6/12 [00:20<00:21,  3.50s/it]Fetching 12 files: 100%|██████████| 12/12 [00:20<00:00,  1.67s/it]
+OK HuggingFaceTB/SmolLM2-360M-Instruct -> /Users/jaeminahn/.cache/huggingface/hub/models--HuggingFaceTB--SmolLM2-360M-Instruct/snapshots/a10cc1512eabd3dde888204e902eca88bddb4951

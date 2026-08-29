@@ -1,0 +1,44 @@
+# Synthetic dynamic experiment — FIXED BEFORE EXECUTION.
+#
+# BUDGET DECISION (pre-execution, no results seen): the first draft enumerated
+# 236 160 simulations (n in {3,4,5,6}, 12 layout seeds, 3 phases) and was
+# repeatedly killed by session teardown before writing anything. Reduced to
+# n in {4,6}, 8 layout seeds, 2 phases = 65 280 simulations, which completes in
+# one pass. No condition type was removed: all 8 controller families, all 3
+# nominal fields, all 5 attack families and all 16 log-spaced amplitudes are
+# retained. Logged in docs/v2/PREREGISTRATION.md.
+# Amplitudes and frequencies are log-spaced and deliberately NOT aligned to
+# powers of 3 or 3/2, so no ternary scale is privileged (harness rule §0.7).
+[system]
+B_total = 1.0
+eta     = 1.0
+n       = [4, 6]              # E0 = B_total / n
+T       = 8.0
+r0      = [0.15, 0.35]
+fields  = ["linear", "cubic", "bistable"]
+
+[attack]
+# 16 log-spaced amplitudes over two and a half decades
+logA_min = -1.0
+logA_max = 1.2
+n_A      = 16
+# frequencies drawn log-uniform per replicate, not from a fixed grid
+logw_min = -0.3
+logw_max = 1.5
+families = ["sinusoid", "square", "chirp", "multifreq", "ou_noise"]
+phase_seeds = 2
+
+[controllers]
+deterministic = ["B0_none", "B1_constant", "B2_central", "B3_periodic", "B7_cantor"]
+randomised    = ["B4_random", "B5_shuffled", "B6_center_anchored"]
+layout_seeds  = 8
+
+[solver]
+step_safety   = 8.0     # displacement budget = 3^-n / step_safety
+dt_max        = 2e-3
+n_save        = 800
+check_safety  = 32.0    # convergence re-check on a subset
+
+[metrics]
+primary   = "r_max"     # worst excursion; worst-case over A is the headline
+secondary = ["safe_frac", "captured", "ctrl_action"]
