@@ -1,0 +1,27 @@
+[ Info: wrote 82 rows → /Users/jaeminahn/Desktop/development/Cantor/results/v3/raw/v3_mechanism.csv
+================================================================================================
+STRONGER L9 SEARCH — is uniform really minimax-optimal?
+================================================================================================
+  best worst-case graded R = 0.5225
+  weights = [0.0106, 0.0809, 0.3311, 0.004, 0.204, 0.0049, 0.1457, 0.2187]
+  uniform-weight R = 0.4613   ->  non-uniform optimum found
+
+================================================================================================
+MECHANISM — does SELF-SIMILARITY or ANTI-CLUSTERING explain robustness?
+(many shuffled layouts, not Cantor-versus-one)
+================================================================================================
+
+  Cantor: selfsim=1.0000  R_worst=0.5212
+  shuffled/c-anchored (n=81): selfsim 0.055–0.266, R_worst 0.4125–0.5237 (median 0.5212)
+  Cantor percentile among controls: 35.8
+
+  Pearson correlation of R_worst with each geometric statistic:
+    selfsim          r = +0.147
+    max_weak_run     r = -0.680
+    mean_nn          r = -0.608
+    discrepancy      r = -0.412
+    entropy          r = +0.000
+    max_gap_span     r = -0.080
+
+  ⇒ if r(selfsim) ≈ 0 the self-similarity mechanism is REJECTED as an
+    explanation of robustness under boundary uncertainty.

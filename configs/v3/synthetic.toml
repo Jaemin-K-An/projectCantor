@@ -1,0 +1,66 @@
+# V3 synthetic joint-uncertainty experiment — FIXED BEFORE EXECUTION.
+#
+# Two uncertainty axes, deliberately kept separate (harness §28):
+#   Delta = the controller mis-locates the safety boundary (calibration error)
+#   eps   = the attack magnitude is unknown
+#
+# GRID ALIGNMENT RULE (harness §26, §27, §65): neither grid may be aligned to
+# powers of 1/3 or 3/2, or a Cantor-shaped controller could win by resonance
+# with its own scale set rather than by robustness. The Delta values below are
+# NOT of the form 3^-k (which would be .3333 .1111 .0370 .0123) and the eps
+# grid is log-spaced with an irrational-ish ratio.
+[uncertainty]
+delta = [-0.155, -0.094, -0.051, -0.017, 0.0, 0.017, 0.051, 0.094, 0.155]
+log_eps_min = -0.52          # eps ~ 0.30
+log_eps_max = 0.90           # eps ~ 7.94
+n_eps = 6
+[system]
+n       = 5
+fields  = ["bistable"]       # primary; cubic is a secondary check
+x0      = [0.15, 0.35]
+T       = 8.0
+attacks = ["sinusoid", "square", "chirp", "ou_noise"]
+log_w_min = -0.3
+log_w_max = 1.5
+[budget]
+# REALISED rms control action targets. Gains are matched per controller by
+# bisection so this is equal across families -- the V3 fix to V2 defect B.
+targets = [0.15, 0.30, 0.60]
+match_tol = 0.02
+[controllers]
+layout_seeds = 8
+[solver]
+step_safety = 8.0
+dt_max      = 2e-3
+n_save      = 400
+[primary]
+# ---------------------------------------------------------------------------
+# METRIC ATTAINABILITY (harness §20) -- checked BEFORE the endpoint was fixed.
+#
+# The first draft used the BINARY endpoint P(never crossed). Measurement on the
+# full grid showed it is DEGENERATE at the extremes: 45% of cells sit at exactly
+# 0 and 40% at exactly 1, and at eps >= 4.13 every controller including
+# no-intervention scores 0.000. The minimum over the uncertainty set is
+# therefore 0 for ALL controllers and carries no information -- the same failure
+# mode as V2's ASR.
+#
+# The endpoint is therefore the GRADED safe fraction (time on the safe side of
+# the true boundary), which is non-degenerate everywhere: observed range
+# [0.024, 1.000], no cell at 0. The binary version is still recorded and
+# reported as a secondary, with its degeneracy stated.
+#
+# This change was made from measurements of the CONTROLLER-INDEPENDENT metric
+# distribution, before any controller comparison was read.
+# ---------------------------------------------------------------------------
+endpoint = "R_worst_graded"      # min over (Delta, eps, attack) of mean safe_frac
+secondary = ["R_worst_binary", "AUC_joint", "R_mean", "delta_crit", "eps_crit"]
+
+[dev]
+# Disjoint tuning grid for the learned minimax controller L9. Values differ
+# from the reporting grid so L9 is not fitted on the cells it is judged on.
+delta = [-0.13, -0.07, 0.0, 0.07, 0.13]
+log_eps_min = -0.4
+log_eps_max = 0.75
+n_eps = 4
+attacks = ["sinusoid", "square"]
+n_candidates = 60          # search budget, same order as the other families get

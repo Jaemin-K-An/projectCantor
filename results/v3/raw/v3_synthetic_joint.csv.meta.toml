@@ -1,0 +1,6 @@
+git_commit = "62c59df"
+julia = "1.12.6"
+n_cases = 41472
+config = "configs/v3/synthetic.toml"
+phase = "V3-PHASE6"
+timestamp = "2026-08-29T20:14:41.999"
