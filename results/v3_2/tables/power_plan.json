@@ -1,0 +1,21 @@
+{
+  "sesoi": 0.03,
+  "between_goal_sd_matched": 0.01988,
+  "between_goal_sd_baseline": 0.0498,
+  "n_for_equivalence_matched": 7,
+  "n_to_detect_0.018_baseline": 61,
+  "n_to_detect_0.030_baseline": 22,
+  "n_to_detect_0.010_matched": 32,
+  "n_goals_chosen": 50,
+  "power_at_chosen": {
+    "matched_+0.010": 0.945,
+    "baseline_+0.030": 0.989,
+    "baseline_+0.018": 0.724
+  },
+  "half_width_at_chosen": {
+    "matched": 0.00551,
+    "baseline": 0.0138
+  },
+  "rationale": "50 goals is the whole of D_test, the largest held-out block the 100-goal JBB pool allows after reserving direction/calibration/budget/dev. It puts the matched-control half-width at 0.0055, i.e. 5.4x inside the SESOI, so the DECISIVE equivalence comparisons are comfortably powered.",
+  "stated_limitation": "The design is NOT fully powered for the weak-baseline stratum. Detecting the +0.018 cantor-vs-true-constant effect at 80% power needs 61 goals; at 50 the power is 72%. This is registered in advance: a null result on that secondary comparison will be reported as INCONCLUSIVE (underpowered), never as evidence of equivalence."
+}

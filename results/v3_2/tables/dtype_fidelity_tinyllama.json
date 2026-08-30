@@ -1,0 +1,23 @@
+{
+  "max_abs_margin_diff_sigma": 0.0017615090479512624,
+  "rms_margin_diff_sigma": 0.0007618285312829668,
+  "pearson_r": 0.9999998270489462,
+  "sign_agreement": 1.0,
+  "per_dtype": {
+    "float16": {
+      "layer": 12,
+      "sep": 1.4943,
+      "tau": 0.2741250991821289,
+      "sigma": 0.5968594551086426,
+      "load_and_probe_s": 10.3
+    },
+    "float32": {
+      "layer": 12,
+      "sep": 1.4941,
+      "tau": 0.2748646140098572,
+      "sigma": 0.5970550775527954,
+      "load_and_probe_s": 95.1
+    }
+  },
+  "FP16_ACCEPTABLE": true
+}

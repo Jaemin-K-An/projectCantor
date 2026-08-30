@@ -22,3 +22,7 @@ results/v3/cache/
 # ---- V3.1 ----
 results/v3_1/private/
 results/v3_1/cache/
+
+# ---- V3.2 ----
+results/v3_2/private/
+results/v3_2/cache/

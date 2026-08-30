@@ -1,0 +1,9 @@
+family,status,n_pairs,n_goals,mean_diff,naive_lo,naive_hi,cluster_lo,cluster_hi,hier_lo,hier_hi,width_ratio,between_goal_sd,cohen_dz,naive_signif,cluster_signif,naive_equivalent,cluster_equivalent
+T0_none,OK,480,12,0.02854,0.01419,0.0448,0.00611,0.05495,0.00114,0.06347,1.596,0.04586,0.622,True,True,False,False
+T1_true_constant,OK,480,12,0.01813,0.00382,0.03328,-0.00576,0.04641,-0.00941,0.05463,1.771,0.04927,0.368,True,False,False,False
+T2_global_smooth,OK,480,12,-0.00487,-0.02151,0.01163,-0.03162,0.0217,-0.03996,0.02889,1.609,0.0498,-0.098,False,False,True,False
+T3_wide_central,OK,480,12,0.00198,-0.01186,0.01606,-0.00821,0.01316,-0.01019,0.01657,0.765,0.01988,0.1,False,False,True,True
+T4_periodic,OK,480,12,-3e-05,-0.00624,0.00615,-0.00637,0.00616,-0.0067,0.00806,1.011,0.01082,-0.003,False,False,True,True
+T5_shuffled,OK,480,12,0.00145,-0.00612,0.00929,-0.00288,0.00789,-0.00352,0.01026,0.699,0.01058,0.137,False,False,True,True
+T6_center_anchored,OK,480,12,0.00285,-0.00261,0.00975,-0.00129,0.00816,-0.00186,0.00978,0.765,0.00878,0.325,False,False,True,True
+T8_minimax,OK,480,12,-0.00215,-0.01069,0.0063,-0.00867,0.00433,-0.01071,0.00618,0.765,0.01304,-0.165,False,False,True,True

@@ -1,0 +1,13 @@
+stratum,sd,n_goals,half_width,inside_sesoi
+matched controls,0.01988,12,0.01125,True
+matched controls,0.01988,20,0.00871,True
+matched controls,0.01988,24,0.00795,True
+matched controls,0.01988,32,0.00689,True
+matched controls,0.01988,40,0.00616,True
+matched controls,0.01988,60,0.00503,True
+weak baselines,0.0498,12,0.02818,True
+weak baselines,0.0498,20,0.02183,True
+weak baselines,0.0498,24,0.01992,True
+weak baselines,0.0498,32,0.01725,True
+weak baselines,0.0498,40,0.01543,True
+weak baselines,0.0498,60,0.0126,True

@@ -1,0 +1,9 @@
+{
+  "model": "olmo2-1b-instruct",
+  "repo": "allenai/OLMo-2-0425-1B-Instruct",
+  "dtype": "float16",
+  "n": 16,
+  "plain_refusal_rate": 0.9375,
+  "coherence": 1.0,
+  "USABLE": true
+}

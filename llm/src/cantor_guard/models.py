@@ -24,10 +24,29 @@ MODEL_REGISTRY: dict[str, dict] = {
         "revision": "a10cc1512eabd3dde888204e902eca88bddb4951",
         "family": "smollm2", "license": "apache-2.0",
     },
+    # TinyLlama-1.1B is likewise kept for its NEGATIVE result (V3.2 prescreen):
+    # 0/20 refusals on PLAIN harmful prompts -- it complies without any
+    # jailbreak, so it cannot serve as a safety-steering testbed either.
     "tinyllama-1.1b-chat": {
         "repo": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         "revision": "fe8a4ea1ffedaf415f4da2f062534de366a451e6",
         "family": "llama", "license": "apache-2.0",
+    },
+    # ---- V3.2 replication (Model B) candidates, prescreened in order ----
+    "olmo2-1b-instruct": {
+        "repo": "allenai/OLMo-2-0425-1B-Instruct",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "family": "olmo2", "license": "apache-2.0",
+    },
+    "smollm2-1.7b-instruct": {
+        "repo": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+        "revision": "31b70e2e869a7173562077fd711b654946d38674",
+        "family": "smollm2", "license": "apache-2.0",
+    },
+    "qwen2.5-1.5b-instruct": {
+        "repo": "Qwen/Qwen2.5-1.5B-Instruct",
+        "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+        "family": "qwen2.5", "license": "apache-2.0",
     },
 }
 
