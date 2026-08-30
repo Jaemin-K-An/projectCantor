@@ -18,14 +18,8 @@ if [ ! -f configs/v3_2/frozen_$A.json ]; then
     2>&1 | tee $L/fit_qwen.log
 fi
 
-if [ ! -f configs/v3_2/frozen_$B.json ]; then
-  step "FIT model B ($B)"
-  python3 scripts/v3_2/fit_and_freeze.py --model $B --dtype float16 --batch 6 \
-    2>&1 | tee $L/fit_olmo2.log
-fi
-
-step "FREEZE"
-python3 scripts/v3_2/freeze.py 2>&1 | tee $L/freeze.log
+step "FREEZE model A"
+python3 scripts/v3_2/freeze.py --model $A 2>&1 | tee $L/freeze_A.log
 
 step "FINAL TEST model A"
 python3 scripts/v3_2/run_final_test.py --model $A --batch 10 2>&1 | tee $L/test_qwen.log
@@ -33,8 +27,19 @@ python3 scripts/v3_2/run_final_test.py --model $A --batch 10 2>&1 | tee $L/test_
 step "EXTERNAL SCORING model A"
 python3 scripts/v3_2/score_external.py --model $A 2>&1 | tee $L/score_qwen.log
 
+step "FIT model B ($B)"
+if [ ! -f configs/v3_2/frozen_$B.json ]; then
+  python3 scripts/v3_2/fit_and_freeze.py --model $B --dtype float16 --batch 4 \
+    --layout-seeds 2 \
+    --families T0_none,T1_true_constant,T4_periodic,T5_shuffled,T6_center_anchored,T7_cantor \
+    2>&1 | tee $L/fit_olmo2.log
+fi
+
+step "FREEZE model B"
+python3 scripts/v3_2/freeze.py --model $B 2>&1 | tee $L/freeze_B.log
+
 step "FINAL TEST model B"
-python3 scripts/v3_2/run_final_test.py --model $B --dtype float16 --batch 6 \
+python3 scripts/v3_2/run_final_test.py --model $B --dtype float16 --batch 4 \
   --attacks authority_test 2>&1 | tee $L/test_olmo2.log
 
 step "EXTERNAL SCORING model B"

@@ -1,0 +1,10 @@
+family,safe_lex32,safe_ext,C_rms
+T3_wide_central,0.10368,0.23471,0.0145
+T7_cantor,0.10059,0.22504,0.01988
+T1_true_constant,0.09853,0.23412,0.01941
+T8_minimax,0.09849,0.23252,0.01921
+T2_global_smooth,0.09825,0.24537,0.01671
+T6_center_anchored,0.09739,0.22712,0.01969
+T4_periodic,0.0931,0.22041,0.0202
+T5_shuffled,0.09303,0.22034,0.01999
+T0_none,0.08434,0.20253,0.0

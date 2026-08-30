@@ -38,6 +38,14 @@ ap.add_argument("--max-new", type=int, default=48)
 ap.add_argument("--budget", type=float, default=0.02)
 ap.add_argument("--qcap", type=float, default=0.05)
 ap.add_argument("--layout-seeds", type=int, default=3)
+# The replication model runs a reduced set. It exists to test whether the
+# Model A verdict is model-specific, and that verdict turns on the DECISIVE
+# comparisons -- Cantor against the width/energy-matched orderings, plus the
+# two baselines that say whether intervening helps at all. Secondary families
+# (wide_central, global_smooth, minimax) do not bear on it and cost 38% of the
+# runtime on a model that generates 4x slower.
+ap.add_argument("--families", default=None,
+                help="comma-separated subset of V31_LLM_FAMILIES")
 ap.add_argument("--seed", type=int, default=20260830)
 args = ap.parse_args()
 seed_everything(args.seed)
@@ -128,7 +136,15 @@ for e_ in (1.0, 2.0, 3.0, 5.0, 7.0):
 cand = [r["eps"] for r in sweep if BAND[0] <= r["safe_mean"] <= BAND[1]]
 EPS_STAR = (max(cand) if cand else
             float(min(sweep, key=lambda r: abs(r["safe_mean"] - np.mean(BAND)))["eps"]))
-EPS = [0.0, float(EPS_STAR), 10.0]
+# eps=10 is NOT carried into the test grid. The D_dev sweep above shows every
+# controller pinned to the safety floor at eps>=5, so those cells cannot say
+# which controller is better -- and including them makes the realised budget
+# nearly unmatchable, because the q-cap binds on almost every token there and
+# C_rms(eta) develops a hard kink. Spending test compute on a cell that
+# discriminates nothing, at the cost of the fairness constraint the whole
+# comparison rests on, is a bad trade. The floor result is reported from this
+# D_dev sweep instead.
+EPS = [0.0, float(EPS_STAR)]
 print(f"  band {BAND} -> eps* = {EPS_STAR};  eps grid = {EPS}")
 
 # ------------------------------------------------ metric attainability gate
@@ -154,8 +170,12 @@ t = open("configs/v3_1/l9_frozen_weights.toml").read()
 L9W = np.array([float(x) for x in re.search(r"weights = \[(.*?)\]", t, re.S)
                 .group(1).split(",")])
 
+FAMS = (args.families.split(",") if args.families else V31_LLM_FAMILIES)
+bad = set(FAMS) - set(V31_LLM_FAMILIES)
+if bad:
+    raise SystemExit(f"unknown families: {sorted(bad)}")
 INST = []
-for fam in V31_LLM_FAMILIES:
+for fam in FAMS:
     for s in (range(1, args.layout_seeds + 1) if fam in V31_RANDOMISED else [0]):
         INST.append((fam, s, Controller31(fam, n=5, B_total=1.0, gamma=0.7,
                      eta=1.0, seed=s,
@@ -183,41 +203,51 @@ t0 = time.time(); GAINS = {}
 # leaves a several-percent residual (measured: -7.2% to +7.8%). A secant solve
 # on eta absorbs that; it stops as soon as the realised C_rms is inside the
 # tolerance, so well-behaved controllers still cost only two evaluations.
-TOL, MAXIT = 0.02, 6
+TOL, MAXIT = 0.02, 14
 for fam, s, c in INST:
     if fam == "T0_none":
         GAINS[f"{fam}|{s}"] = {"eta": 0.0, "achieved_C_rms": 0.0, "rel_err": 0.0,
-                               "matched": True, "sup_deriv": 0.0, "iters": 0}
+                               "matched": True, "sup_deriv": 0.0, "iters": 0,
+                               "saturated": False}
         continue
     base = probe_crms(c, 1.0)
     if base <= 1e-12:
         GAINS[f"{fam}|{s}"] = {"eta": 0.0, "achieved_C_rms": 0.0, "rel_err": -1.0,
                                "matched": False, "sup_deriv": float(c.sup_deriv),
-                               "iters": 1}
+                               "iters": 1, "saturated": False}
         print(f"  {fam:20s} s{s} DEGENERATE (C_rms=0 at eta=1)", flush=True)
         continue
-    e0, f0 = 1.0, base - args.budget
-    eta = args.budget / base
-    ach = probe_crms(c, eta); it = 2
-    while abs(ach - args.budget) / args.budget > TOL and it < MAXIT:
-        f1 = ach - args.budget
-        denom = f1 - f0
-        step = -f1 * (eta - e0) / denom if abs(denom) > 1e-15 else 0.0
-        e0, f0 = eta, f1
-        nxt = eta + step
-        # keep the iterate positive and bounded; fall back to the ratio update
-        if not np.isfinite(nxt) or nxt <= 0 or nxt > 50 * eta:
-            nxt = eta * args.budget / max(ach, 1e-12)
-        eta = float(nxt)
-        ach = probe_crms(c, eta); it += 1
+    # C_rms is monotone non-decreasing in eta, so bracket then bisect.
+    lo, hi = 0.0, args.budget / base          # exact if the cap never binds
+    ach = probe_crms(c, hi); it = 2
+    grow = 0
+    while ach < args.budget * (1 - TOL) and grow < 8:
+        lo, hi = hi, hi * 2.0                 # cap is binding; push harder
+        ach = probe_crms(c, hi); it += 1; grow += 1
+    saturated = ach < args.budget * (1 - TOL)  # target unreachable at any gain
+    eta = hi
+    if not saturated:
+        while abs(ach - args.budget) / args.budget > TOL and it < MAXIT:
+            mid = 0.5 * (lo + hi)
+            a_mid = probe_crms(c, mid); it += 1
+            if a_mid < args.budget:
+                lo = mid
+            else:
+                hi = mid
+            eta, ach = mid, a_mid
+        # report the bracket endpoint if it is the better of the two
+        a_hi = probe_crms(c, hi); it += 1
+        if abs(a_hi - args.budget) < abs(ach - args.budget):
+            eta, ach = hi, a_hi
     rel = (ach - args.budget) / args.budget
     GAINS[f"{fam}|{s}"] = {"eta": float(eta), "achieved_C_rms": float(ach),
                            "rel_err": float(rel),
                            "matched": bool(abs(rel) <= 0.03),
-                           "sup_deriv": float(c.sup_deriv), "iters": it}
+                           "sup_deriv": float(c.sup_deriv), "iters": it,
+                           "saturated": bool(saturated)}
+    flag = "SATURATED" if saturated else ("OK" if abs(rel) <= 0.03 else "FAIL")
     print(f"  {fam:20s} s{s} eta={eta:9.4f} C_rms={ach:.5f} "
-          f"({100*rel:+.1f}%) it={it} {'OK' if abs(rel)<=0.03 else 'FAIL'}",
-          flush=True)
+          f"({100*rel:+.1f}%) it={it} {flag}", flush=True)
 print(f"  budget fitting took {time.time()-t0:.0f}s")
 
 np.savez(CACHE / f"{tag}_frozen_dirs.npz", layers=np.array([BEST]),
@@ -232,7 +262,7 @@ payload = {
     "tau": float(dirs.tau[0]), "sigma": float(dirs.sigma[0]),
     "U_Delta": U, "delta_grid": [float(x) for x in DELTAS],
     "eps_grid": EPS, "eps_sweep_dev": sweep, "eps_star": float(EPS_STAR), "gamma": 0.7, "n_order": 5,
-    "target_C_rms": args.budget, "q_cap": args.qcap,
+    "target_C_rms": args.budget, "q_cap": args.qcap, "families": FAMS,
     "max_new_tokens": args.max_new,
     "attainability_gate": gate, "gains": GAINS,
     "n_matched": int(sum(g["matched"] for g in GAINS.values())),

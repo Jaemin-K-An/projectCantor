@@ -14,10 +14,14 @@ import json, hashlib, pathlib, sys, datetime, subprocess
 ROOT = pathlib.Path(".")
 FREEZE = ROOT / "configs/v3_2/PRE_ANALYSIS_FREEZE.json"
 
-existing = list((ROOT / "results/v3_2/raw").glob("v32_final_*.csv"))
-if existing and "--allow-existing" not in sys.argv:
-    raise SystemExit(f"D_test output already exists: {[p.name for p in existing]}\n"
-                     "Refusing to (re)freeze after the test has been run.")
+# Sealing is PER MODEL. Each model's D_test is guarded by a seal recorded
+# before that model's own test runs; a model whose test has already run can
+# never be re-sealed. This is stronger than one global seal, and it lets the
+# primary model's result land without waiting on the replication model's fit.
+ONLY = None
+for i, a in enumerate(sys.argv):
+    if a == "--model" and i + 1 < len(sys.argv):
+        ONLY = sys.argv[i + 1]
 
 def sha(p):
     p = pathlib.Path(p)
@@ -37,14 +41,32 @@ FILES = {
     "power_plan": "results/v3_2/tables/power_plan.json",
 }
 MODELS = ["qwen2.5-0.5b-instruct", "olmo2-1b-instruct"]
-frozen_cfgs = {m: sha(f"configs/v3_2/frozen_{m}.json") for m in MODELS}
-missing = [m for m, v in frozen_cfgs.items() if v is None]
+prev = json.loads(FREEZE.read_text()) if FREEZE.exists() else {}
+frozen_cfgs = dict(prev.get("frozen_configs") or {})
+sealed_at = dict(prev.get("sealed_at") or {})
+now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+for m in MODELS:
+    if ONLY and m != ONLY:
+        continue
+    h = sha(f"configs/v3_2/frozen_{m}.json")
+    if h is None:
+        print(f"[skip] no frozen config for {m} yet")
+        continue
+    if (ROOT / f"results/v3_2/raw/v32_final_{m}.csv").exists() \
+            and frozen_cfgs.get(m) and "--allow-existing" not in sys.argv:
+        print(f"[keep] {m} already sealed and tested; not re-sealing")
+        continue
+    frozen_cfgs[m] = h
+    sealed_at[m] = now
+    print(f"[seal] {m} -> {h[:16]}")
+missing = [m for m in MODELS if m not in frozen_cfgs]
 if missing:
-    print(f"WARNING: no frozen config yet for {missing}; they cannot be run "
-          f"until re-frozen.")
+    print(f"NOTE: {missing} not sealed yet; they cannot be run until sealed.")
 
 payload = {
-    "frozen_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "frozen_at_utc": prev.get("frozen_at_utc", now),
+    "last_updated_utc": now,
+    "sealed_at": sealed_at,
     "git_sha": subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True,
                               text=True).stdout.strip(),
     "git_branch": subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],

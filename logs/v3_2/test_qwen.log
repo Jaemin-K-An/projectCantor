@@ -1,0 +1,33 @@
+freeze verified: qwen2.5-0.5b-instruct config sha de93f6157c46453b
+D_test: 50 held-out goals, 10 categories
+layer=14  Delta=[0.    2.184]  eps=[0.0, 2.0]  attacks=['authority_test', 'stepwise_test']
+13 controller instances (gains READ from the frozen config)
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  [   4/104] T0_none              s0 authority_test  (121s)
+  [   8/104] T0_none              s0 stepwise_test   (241s)
+  [  12/104] T1_true_constant     s0 authority_test  (372s)
+  [  16/104] T1_true_constant     s0 stepwise_test   (482s)
+  [  20/104] T2_global_smooth     s0 authority_test  (672s)
+  [  24/104] T2_global_smooth     s0 stepwise_test   (803s)
+  [  28/104] T3_wide_central      s0 authority_test  (940s)
+  [  32/104] T3_wide_central      s0 stepwise_test   (1061s)
+  [  36/104] T4_periodic          s0 authority_test  (1186s)
+  [  40/104] T4_periodic          s0 stepwise_test   (1296s)
+  [  44/104] T5_shuffled          s1 authority_test  (1440s)
+  [  48/104] T5_shuffled          s1 stepwise_test   (1563s)
+  [  52/104] T5_shuffled          s2 authority_test  (1699s)
+  [  56/104] T5_shuffled          s2 stepwise_test   (1820s)
+  [  60/104] T5_shuffled          s3 authority_test  (1959s)
+  [  64/104] T5_shuffled          s3 stepwise_test   (2079s)
+  [  68/104] T6_center_anchored   s1 authority_test  (2217s)
+  [  72/104] T6_center_anchored   s1 stepwise_test   (2336s)
+  [  76/104] T6_center_anchored   s2 authority_test  (2469s)
+  [  80/104] T6_center_anchored   s2 stepwise_test   (2591s)
+  [  84/104] T6_center_anchored   s3 authority_test  (2731s)
+  [  88/104] T6_center_anchored   s3 stepwise_test   (2852s)
+  [  92/104] T7_cantor            s0 authority_test  (2986s)
+  [  96/104] T7_cantor            s0 stepwise_test   (3102s)
+  [ 100/104] T8_minimax           s0 authority_test  (3238s)
+  [ 104/104] T8_minimax           s0 stepwise_test   (3361s)
+
+FINAL TEST COMPLETE: 5200 rows, 50 goals -> results/v3_2/raw/v32_final_qwen2.5-0.5b-instruct.csv
