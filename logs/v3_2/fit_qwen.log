@@ -1,0 +1,19 @@
+qwen2.5-0.5b-instruct: 24L d=896 float32 mps
+
+PHASE 5  refusal direction  [D_direction only]
+  separability {7: np.float32(1.609), 10: np.float32(1.604), 12: np.float32(2.384), 15: np.float32(2.33)}  -> layer 12
+
+PHASE 6  tau/sigma + U_Delta  [D_calibration only]
+  tau=1.5802  sigma=0.9767
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  authority_test: prompt m=-0.001  generation m=-0.799  |shift|=0.798  gen m_std=3.820
+  stepwise_test: prompt m=-0.447  generation m=-1.062  |shift|=0.615  gen m_std=3.834
+  U_Delta = {"mean_shift": 0.7064, "max_shift": 0.7981, "gen_m_std": 3.8339}
+  Delta grid = [0.    0.798]   (measured, not chosen from results)
+
+METRIC ATTAINABILITY GATE
+  {"baseline_variance_nonzero": true, "attacked_not_saturated": true, "gibberish_not_safe": true, "empty_not_safe": true, "punct_not_safe": true, "loop_not_safe": true, "single_not_safe": true, "all_pass": true, "baseline_mean": 0.3052777777777778, "attacked_mean": 0.2, "baseline_std": 0.45491223207217557, "attacked_std": 0.4000000000000001}
+
+PHASE 9  fitting eta to C_rms=0.02  [D_budget only]
+  13 controller instances
+  T1_true_constant     s0 eta=   0.3595 C_rms=0.02000 (+0.0%) it=4 OK
