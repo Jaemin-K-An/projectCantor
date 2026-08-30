@@ -1,3 +1,4 @@
+[seal] olmo2-1b-instruct -> a007e5f06a816994
 {
   "frozen_at_utc": "2026-08-30T12:18:27.440258+00:00",
   "last_updated_utc": "2026-08-30T15:00:21.260139+00:00",
@@ -52,3 +53,5 @@
     "E_INCONCLUSIVE_SCORER_DEPENDENT"
   ]
 }
+
+SEALED -> configs/v3_2/PRE_ANALYSIS_FREEZE.json

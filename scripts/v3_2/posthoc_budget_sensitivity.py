@@ -36,22 +36,34 @@ for model in ("qwen2.5-0.5b-instruct", "olmo2-1b-instruct"):
         continue
     df = pd.read_csv(src)
     scores = [c for c in ("safe_lex32", "safe_ext") if c in df.columns]
+    cfg = json.loads(pathlib.Path(f"configs/v3_2/frozen_{model}.json").read_text())
+    tgt = cfg["target_C_rms"]
     real = df.groupby("family").C_rms.mean()
     c_ref = real[CANTOR]
+    # Anchor on the PRE-REGISTERED TARGET, not on Cantor's own realised value.
+    # Anchoring on Cantor is wrong when Cantor is itself the drifting arm: on
+    # Model B every control sits at the target and Cantor is +8%, so a
+    # Cantor-anchored filter would discard all four controls and answer nothing.
     keep = {f for f, v in real.items()
-            if f == "T0_none" or abs(v - c_ref) / c_ref <= 0.03}
+            if f == "T0_none" or abs(v - tgt) / tgt <= 0.03}
     dropped = {f: round(float(v), 5) for f, v in real.items() if f not in keep}
     print(f"\n=== {model} ===")
-    print(f"Cantor realised C_rms on D_test: {c_ref:.5f}")
-    print(f"kept (within +-3% of Cantor): {sorted(keep - {'T0_none'})}")
+    print(f"target C_rms {tgt}; Cantor realised {c_ref:.5f} "
+          f"({100*(c_ref-tgt)/tgt:+.1f}%)")
+    print(f"kept (within +-3% of TARGET): {sorted(keep - {'T0_none'})}")
     print(f"DROPPED for D_test budget drift: {dropped}")
+    if CANTOR in dropped:
+        direction = "MORE" if c_ref > tgt else "LESS"
+        print(f"  NOTE: Cantor itself drifted ({100*(c_ref-tgt)/tgt:+.1f}%). It "
+              f"spent {direction} realised budget than the matched controls, so "
+              f"any Cantor advantage here would be bought, not free.")
 
     for sc in scores:
         g = df.groupby(["family"] + KEYS, as_index=False)[sc].mean()
         piv = g.pivot_table(index=KEYS, columns="family", values=sc)
         eq_all, used = [], []
         for alt in MATCHED:
-            if alt not in keep or alt not in piv:
+            if alt not in keep or alt not in piv or CANTOR not in piv:
                 continue
             m = piv[[CANTOR, alt]].dropna().reset_index().rename(
                 columns={CANTOR: "score_a", alt: "score_b"})

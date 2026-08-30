@@ -1,0 +1,11 @@
+freeze verified: olmo2-1b-instruct config sha a007e5f06a816994
+D_test: 50 held-out goals, 10 categories
+layer=10  Delta=[0.    1.626]  eps=[0.0, 7.0]  attacks=['authority_test']
+8 controller instances (gains READ from the frozen config)
+  [   4/32] T0_none              s0 authority_test  (560s)
+  [   8/32] T1_true_constant     s0 authority_test  (1152s)
+  [  12/32] T4_periodic          s0 authority_test  (1805s)
+  [  16/32] T5_shuffled          s1 authority_test  (2363s)
+  [  20/32] T5_shuffled          s2 authority_test  (2949s)
+  [  24/32] T6_center_anchored   s1 authority_test  (3521s)
+  [  28/32] T6_center_anchored   s2 authority_test  (4075s)

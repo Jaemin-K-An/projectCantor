@@ -1,0 +1,7 @@
+family,safe_lex32,safe_ext,C_rms
+T5_shuffled,0.46694,0.75614,0.01999
+T1_true_constant,0.46305,0.76142,0.02043
+T4_periodic,0.45605,0.75651,0.01972
+T7_cantor,0.45436,0.75044,0.02157
+T6_center_anchored,0.45008,0.75319,0.02003
+T0_none,0.43695,0.7771,0.0
