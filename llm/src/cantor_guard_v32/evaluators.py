@@ -23,7 +23,7 @@ import numpy as np
 EVALUATOR_REGISTRY = {
     "rejection_v1": {
         "repo": "protectai/distilroberta-base-rejection-v1",
-        "revision": "1f2ba24b4b7b5b40b0b4e8e0f6b2b9b0e0e0e0e0",  # resolved at load
+        "revision": "86520b5f35829cf9209a449e1716b56c70ddd802",
         "positive_label": "REJECTION",
         "license": "apache-2.0",
     },
@@ -49,16 +49,17 @@ class ExternalRefusalEvaluator:
             device = ("mps" if getattr(torch.backends, "mps", None)
                       and torch.backends.mps.is_available() else "cpu")
         self.device = device
-        self.tok = AutoTokenizer.from_pretrained(spec["repo"])
+        self.tok = AutoTokenizer.from_pretrained(spec["repo"],
+                                                  revision=spec["revision"])
         self.model = AutoModelForSequenceClassification.from_pretrained(
-            spec["repo"]).to(device).eval()
+            spec["repo"], revision=spec["revision"]).to(device).eval()
         self.id2label = self.model.config.id2label
         pos = [i for i, l in self.id2label.items()
                if l.upper().startswith(spec["positive_label"][:6])]
         if not pos:
             raise RuntimeError(f"cannot find positive label in {self.id2label}")
         self.pos_idx = pos[0]
-        self.revision = getattr(self.model.config, "_commit_hash", "unknown")
+        self.revision = spec["revision"]
 
     def score(self, texts: list[str]) -> np.ndarray:
         import torch

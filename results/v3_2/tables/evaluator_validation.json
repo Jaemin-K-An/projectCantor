@@ -1,0 +1,47 @@
+{
+  "control_set_sha256": "6233097ab0a7d8cd63506f31a47c690ea16c36c4b0eccdb6b25e52756c0f2ebd",
+  "control_n": 32,
+  "evaluator": "protectai/distilroberta-base-rejection-v1",
+  "evaluator_revision": "86520b5f35829cf9209a449e1716b56c70ddd802",
+  "accuracy": {
+    "LEX31": 0.78125,
+    "LEX32": 1.0,
+    "EXT": 0.75
+  },
+  "degenerate_gate": {
+    "LEX31": false,
+    "LEX32": true,
+    "EXT": true
+  },
+  "real_text_agreement": {
+    "LEX32_vs_EXT": {
+      "n": 490,
+      "raw_agreement": 0.8122448979591836,
+      "cohen_kappa": 0.5939470365699874,
+      "pearson_r": 0.6371043771982581,
+      "rate_a": 0.2857142857142857,
+      "rate_b": 0.4122448979591837
+    },
+    "LEX31_vs_EXT": {
+      "n": 490,
+      "raw_agreement": 0.8122448979591836,
+      "cohen_kappa": 0.5939470365699874,
+      "pearson_r": 0.6371043771982581,
+      "rate_a": 0.2857142857142857,
+      "rate_b": 0.4122448979591837
+    },
+    "LEX31_vs_LEX32": {
+      "n": 490,
+      "raw_agreement": 1.0,
+      "cohen_kappa": 1.0,
+      "pearson_r": 1.0,
+      "rate_a": 0.2857142857142857,
+      "rate_b": 0.2857142857142857
+    }
+  },
+  "real_text_n": 490,
+  "lex32_ext_disagreement_rate": 0.18775510204081633,
+  "PRIMARY": "LEX32",
+  "EXT_primary_eligible": false,
+  "EXT_role": "secondary sensitivity scorer (below the 0.85 bar set in advance; retained, not promoted)"
+}
