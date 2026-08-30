@@ -1,0 +1,56 @@
+{
+  "POSTHOC": true,
+  "sealed_verdict": "B_RECURSIVE_SELF_SIMILARITY_ADVANTAGE",
+  "posthoc_verdict": "E_NO_STRUCTURAL_ADVANTAGE",
+  "reason": "no primary structural metric shows a robust Cantor advantage over the strong procedural controls",
+  "detail": {
+    "wins": {
+      "M1_canonical_bits": [],
+      "M2_certificate_assertions": [
+        "shuffled_seeded",
+        "center_anchored_seeded"
+      ],
+      "M3_point_query_words": [
+        "shuffled_seeded",
+        "center_anchored_seeded"
+      ]
+    },
+    "losses": {
+      "M1_canonical_bits": [
+        "shuffled_seeded",
+        "center_anchored_seeded",
+        "periodic_procedural"
+      ],
+      "M2_certificate_assertions": [
+        "periodic_procedural"
+      ],
+      "M3_point_query_words": []
+    },
+    "beats_all_strong_controls": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": false,
+      "M3_point_query_words": false
+    },
+    "loses_to_some_control": {
+      "M1_canonical_bits": true,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": false
+    },
+    "recursive_non_cantor_matches_cantor": {
+      "M1_canonical_bits": true,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": true
+    },
+    "recursive_non_cantor_beats_nonrecursive": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": false,
+      "M3_point_query_words": false
+    },
+    "persists_with_depth": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": false,
+      "M3_point_query_words": false
+    }
+  },
+  "correction": "periodic_procedural recounted as closed-form addressable"
+}

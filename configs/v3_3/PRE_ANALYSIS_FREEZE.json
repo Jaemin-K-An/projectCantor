@@ -1,0 +1,43 @@
+{
+  "frozen_at_utc": "2026-08-30T23:44:58.146238+00:00",
+  "git_sha": "5e3b503c0b0f8318bd9d33dda529ae8fd7e83081",
+  "git_branch": "cantor-guard-v3.3",
+  "inherits_v32_verdict": "C_PRACTICALLY_EQUIVALENT (model A, both scorers)",
+  "h1_status": "NOT SUPPORTED -- not re-tested in V3.3",
+  "sesoi": 0.03,
+  "strict_margin": 0.05,
+  "primary_metrics": [
+    "M1_canonical_bits",
+    "M2_certificate_assertions",
+    "M3_point_query_words"
+  ],
+  "files": {
+    "encoding": "d58cb67001286a9f78f78b235d8ba5469df2196b2a2295ba543fb9ab5dd0b085",
+    "classifier": "a241ecb980b1586cbd84fd10a0973508dfdd28c0d4d02251d50bcd5835aa7e09",
+    "symbolic_cantor": "e34af9c4c4bb199b7b620119a4750edf151b4a50da5044e4e57546ccd0910c62",
+    "general_recursive": "1c6b39a4456b37e6f7222a1c0f1fa8a5db18da01bd8b9364206731501c7e9a68",
+    "certificates": "cbed49bf08a810a72a9c63a2becd750afaf3d0b8971ba92f4a632b7c4980308d",
+    "complexity": "65ae6da2385392073c3f5004e9546703d3be16b33a05c3eb61b985b386b32d4b",
+    "pareto": "4c6af9f3a4412b57cc54bd0bdef671f8ff7fb52a278b24bd727422f4184e99c2",
+    "pre_analysis_plan": "00416dbacb07a15aad0b57ec95491aad1a8bd3ef6f37931b0e6a2acd2e9eb4c3"
+  },
+  "file_paths": {
+    "encoding": "configs/v3_3/encoding.json",
+    "classifier": "scripts/v3_3/final_claim_check_v33.py",
+    "symbolic_cantor": "llm/src/cantor_guard_v33/symbolic_cantor.py",
+    "general_recursive": "llm/src/cantor_guard_v33/general_recursive.py",
+    "certificates": "llm/src/cantor_guard_v33/certificates.py",
+    "complexity": "llm/src/cantor_guard_v33/complexity.py",
+    "pareto": "llm/src/cantor_guard_v33/pareto.py",
+    "pre_analysis_plan": "docs/v3_3/PRE_ANALYSIS_PLAN.md"
+  },
+  "classifier_sha256": "a241ecb980b1586cbd84fd10a0973508dfdd28c0d4d02251d50bcd5835aa7e09",
+  "verdicts": [
+    "A_CANTOR_SPECIFIC_STRUCTURAL_ADVANTAGE",
+    "B_RECURSIVE_SELF_SIMILARITY_ADVANTAGE",
+    "C_DESCRIPTION_ONLY_ADVANTAGE",
+    "D_CERTIFICATION_ONLY_ADVANTAGE",
+    "E_NO_STRUCTURAL_ADVANTAGE",
+    "F_INCONCLUSIVE"
+  ]
+}

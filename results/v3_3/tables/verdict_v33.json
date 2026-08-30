@@ -1,0 +1,105 @@
+{
+  "verdict": "B_RECURSIVE_SELF_SIMILARITY_ADVANTAGE",
+  "reason": "Cantor and the recursive non-Cantor control both beat the non-recursive layouts on a primary structural metric, and Cantor is not separately better -- the advantage belongs to recursive self-similarity, of which Cantor is one instance",
+  "classifier_sha256": "a241ecb980b1586cbd84fd10a0973508dfdd28c0d4d02251d50bcd5835aa7e09",
+  "safety_gate": {
+    "equivalent": true,
+    "reason": "symbolic and explicit Cantor agree to 1.87e-14 relative at the order the LLM test used (n=5) -- five orders of magnitude below the realised intervention of ~2% of the residual norm -- and the symbolic evaluator is no worse conditioned than the explicit one there against an exact rational reference, so the V3.2 Model A safety result is inherited",
+    "limitation_deep_n": "At n >= 12 the two float paths diverge from each other by up to 1.1e-09 relative and neither should be treated as exact; both sit near the float64 conditioning limit, which grows like 3^n because level-k geometry lives at 3^-k while the field coefficient grows like 2*(3/2)^k. Which of the two is closer to the exact rational reference varies with the sample. No safety claim depends on those depths.",
+    "inherited_from": "V3.2 Model A, C_PRACTICALLY_EQUIVALENT (both scorers)",
+    "sesoi": 0.03,
+    "llm_controller_order": 5,
+    "measurements": [
+      {
+        "n": 3,
+        "mutual_rel_error": 6.2129656792944874e-15,
+        "explicit_vs_exact": 6.110663558043168e-15,
+        "symbolic_vs_exact": 1.7490369448324547e-15,
+        "symbolic_no_worse": true,
+        "potential_total_action_error": 0.0
+      },
+      {
+        "n": 5,
+        "mutual_rel_error": 1.8650604705164088e-14,
+        "explicit_vs_exact": 4.8715207711247504e-14,
+        "symbolic_vs_exact": 4.996281607199974e-14,
+        "symbolic_no_worse": true,
+        "potential_total_action_error": 0.0
+      },
+      {
+        "n": 8,
+        "mutual_rel_error": 1.1577742118770991e-12,
+        "explicit_vs_exact": 1.3590234116509701e-12,
+        "symbolic_vs_exact": 1.2663931818351188e-12,
+        "symbolic_no_worse": true,
+        "potential_total_action_error": 0.0
+      },
+      {
+        "n": 12,
+        "mutual_rel_error": 7.845363098213284e-11,
+        "explicit_vs_exact": 6.633276663738204e-11,
+        "symbolic_vs_exact": 6.825606349749806e-11,
+        "symbolic_no_worse": true,
+        "potential_total_action_error": 0.0
+      },
+      {
+        "n": 15,
+        "mutual_rel_error": 1.0524665138372284e-09,
+        "explicit_vs_exact": 1.6629339608306074e-10,
+        "symbolic_vs_exact": 1.203749094367274e-10,
+        "symbolic_no_worse": true,
+        "potential_total_action_error": 0.0
+      }
+    ],
+    "n_points_per_depth": 200000
+  },
+  "detail": {
+    "wins": {
+      "M1_canonical_bits": [],
+      "M2_certificate_assertions": [
+        "shuffled_seeded",
+        "center_anchored_seeded",
+        "periodic_procedural"
+      ],
+      "M3_point_query_words": [
+        "shuffled_seeded",
+        "center_anchored_seeded"
+      ]
+    },
+    "losses": {
+      "M1_canonical_bits": [
+        "shuffled_seeded",
+        "center_anchored_seeded",
+        "periodic_procedural"
+      ],
+      "M2_certificate_assertions": [],
+      "M3_point_query_words": []
+    },
+    "beats_all_strong_controls": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": false
+    },
+    "loses_to_some_control": {
+      "M1_canonical_bits": true,
+      "M2_certificate_assertions": false,
+      "M3_point_query_words": false
+    },
+    "recursive_non_cantor_matches_cantor": {
+      "M1_canonical_bits": true,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": true
+    },
+    "recursive_non_cantor_beats_nonrecursive": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": false
+    },
+    "persists_with_depth": {
+      "M1_canonical_bits": false,
+      "M2_certificate_assertions": true,
+      "M3_point_query_words": false
+    }
+  },
+  "deepest_n": 20
+}

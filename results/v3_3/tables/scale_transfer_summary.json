@@ -1,0 +1,43 @@
+{
+  "exact_scale_transfer": [
+    "cantor_recursive",
+    "recursive_non_cantor"
+  ],
+  "summary": [
+    {
+      "family": "cantor_recursive",
+      "max_E_scale_rel": 6.061700935104665e-09,
+      "median_E_scale_rel": 1.4234921843813602e-11,
+      "new_params_at_max_n": 0,
+      "zero_shot": true
+    },
+    {
+      "family": "center_anchored_seeded",
+      "max_E_scale_rel": 561.636800180849,
+      "median_E_scale_rel": 44.15117338105939,
+      "new_params_at_max_n": 24573,
+      "zero_shot": false
+    },
+    {
+      "family": "periodic_procedural",
+      "max_E_scale_rel": 4.49999982977627,
+      "median_E_scale_rel": 4.445413348605923,
+      "new_params_at_max_n": 24573,
+      "zero_shot": false
+    },
+    {
+      "family": "recursive_non_cantor",
+      "max_E_scale_rel": 7.177626652486769e-10,
+      "median_E_scale_rel": 2.611916066994427e-11,
+      "new_params_at_max_n": 0,
+      "zero_shot": true
+    },
+    {
+      "family": "shuffled_seeded",
+      "max_E_scale_rel": 387.299523198391,
+      "median_E_scale_rel": 54.85505634475335,
+      "new_params_at_max_n": 24573,
+      "zero_shot": false
+    }
+  ]
+}
