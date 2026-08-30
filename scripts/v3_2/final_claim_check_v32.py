@@ -81,7 +81,8 @@ def powered_for(stat: dict, effect: float, power_plan: dict) -> bool:
 def classify(res: dict, power_plan: dict) -> tuple[str, str]:
     vs = {k: v for k, v in res["vs_matched"].items() if v}
     if not vs:
-        return "F_INVALID", "no matched-control comparison available"
+        return ("F_INVALID", "no budget-matched control comparison available "
+                f"(excluded for budget: {res.get('budget_excluded')})")
 
     if any(v["ci_hi"] < 0 for v in vs.values()):
         losers = sorted(k for k, v in vs.items() if v["ci_hi"] < 0)
@@ -123,12 +124,39 @@ def classify(res: dict, power_plan: dict) -> tuple[str, str]:
             "matched CIs neither exclude 0 nor fall entirely inside the SESOI band")
 
 
+def budget_matched_families(model: str) -> tuple[set, dict]:
+    """Families whose realised C_rms hit the target on D_budget.
+
+    PRE_ANALYSIS_PLAN section 7: a family that could not be matched to within
+    +-3% is EXCLUDED from the matched comparisons and the exclusion is
+    reported. Comparing controllers that spent different amounts of budget
+    does not answer "which geometry is better at the same cost".
+    """
+    cfg = json.loads(pathlib.Path(f"configs/v3_2/frozen_{model}.json").read_text())
+    ok, excluded = set(), {}
+    for key, g in cfg["gains"].items():
+        fam = key.split("|")[0]
+        if g["matched"]:
+            ok.add(fam)
+        else:
+            excluded[fam] = g["rel_err"]
+    return ok - set(excluded), excluded
+
+
 def run(csv: str, score: str, power_plan: dict, n_boot=20000) -> dict:
     df = pd.read_csv(csv)
+    model = str(df.model.iloc[0])
+    ok, excluded = budget_matched_families(model)
+    matched = [a for a in MATCHED if a in ok]
+    dropped = [a for a in MATCHED if a not in ok]
     res = {"score_column": score, "n_rows": len(df),
            "n_goals": int(df.pid.nunique()),
-           "vs_matched": {a: compare(df, a, score, n_boot) for a in MATCHED},
-           "vs_baselines": {a: compare(df, a, score, n_boot) for a in BASELINES}}
+           "budget_excluded": {k: round(v, 4) for k, v in excluded.items()},
+           "matched_controls_used": matched,
+           "matched_controls_dropped_for_budget": dropped,
+           "vs_matched": {a: compare(df, a, score, n_boot) for a in matched},
+           "vs_baselines": {a: compare(df, a, score, n_boot)
+                            for a in BASELINES if a in ok or a == "T0_none"}}
     v, why = classify(res, power_plan)
     res["verdict"], res["reason"] = v, why
     return res
@@ -162,6 +190,9 @@ if __name__ == "__main__":
         out["per_scorer"][sc] = run(a.csv, sc, plan)
         r = out["per_scorer"][sc]
         print(f"\n=== scorer {sc} ===  verdict {r['verdict']}\n  {r['reason']}")
+        if r["budget_excluded"]:
+            print(f"  EXCLUDED for budget mismatch: {r['budget_excluded']}")
+        print(f"  matched controls used: {r['matched_controls_used']}")
         for grp in ("vs_matched", "vs_baselines"):
             for k, v in r[grp].items():
                 if v:
