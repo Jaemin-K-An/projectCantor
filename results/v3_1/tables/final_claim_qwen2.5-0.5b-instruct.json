@@ -1,6 +1,6 @@
 {
-  "verdict": "D_CANTOR_INFERIOR",
-  "reason": "matched control(s) ['T6_center_anchored'] beat Cantor with CI excluding 0",
+  "verdict": "C_PRACTICALLY_EQUIVALENT",
+  "reason": "all matched differences lie inside +-0.03",
   "sesoi": 0.03,
   "R_worst": {
     "T0_none": 0.0,
@@ -15,92 +15,100 @@
   },
   "paired": {
     "T5_shuffled": {
-      "mean_diff": -0.0019137133171284932,
+      "mean_diff": 0.0014454240298138992,
       "median_diff": 0.0,
-      "ci_lo": -0.00454335635246036,
-      "ci_hi": 0.00014524941064804646,
+      "ci_lo": -0.006065106450398242,
+      "ci_hi": 0.009685401143102288,
       "n": 480.0,
-      "p_two_sided": 0.0822,
-      "cohen_dz": -0.07158438126455777,
-      "frac_positive": 0.07083333333333333,
-      "n_pairs": 480.0
+      "p_two_sided": 0.72,
+      "cohen_dz": 0.0167657098007344,
+      "frac_positive": 0.075,
+      "n_pairs": 480.0,
+      "budget_matched": 1.0
     },
     "T6_center_anchored": {
-      "mean_diff": -0.003924184173355314,
+      "mean_diff": 0.002849288688160805,
       "median_diff": 0.0,
-      "ci_lo": -0.008729014664037422,
-      "ci_hi": -0.0002765202295367384,
+      "ci_lo": -0.0026602639242061564,
+      "ci_hi": 0.009696787087395256,
       "n": 480.0,
-      "p_two_sided": 0.0338,
-      "cohen_dz": -0.08133748782357729,
-      "frac_positive": 0.06666666666666667,
-      "n_pairs": 480.0
+      "p_two_sided": 0.36,
+      "cohen_dz": 0.04182575425078271,
+      "frac_positive": 0.07083333333333333,
+      "n_pairs": 480.0,
+      "budget_matched": 1.0
     },
     "T0_none": {
-      "mean_diff": 0.0003461903814936794,
+      "mean_diff": 0.028543881610017294,
       "median_diff": 0.0,
-      "ci_lo": -0.00042198477600638846,
-      "ci_hi": 0.0011593759152562794,
+      "ci_lo": 0.014416600886789472,
+      "ci_hi": 0.04514465480287644,
       "n": 480.0,
-      "p_two_sided": 0.3822,
-      "cohen_dz": 0.038888693660479146,
-      "frac_positive": 0.07291666666666667,
-      "n_pairs": 480.0
+      "p_two_sided": 0.0,
+      "cohen_dz": 0.16906977286474975,
+      "frac_positive": 0.0875,
+      "n_pairs": 480.0,
+      "budget_matched": 1.0
     },
     "T1_true_constant": {
-      "mean_diff": 0.0003484873193730065,
+      "mean_diff": 0.018129511881229948,
       "median_diff": 0.0,
-      "ci_lo": -0.0003921158851726667,
-      "ci_hi": 0.0011572348079643662,
+      "ci_lo": 0.004038727694214076,
+      "ci_hi": 0.033572367542211524,
       "n": 480.0,
-      "p_two_sided": 0.3684,
-      "cohen_dz": 0.04031609798892939,
-      "frac_positive": 0.07916666666666666,
-      "n_pairs": 480.0
-    },
-    "T2_global_smooth": {
-      "mean_diff": -0.011868573123201916,
-      "median_diff": 0.0,
-      "ci_lo": -0.02253711231728808,
-      "ci_hi": -0.003274846235646898,
-      "n": 480.0,
-      "p_two_sided": 0.004,
-      "cohen_dz": -0.1064528912162595,
-      "frac_positive": 0.05625,
-      "n_pairs": 480.0
-    },
-    "T3_wide_central": {
-      "mean_diff": -0.011918230619599405,
-      "median_diff": 0.0,
-      "ci_lo": -0.022647551146502222,
-      "ci_hi": -0.0032314614437366717,
-      "n": 480.0,
-      "p_two_sided": 0.005,
-      "cohen_dz": -0.10682404178697229,
-      "frac_positive": 0.05416666666666667,
-      "n_pairs": 480.0
+      "p_two_sided": 0.0096,
+      "cohen_dz": 0.11055607470729474,
+      "frac_positive": 0.0875,
+      "n_pairs": 480.0,
+      "budget_matched": 1.0
     },
     "T4_periodic": {
-      "mean_diff": 0.0003533322109374281,
+      "mean_diff": -3.203072920499487e-05,
       "median_diff": 0.0,
-      "ci_lo": 3.363424244907782e-05,
-      "ci_hi": 0.000786240138973531,
+      "ci_lo": -0.006185096089652994,
+      "ci_hi": 0.00614767920750431,
       "n": 480.0,
-      "p_two_sided": 0.0216,
-      "cohen_dz": 0.08119452667898261,
+      "p_two_sided": 0.9884,
+      "cohen_dz": -0.0004961590028267113,
       "frac_positive": 0.027083333333333334,
-      "n_pairs": 480.0
+      "n_pairs": 480.0,
+      "budget_matched": 1.0
+    },
+    "T2_global_smooth": {
+      "mean_diff": -0.004872584038562377,
+      "median_diff": 0.0,
+      "ci_lo": -0.02149094511656417,
+      "ci_hi": 0.011724710461514366,
+      "n": 480.0,
+      "p_two_sided": 0.529,
+      "cohen_dz": -0.026706556634480762,
+      "frac_positive": 0.05625,
+      "n_pairs": 480.0,
+      "budget_matched": 0.0
+    },
+    "T3_wide_central": {
+      "mean_diff": 0.001979098712625842,
+      "median_diff": 0.0,
+      "ci_lo": -0.010918535638465246,
+      "ci_hi": 0.015704167640770875,
+      "n": 480.0,
+      "p_two_sided": 0.7954,
+      "cohen_dz": 0.013057518011361615,
+      "frac_positive": 0.06666666666666667,
+      "n_pairs": 480.0,
+      "budget_matched": 0.0
     },
     "T8_minimax": {
-      "mean_diff": -0.002115233607502521,
+      "mean_diff": -0.00215486400443417,
       "median_diff": 0.0,
-      "ci_lo": -0.006173523575144885,
-      "ci_hi": 7.915867280084228e-05,
+      "ci_lo": -0.010782057874581086,
+      "ci_hi": 0.006375109588707121,
       "n": 480.0,
-      "p_two_sided": 0.1152,
-      "cohen_dz": -0.049961378886567036,
-      "frac_positive": 0.03125,
-      "n_pairs": 480.0
+      "p_two_sided": 0.6128,
+      "cohen_dz": -0.02108194266514992,
+      "frac_positive": 0.027083333333333334,
+      "n_pairs": 480.0,
+      "budget_matched": 0.0
     }
   }
 }

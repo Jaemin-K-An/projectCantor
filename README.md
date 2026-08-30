@@ -1,5 +1,13 @@
 # 칸토어 게이트 동역학계·Neural ODE·LLM 잔차 안전 제어의 강건성 분석
 
+> **V3.1 (closure) 추가됨** — `docs/v3_1/FINAL_REPORT_KO.md` (branch `cantor-guard-v3.1`)
+> V3의 코드 결함 2건을 수정하고(진짜 상수 컨트롤러, V2 calibration 재구성),
+> **정리 T**(`‖u′‖ = 12E₀(9/2)^k`)를 증명했으며, **실제 LLM에서 실현 개입
+> 예산을 ±3 %로 맞춘 direct controller test**를 수행했다.
+> 동결된 분류기 판정: **`C_PRACTICALLY_EQUIVALENT`** — 다척도 개입은
+> 무제어(+0.029)와 진짜 상수(+0.018)보다 낫지만, **폭-정합 대조군과
+> 칸토어는 사전등록 SESOI 이내로 동등하다.**
+>
 > **V3 추가됨** — `docs/v3/FINAL_REPORT_KO.md` (branch `cantor-guard-v3`)
 > LLM 안전 판정 경계가 **정상적이지 않음**을 측정하고(중앙값 0.34 σ, 최대
 > 1.77 σ), 경계 불확실성 하에서 칸토어 구조를 재검정했다. **정리 S**로
@@ -276,3 +284,66 @@ docs/v3/           V2_LLM_AUDIT, V2_TO_V3_RATIONALE, MATHEMATICAL_THEORY,
                    BOUNDARY_SHIFT_ANALYSIS, RESULTS, FINAL_REPORT_KO
 logs/v3/PROGRESS.md   phase checkpoint (미완 항목 포함)
 ```
+
+
+---
+
+# V3.1 — 방법론적 종결 (closure)
+
+**브랜치:** `cantor-guard-v3.1` · **최종 보고서:** [`docs/v3_1/FINAL_REPORT_KO.md`](docs/v3_1/FINAL_REPORT_KO.md)
+
+## 무엇을 고쳤는가
+
+| V3 결함 | V3.1 |
+|---|---|
+| `L1_constant`가 실제로는 광폭 smoothstep 장벽 (range 1.500) | **진짜 상수** `S1_true_constant` 구현, 옛것은 `S2_global_smooth`로 보존 |
+| `C0_fixed`가 V2 calibration이 아니라 pooled | 4종 분리 (`C_V2_LAST_PROMPT` 등) |
+| `τ_mid`를 "safety boundary"라 호칭 | **projection midpoint**로 용어 후퇴 |
+| 정리 S 퍼텐셜 offset 누락 | 정정 |
+| 전역 Corollary S.1 (비 0.225–0.282) | **삭제**, 증명된 국소판 S.1′ (비 0.999–1.002) |
+| L9가 스크립트마다 재적합 | `configs/v3_1/l9_frozen_weights.toml` 동결 |
+| LLM direct test 부재 | **수행** |
+
+## 새 정리 T
+
+```
+‖u′_k‖_∞ = 6·e_k/w_k² = 12·E₀·(9/2)^k        (측정/예측 비 1.000000)
+S_u(Δ) ≤ ‖u′‖_∞·|Δ|,   진짜 상수는 ‖u′‖ = 0 ⇒ S ≡ 0
+```
+
+같은 예산에서 다척도 장벽(4428.7)은 광폭 장벽(6.0)보다 **738배** 민감하다.
+**단, 정리 T도 배치 무관**이다 — 다척도가 취약한 이유는 설명하지만
+칸토어가 shuffle과 다른 이유는 설명하지 않는다.
+
+## 결과
+
+**합성** (42,768 sim, 실현 예산 ±2 %): 최적은 상수(0.2606)가 아니라
+**광폭 shaped barrier**(0.5244). 칸토어 0.0500으로 하위권.
+→ **V3의 "상태 무관성이 최적" 주장 기각.**
+
+**LLM direct test** (6,240행, 실현 예산 ±3 %, 지표 게이트 통과):
+
+| 대조군 | Δ 안전도 | 95 % CI |
+|---|---|---|
+| shuffled | +0.0014 | [−0.0061, +0.0097] |
+| center-anchored | +0.0028 | [−0.0027, +0.0097] |
+| 무제어 | **+0.0285** | [+0.0144, +0.0451] |
+| 진짜 상수 | **+0.0181** | [+0.0040, +0.0336] |
+
+**판정: `C_PRACTICALLY_EQUIVALENT`** (자동, 동결 분류기).
+
+## V3.1 재현
+
+```bash
+julia --project=. test/v3_1/runtests_v31.jl                    # 13 171 assertions
+julia --project=. scripts/v3_1/fit_l9_frozen.jl                # L9 동결
+julia --project=. -t auto scripts/v3_1/run_synthetic_v31.jl    # 42 768 sim
+PYTHONPATH=llm/src python3 scripts/v3_1/run_llm_direct.py      # direct test (~3h)
+PYTHONPATH=llm/src python3 scripts/v3_1/final_claim_check.py   # 자동 판정
+PYTHONPATH=llm/src python3 scripts/v3_1/generate_v31_figures.py
+```
+
+## 미완 (정직하게)
+
+모델 복제(TinyLlama) · behavioral boundary 추정 · mechanism 전체 격자 재실행.
+[`FINAL_REPORT_KO.md`](docs/v3_1/FINAL_REPORT_KO.md) §31에 기록.

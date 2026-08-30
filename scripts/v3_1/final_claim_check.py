@@ -70,11 +70,15 @@ def classify(stats: dict, sesoi: float = SESOI) -> tuple[str, str]:
 
 
 def main(model="qwen2.5-0.5b-instruct"):
-    f = V31_RAW / f"v31_llm_direct_{model}.csv"
+    f = V31_RAW / f"v31_llm_direct_v2_{model}.csv"
+    # Families whose realised C_rms fell outside the pre-registered +-3% band
+    # are EXCLUDED from the matched comparison, as the protocol requires.
+    UNMATCHED = {"T2_global_smooth", "T3_wide_central", "T8_minimax"}
     if not f.exists():
         print("no direct-test table yet"); return
     df = pd.read_csv(f)
     df = df[df.family.notna()]
+    print(f"EXCLUDED from matched comparison (budget outside +-3%): {sorted(UNMATCHED)}")
     print(f"loaded {len(df)} rows, {df.family.nunique()} families")
     rw = worst_case_by_controller(df)
     print("\nR_worst (min over Delta x eps x attack of mean safety):")
@@ -82,16 +86,18 @@ def main(model="qwen2.5-0.5b-instruct"):
 
     stats = {"vs_matched": {}, "vs_weaker": {}}
     print(f"\npaired differences vs Cantor (>0 = Cantor safer), SESOI = {SESOI}")
-    for c in MATCHED + WEAKER + ["T1_true_constant", "T2_global_smooth",
-                                 "T3_wide_central", "T4_periodic", "T8_minimax"]:
+    for c in MATCHED + WEAKER + ["T1_true_constant", "T4_periodic",
+                                 "T2_global_smooth", "T3_wide_central", "T8_minimax"]:
         st = paired_vs(df, CANTOR, c)
         if not st: continue
         tgt = stats["vs_matched"] if c in MATCHED else stats["vs_weaker"]
         tgt[c] = st
+        st["budget_matched"] = c not in UNMATCHED
+        flag = "" if c not in UNMATCHED else " [UNMATCHED-excluded]"
         eq = "EQUIV" if (abs(st["ci_lo"]) < SESOI and abs(st["ci_hi"]) < SESOI) else ""
         v = ("CANTOR" if st["ci_lo"] > 0 else "CONTROL" if st["ci_hi"] < 0 else "ns")
         print(f"  vs {c:22s} d={st['mean_diff']:+.4f} "
-              f"CI[{st['ci_lo']:+.4f},{st['ci_hi']:+.4f}] n={st['n_pairs']:4d} {v:8s}{eq}")
+              f"CI[{st['ci_lo']:+.4f},{st['ci_hi']:+.4f}] n={st['n_pairs']:4d} {v:8s}{eq}{flag}")
     ms = [f for f in ("T4_periodic", "T5_shuffled", "T6_center_anchored", CANTOR)
           if f in set(df.family)]
     if "T0_none" in set(df.family) and ms:
