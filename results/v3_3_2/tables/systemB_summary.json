@@ -1,0 +1,27 @@
+{
+  "delta_abs_used": 0.02527649004876359,
+  "per_depth": {
+    "2": {
+      "argmin_regression_rho": 0.2,
+      "max_rho_with_zero_regression": 0.44,
+      "regression_spread": 0.0,
+      "abstention_spread": 0.7197916666666666,
+      "theory_rho_abs_star": 0.47329745850685034
+    },
+    "3": {
+      "argmin_regression_rho": 0.2,
+      "max_rho_with_zero_regression": 0.4,
+      "regression_spread": 0.016145833333333335,
+      "abstention_spread": 0.6072916666666667,
+      "theory_rho_abs_star": 0.43240708673787026
+    },
+    "5": {
+      "argmin_regression_rho": 0.2,
+      "max_rho_with_zero_regression": 0.28,
+      "regression_spread": 0.30130208333333336,
+      "abstention_spread": 0.4609375,
+      "theory_rho_abs_star": null
+    }
+  },
+  "any_significant": true
+}

@@ -1,0 +1,23 @@
+{
+  "MATH_VERDICT": "A_MATH_CANTOR_BALANCED_OPTIMUM",
+  "math_reason": "rho*(kappa)=1/(2+kappa) with kappa=1 giving 1/3 uniquely; absolute-guard theorems AG/AU verified, including the n>3 counterexample where Cantor does NOT maximise G_n",
+  "EMPIRICAL_VERDICT": "C_ABSOLUTE_UNCERTAINTY_SELECTS_OTHER_RHO",
+  "empirical_reason": "the theory predicts the measured boundary, but the measured uncertainty implies rho ~ 0.462 (95% CI [0.37113863828933935, 0.49846453718174877]), outside the pre-registered Cantor band; this model does not sit in the balanced kappa=1 regime",
+  "empirical_detail": {
+    "rho_pred_ci95": [
+      0.37113863828933935,
+      0.49846453718174877
+    ],
+    "rho_pred_median": 0.46194043331314294,
+    "surface_flat": false,
+    "cantor_on_pareto_front": false,
+    "ci_inside_cantor_band": false
+  },
+  "MECHANISM_VERDICT": "M_PLAUSIBLE",
+  "mechanism_reason": "fine-scale guards are narrower than the measured calibration uncertainty, which is a possible explanation of the earlier null results, but no interaction evidence establishes it as the cause",
+  "classifier_sha256": "49bff856b680d4a87a0bd60aff0996d6d1478a7caafe95214f055422fd19f727",
+  "cantor_band": [
+    0.30333333333333334,
+    0.3633333333333333
+  ]
+}

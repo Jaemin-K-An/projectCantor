@@ -1,0 +1,51 @@
+{
+  "frozen_at_utc": "2026-08-31T02:39:35.632099+00:00",
+  "git_sha": "fd8402c339c74b64c40b8bc2b3b8f159c495a804",
+  "cantor_band": [
+    0.30333333333333334,
+    0.3633333333333333
+  ],
+  "sesoi": 0.03,
+  "target_C_rms": 0.02,
+  "q_cap": 0.05,
+  "rho_grid": [
+    0.2,
+    0.24,
+    0.28,
+    0.3333333333333333,
+    0.36,
+    0.4,
+    0.44
+  ],
+  "depth_grid": [
+    2,
+    3,
+    5
+  ],
+  "ORDERING_DISCLOSURE": "The System B real-coordinate run on D_final executed BEFORE this seal was written. Its inputs (delta_abs, the guard classifier, the rho grid) were all fixed beforehand and no rule was changed after seeing it, but the ordering discipline was not followed, so the System B result is reported as CONFIRMATORY-WITH-DISCLOSURE rather than fully sealed. The System A run executes strictly after this seal.",
+  "files": {
+    "final_split": "c3fe6bb6c7c1586e2e9096bc2c5c2c3f0e598178d16bedf054f94201ede479e5",
+    "classifier": "49bff856b680d4a87a0bd60aff0996d6d1478a7caafe95214f055422fd19f727",
+    "absolute_guard": "0931533006f087f840e96532a623a5a23e81c8181ba8ef7fe166a49b9b70296f",
+    "phase_state": "b29f40216ced01189e77d2bc6d7650ad6d6a27ba6bbd373a56fd5a2dd2a31b54",
+    "phase_generation": "73058b77eed599d597a60a1f54e2dfa75e6e3216a03d1bdb80a2a3328324b8af",
+    "phase_residuals": "8dac27915ab44d773f07eaafad08f071c325e17a6c4b8dda1d358020ef95379d",
+    "calibration": "320f80d39f3748fe6d423ea969535d382a64a3fae535671c085023de7abb6201",
+    "uncertainty": "6908e0a7e1cf5db4cbe56b015b042a4731b7a8a6c6e1f52e80302bb9285c146f",
+    "phase_calibration_result": "1deba7819e64eefb114e6b294c9d626efb81c4ba85f22d0a0b6bde0882cba1c3",
+    "theory_gate": "c96c7358bb2b1734d1bb22d25dc6055f06d4d7fcbb72a2df6d3a463d4df3419c"
+  },
+  "file_paths": {
+    "final_split": "configs/v3_3_2/final_split.json",
+    "classifier": "scripts/v3_3_2/final_claim_check_v332.py",
+    "absolute_guard": "llm/src/cantor_guard_v332/absolute_guard.py",
+    "phase_state": "llm/src/cantor_guard_v332/phase_state.py",
+    "phase_generation": "llm/src/cantor_guard_v332/phase_generation.py",
+    "phase_residuals": "llm/src/cantor_guard_v332/phase_residuals.py",
+    "calibration": "llm/src/cantor_guard_v332/calibration.py",
+    "uncertainty": "llm/src/cantor_guard_v332/uncertainty.py",
+    "phase_calibration_result": "results/v3_3_2/tables/phase_calibration_qwen2.5-0.5b-instruct.json",
+    "theory_gate": "results/v3_3_2/tables/theory_gate.json"
+  },
+  "classifier_sha256": "49bff856b680d4a87a0bd60aff0996d6d1478a7caafe95214f055422fd19f727"
+}

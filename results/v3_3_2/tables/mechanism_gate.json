@@ -1,0 +1,5 @@
+{
+  "interaction_significant": false,
+  "fine_guards_below_uncertainty": true,
+  "note": "G_5,max = 0.00512 < delta_abs q50 = 0.0253, so the fine guards V3.1/V3.2 relied on are narrower than the measured estimator uncertainty. No interaction experiment has established that as the CAUSE of the earlier nulls."
+}

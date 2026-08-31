@@ -1,0 +1,64 @@
+{
+  "delta_abs": 0.02527649004876359,
+  "per_depth": {
+    "2": {
+      "pareto_front_rhos": [
+        0.44
+      ],
+      "cantor_on_front": false,
+      "max_rho_zero_regression": 0.44,
+      "abstention_at_that_rho": 0.28020833333333334,
+      "abstention_at_cantor": 0.8674479166666667,
+      "theory_rho_abs_star": 0.47329745850685034
+    },
+    "3": {
+      "pareto_front_rhos": [
+        0.4,
+        0.44
+      ],
+      "cantor_on_front": false,
+      "max_rho_zero_regression": 0.4,
+      "abstention_at_that_rho": 0.60234375,
+      "abstention_at_cantor": 0.91484375,
+      "theory_rho_abs_star": 0.43240708673787026
+    },
+    "5": {
+      "pareto_front_rhos": [
+        0.2,
+        0.24,
+        0.28,
+        0.3333333333333333,
+        0.36,
+        0.4,
+        0.44
+      ],
+      "cantor_on_front": true,
+      "max_rho_zero_regression": 0.28,
+      "abstention_at_that_rho": 1.0,
+      "abstention_at_cantor": 0.96640625,
+      "theory_rho_abs_star": null
+    }
+  },
+  "bracketing": {
+    "2": {
+      "empirical_bracket": [
+        0.44,
+        0.5
+      ],
+      "theory": 0.47329745850685034,
+      "bracketed": true
+    },
+    "3": {
+      "empirical_bracket": [
+        0.4,
+        0.44
+      ],
+      "theory": 0.43240708673787026,
+      "bracketed": true
+    },
+    "5": {
+      "bracketed": null,
+      "note": "no zero-regression rho or infeasible"
+    }
+  }
+}

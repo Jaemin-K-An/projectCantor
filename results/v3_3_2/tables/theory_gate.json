@@ -1,0 +1,9 @@
+{
+  "G_ok": true,
+  "BGR_ok": true,
+  "P_ok": true,
+  "R_exact": true,
+  "AG_ok": true,
+  "AU_ok": true,
+  "note": "AG/AU verified in test_absolute_guard.py; AU.1 exact to 2.3e-15"
+}

@@ -1,0 +1,18 @@
+{
+  "phase_hook_verified": true,
+  "two_class_calibration": true,
+  "delta_rho_independent": true,
+  "final_untouched": true,
+  "rho_pred_median": 0.46194043331314294,
+  "rho_pred_ci95": [
+    0.37113863828933935,
+    0.49846453718174877
+  ],
+  "surface_flat": false,
+  "cantor_on_pareto_front": false,
+  "theory_brackets_empirical_boundary": {
+    "2": true,
+    "3": true,
+    "5": null
+  }
+}
