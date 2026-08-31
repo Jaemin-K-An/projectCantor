@@ -1,0 +1,16 @@
+{
+  "budget_matched": true,
+  "endpoint_attainable": true,
+  "cantor_vs_alt_ci": [
+    -0.015766843301797076,
+    0.02127176411638137
+  ],
+  "sesoi": 0.02,
+  "any_significant_simultaneous": false,
+  "all_equivalent_simultaneous": false,
+  "auc_spread": 0.025443537731857993,
+  "utility_spread": 0.0,
+  "excluded_for_budget": {
+    "0.46": -0.111
+  }
+}

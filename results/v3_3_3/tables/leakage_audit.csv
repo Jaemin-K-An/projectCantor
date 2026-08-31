@@ -1,0 +1,7 @@
+check,n_violations,examples
+D_final ∩ ever_used_for_tuning,0,[]
+D_final ∩ prior_version_final,0,[]
+D_final ∩ D_beh,0,[]
+D_final ids in direction/calibration/budget split,0,[]
+D_final ids in V3.3.2 final,0,[]
+D_final ids in behavioral fit,0,[]

@@ -1,0 +1,13 @@
+{
+  "MATHEMATICS": "M1_CANTOR_UNIQUE_DEPTH3_GUARD_MAXIMISER",
+  "math_reason": "G_n'(rho)=rho^(n-2)[(n-1)-2n rho] gives rho_max=(n-1)/(2n); n=3 yields exactly 1/3, and for n!=3 the maximiser is NOT 1/3",
+  "BEHAVIORAL_BOUNDARY": "M2_BEHAVIORAL_BOUNDARY_IDENTIFIED",
+  "behavior_reason": "tau_beh=-2.6263 CI95 [-3.2469979091992887, -1.972365838713472]; it differs from the projection midpoint by 3.90 sigma",
+  "SYSTEM_B": "SB_QUANTITATIVE_CONSISTENCY",
+  "system_b_reason": "measured minimum crossing distance matches G_n to within 0.95%, inside the pre-declared 1% tolerance",
+  "SYSTEM_A": "F_INCONCLUSIVE",
+  "system_a_reason": "CI [-0.015766843301797076, 0.02127176411638137] neither excludes 0 nor fits inside +-0.02",
+  "OVERALL": "INCONCLUSIVE_GENERATION",
+  "overall_reason": "CI [-0.015766843301797076, 0.02127176411638137] neither excludes 0 nor fits inside +-0.02",
+  "classifier_sha256": "ac3b84fce1861e5b783ac5563fb9f812e7ea3bf8c490cdef12bab207f1b91af7"
+}

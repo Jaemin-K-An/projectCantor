@@ -1,0 +1,13 @@
+{
+  "adversarial": true,
+  "tolerance": 0.01,
+  "max_ratio_deviation": 0.009452099177107431,
+  "bound_violations": 0,
+  "tightest_real_ratio": 1.0010480043952352,
+  "dense_coverage_ratio_range": [
+    1.0000050000160443,
+    1.0094520991771074
+  ],
+  "ordering_correct": true,
+  "n_configs": 39
+}

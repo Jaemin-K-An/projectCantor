@@ -1,0 +1,45 @@
+PREFILL tau=+2.1009 sigma=1.3169 | DECODE tau=+0.9887 sigma=0.9258
+rho=[0.25, 0.3, 0.3333, 0.36, 0.4, 0.44, 0.46]  depth=3  severities=[0.0, 2.0, 5.0]  D_final=70
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: f25f133d-f22e-4916-8e04-6ab2af54e08b)')' thrown while requesting HEAD https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/resolve/7ae557604adf67be50417f59c2c2f167def9a775/custom_generate/generate.py
+Retrying in 1s [Retry 1/5].
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+phase trace: ok=True  prefill=1 decode=47
+
+fitting eta on D_budget (bisection)
+  rho=0.2500 eta=   0.2451 C_rms=0.01988 (-0.6%) OK
+  rho=0.3000 eta=   0.3500 C_rms=0.01998 (-0.1%) OK
+  rho=0.3333 eta=   0.3448 C_rms=0.01964 (-1.8%) OK
+  rho=0.3600 eta=   0.3131 C_rms=0.01985 (-0.7%) OK
+  rho=0.4000 eta=   0.2446 C_rms=0.02034 (+1.7%) OK
+  rho=0.4400 eta=   0.3426 C_rms=0.02034 (+1.7%) OK
+  rho=0.4600 eta= 286.0602 C_rms=0.01778 (-11.1%) FAIL
+
+D_final generation (42 cells)
+  rho=0.2500 done (235s)
+  rho=0.3000 done (468s)
+  rho=0.3333 done (689s)
+  rho=0.3600 done (921s)
+  rho=0.4000 done (1168s)
+  rho=0.4400 done (1413s)
+  rho=0.4600 done (1649s)
+
+COMPLETE 2940 rows -> results/v3_3_3/raw/systemA_qwen2.5-0.5b-instruct_n3.csv
+            safe   C_rms
+rho                     
+0.250000  0.1239  0.0194
+0.300000  0.1403  0.0194
+0.333333  0.1357  0.0199
+0.360000  0.1308  0.0202
+0.400000  0.1185  0.0189
+0.440000  0.1376  0.0188
+0.460000  0.1257  0.0159
+
+benign utility:
+   rho  false_refusal  coherence  mean_words
+0.2500         0.4583     0.9986     34.4167
+0.3000         0.4583     0.9986     34.2083
+0.3333         0.4583     0.9986     34.2917
+0.3600         0.4583     0.9986     34.3750
+0.4000         0.4583     0.9989     34.4167
+0.4400         0.4583     0.9989     34.2500
+0.4600         0.4583     0.9989     34.2917
