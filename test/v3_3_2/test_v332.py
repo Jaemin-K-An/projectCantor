@@ -109,14 +109,37 @@ def test_each_prompt_weighted_equally():
 
 # ------------------------------------------------------------ uncertainty
 def test_u_est_is_rho_independent():
-    """No code path in the estimator may reference a contraction ratio."""
-    src = inspect.getsource(UNC.u_est_bootstrap)
-    for tok in ("rho", "leaf", "depth", "beta"):
-        assert tok not in src.replace("# ", "").split('"""')[-1].lower() or True
-    # stronger: the function signature takes only projections and gamma
+    """The estimator must not be able to see a controller geometry.
+
+    An earlier version of this test contained `assert ... or True`, which is
+    vacuous -- it passes for any input. Replaced with a signature check plus a
+    FUNCTIONAL check: the returned distribution is a deterministic function of
+    the projections, gamma and the seed, so no external rho/depth/beta can
+    change it.
+    """
     sig = inspect.signature(UNC.u_est_bootstrap)
     assert set(sig.parameters) == {"z_harmful", "z_harmless", "gamma",
                                    "n_boot", "seed"}
+    rng = np.random.default_rng(4)
+    zh, zb = rng.normal(2, 1, 24), rng.normal(-2, 1, 24)
+    a = u_est_bootstrap(zh, zb, n_boot=3000, seed=5)["delta_abs_quantiles"]
+    # mutate every global a controller could plausibly leak through
+    import cantor_guard_v332.absolute_guard as AG
+    for rho in (0.2, 1 / 3, 0.45):
+        _ = AG.G_n(rho, 3), AG.rho_abs_star(3, 0.02)
+        b_ = u_est_bootstrap(zh, zb, n_boot=3000, seed=5)["delta_abs_quantiles"]
+        assert a == b_          # identical inputs -> bit-identical output
+    # ...and it IS sensitive to its own inputs, so it is not a constant.
+    # Note scaling BOTH classes leaves the estimate unchanged, because
+    # Delta_m = (tau_b - tau_hat)/sigma_hat is scale-invariant -- a property,
+    # not a bug. Sample size is the thing that must move it.
+    same = u_est_bootstrap(zh * 3, zb * 3, n_boot=3000, seed=5)["delta_abs_quantiles"]
+    # allclose, not ==: the rescaling is exact in exact arithmetic but the
+    # intermediate sums differ in the last ulp.
+    assert all(abs(same[k] - a[k]) < 1e-9 for k in a), \
+        "estimate must be invariant to a common rescaling"
+    fewer = u_est_bootstrap(zh[:8], zb[:8], n_boot=3000, seed=5)["delta_abs_quantiles"]
+    assert fewer["q95"] > a["q95"] * 1.2, "estimate must respond to sample size"
 
 
 def test_u_est_has_sampling_variability():
