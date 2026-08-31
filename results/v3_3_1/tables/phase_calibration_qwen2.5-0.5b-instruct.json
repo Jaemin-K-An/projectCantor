@@ -1,0 +1,89 @@
+{
+  "model": "qwen2.5-0.5b-instruct",
+  "layer": 14,
+  "gamma": 0.7,
+  "depth": 5,
+  "separability": {
+    "7": 1.6088790893554688,
+    "11": 1.5047776699066162,
+    "14": 2.626824378967285,
+    "18": 2.3853654861450195
+  },
+  "tau_prompt": 2.1009416580200195,
+  "sigma_prompt": 1.2493033409118652,
+  "tau_generation": -0.3700243663981695,
+  "sigma_generation": 4.268783429824595,
+  "phase_drift_sigma": 1.977875143289566,
+  "eps_cal_quantiles": {
+    "q50": 0.11135251075029373,
+    "q75": 0.21335196495056152,
+    "q90": 0.26411622762680054,
+    "q95": 0.27675318717956543
+  },
+  "guard_feasible": {
+    "q50": {
+      "eps": 0.11135251075029373,
+      "feasible_lo": null,
+      "feasible_hi": null,
+      "cantor_feasible": false
+    },
+    "q75": {
+      "eps": 0.21335196495056152,
+      "feasible_lo": null,
+      "feasible_hi": null,
+      "cantor_feasible": false
+    },
+    "q90": {
+      "eps": 0.26411622762680054,
+      "feasible_lo": null,
+      "feasible_hi": null,
+      "cantor_feasible": false
+    },
+    "q95": {
+      "eps": 0.27675318717956543,
+      "feasible_lo": null,
+      "feasible_hi": null,
+      "cantor_feasible": false
+    }
+  },
+  "rho_max_finest_guard": 0.4,
+  "max_useful_depth": {
+    "q50": {
+      "eps": 0.11135251075029373,
+      "n_max_by_rho": {
+        "0.25": 2,
+        "0.3333": 1,
+        "0.4": 1
+      },
+      "n_max_over_all_rho": 2
+    },
+    "q75": {
+      "eps": 0.21335196495056152,
+      "n_max_by_rho": {
+        "0.25": 1,
+        "0.3333": 1,
+        "0.4": 0
+      },
+      "n_max_over_all_rho": 1
+    },
+    "q90": {
+      "eps": 0.26411622762680054,
+      "n_max_by_rho": {
+        "0.25": 1,
+        "0.3333": 1,
+        "0.4": 0
+      },
+      "n_max_over_all_rho": 1
+    },
+    "q95": {
+      "eps": 0.27675318717956543,
+      "n_max_by_rho": {
+        "0.25": 1,
+        "0.3333": 1,
+        "0.4": 0
+      },
+      "n_max_over_all_rho": 1
+    }
+  },
+  "split_sha256": "69e3d8017495efd8f0be97d0fd3c12c8fe61b1b84c5a51524dcc30835b8bd20c"
+}

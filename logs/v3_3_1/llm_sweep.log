@@ -1,0 +1,29 @@
+layer=14  tau_gen=-0.3700 sigma_gen=4.2688  (phase drift 1.98 sigma)
+rho=[0.24, 0.3333, 0.4]  depth=[2, 5]  D_test=50 goals
+
+fitting eta on D_budget (bisection, C_rms monotone in eta)
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+  rho=0.2400 n=2  eta=   0.3314  C_rms=0.02032 (+1.6%) OK
+  rho=0.3333 n=2  eta=   0.1837  C_rms=0.02018 (+0.9%) OK
+  rho=0.4000 n=2  eta=   0.1372  C_rms=0.02018 (+0.9%) OK
+  rho=0.2400 n=5  eta=   0.4162  C_rms=0.01986 (-0.7%) OK
+  rho=0.3333 n=5  eta=   0.3891  C_rms=0.02033 (+1.6%) OK
+  rho=0.4000 n=5  eta=   0.2952  C_rms=0.02040 (+2.0%) OK
+
+D_test sweep (24 cells)
+  rho=0.2400 n=2 done (186s)
+  rho=0.3333 n=2 done (370s)
+  rho=0.4000 n=2 done (553s)
+  rho=0.2400 n=5 done (737s)
+  rho=0.3333 n=5 done (920s)
+  rho=0.4000 n=5 done (1090s)
+
+COMPLETE: 1200 rows -> results/v3_3_1/raw/v331_llm_rho_qwen2.5-0.5b-instruct.csv
+                  safe   C_rms
+depth rho                     
+2     0.240000  0.1909  0.0201
+      0.333333  0.1955  0.0202
+      0.400000  0.1896  0.0199
+5     0.240000  0.1915  0.0196
+      0.333333  0.1900  0.0200
+      0.400000  0.1846  0.0200

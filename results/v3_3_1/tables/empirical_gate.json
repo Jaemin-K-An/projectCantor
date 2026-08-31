@@ -1,0 +1,19 @@
+{
+  "available": true,
+  "depth_tested": 2,
+  "max_useful_depth_best_rho": 2,
+  "rho_empirical_optimum": 0.3333333333333333,
+  "per_depth": {
+    "2": {
+      "argmax_rho": 0.3333333333333333,
+      "spread": 0.0058185735374938485,
+      "any_significant": false
+    },
+    "5": {
+      "argmax_rho": 0.24,
+      "spread": 0.006885989338803911,
+      "any_significant": false
+    }
+  },
+  "note": "rho_empirical_optimum is taken from the deepest FEASIBLE depth; depths above the noise floor cannot discriminate rho"
+}

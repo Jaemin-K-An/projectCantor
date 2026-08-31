@@ -1,0 +1,9 @@
+{
+  "G_ok": true,
+  "BGR_ok": true,
+  "P_ok": true,
+  "R_exact": true,
+  "counterexamples": true,
+  "new_coverage_argmax": "n/(2*(n + 1))",
+  "note": "R_exact verified in test_theorems.py: structural drift == 0.0 exactly"
+}

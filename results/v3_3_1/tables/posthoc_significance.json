@@ -1,0 +1,21 @@
+{
+  "POSTHOC": true,
+  "sealed_verdict": "B_CANTOR_BALANCED_OPTIMUM_EMPIRICALLY_SUPPORTED",
+  "posthoc_verdict": "D_THEORY_VALID_EMPIRICAL_INCONCLUSIVE",
+  "reason": "no empirical optimum could be located",
+  "any_significant": false,
+  "max_spread": 0.006885989338803911,
+  "utility_spread": 0.0,
+  "detail": {
+    "level1_checks": {
+      "G_rho_star": true,
+      "BGR_unique_max": true,
+      "P_monotonicity": true,
+      "R_exact": true,
+      "counterexamples_present": true
+    },
+    "max_useful_depth": 2,
+    "depth_tested": 2
+  },
+  "correction": "sealed rule promoted on argmax proximity alone, without requiring the optimum to be distinguishable"
+}
