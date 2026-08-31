@@ -1,0 +1,48 @@
+{
+  "G_solution": "[1/(kappa + 2)]",
+  "G_ok": true,
+  "G_at_kappa1": "1/3",
+  "BGR_ok": true,
+  "BGR_max_value": "1/(kappa + 2)",
+  "P_monotonicity": {
+    "retention": {
+      "derivative": "2",
+      "sign_at_1/3": "1",
+      "want": "increasing"
+    },
+    "hausdorff_dim": {
+      "derivative": "log(2)/(rho*log(rho)**2)",
+      "sign_at_1/3": "1",
+      "want": "increasing"
+    },
+    "alpha_field": {
+      "derivative": "-1/(2*rho**2)",
+      "sign_at_1/3": "-1",
+      "want": "decreasing"
+    },
+    "alpha_sensitivity": {
+      "derivative": "-1/rho**3",
+      "sign_at_1/3": "-1",
+      "want": "decreasing"
+    }
+  },
+  "P_ok": true,
+  "counterexample_limits": {
+    "retention": "1",
+    "d_H": "1",
+    "alpha_field": "1",
+    "alpha_sensitivity": "2"
+  },
+  "new_coverage_argmax": "n/(2*(n + 1))",
+  "new_coverage_by_n": {
+    "1": 0.25,
+    "2": 0.3333333333333333,
+    "3": 0.375,
+    "5": 0.4166666666666667,
+    "10": 0.45454545454545453,
+    "50": 0.49019607843137253
+  },
+  "mu_K": "(2/3)**n",
+  "mu_G_next": "2**n*3**(-n - 1)",
+  "beta_for_cantor": "[1/2]"
+}
