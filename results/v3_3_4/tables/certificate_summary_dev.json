@@ -1,0 +1,32 @@
+{
+  "violations": 0,
+  "n_below_cert_configs": 468,
+  "depthshift": [
+    {
+      "n": 2,
+      "rho_empirical_peak": 0.44,
+      "rho_theory": 0.25,
+      "abs_error": 0.19,
+      "peak_median_switch_eps": 2.7,
+      "frac_switched_at_peak": 1.0
+    },
+    {
+      "n": 3,
+      "rho_empirical_peak": 0.2,
+      "rho_theory": 0.3333333333333333,
+      "abs_error": 0.1333333333333333,
+      "peak_median_switch_eps": 2.0500000000000003,
+      "frac_switched_at_peak": 1.0
+    },
+    {
+      "n": 5,
+      "rho_empirical_peak": 0.44,
+      "rho_theory": 0.4,
+      "abs_error": 0.03999999999999998,
+      "peak_median_switch_eps": 0.4,
+      "frac_switched_at_peak": 1.0
+    }
+  ],
+  "corr": -0.06401843996644775,
+  "median_abs_error": 0.1333333333333333
+}

@@ -1,0 +1,15 @@
+{
+  "MATH": "M1_CANTOR_DEPTH3_MAXIMIN_PROVED",
+  "math_reason": "M_n(rho)=rho^(n-1)(1-2rho) is the infimum cross-leaf margin; M_3'(rho)=2rho(1-3rho) gives rho=1/3 as the UNIQUE depth-3 maximiser with M_3(1/3)=1/27; rho_max(n)=(n-1)/(2n) elsewhere",
+  "CERTIFICATE": "C1_CERTIFICATE_VALIDATED",
+  "certificate_reason": "no violation in 468 below-certificate configurations; the Lipschitz certificate is maximised at 1/3. The EXACT inverse-logit certificate is maximised at rho=0.296, not 1/3: the logistic warp moves that optimum, and Cantor's exactness holds for the r-space margin and the Lipschitz certificate only.",
+  "COORDINATE": "R2_PARTIAL_COORDINATE_TRANSFER",
+  "coordinate_reason": "the certificate is never violated, but the empirical optimum does NOT follow the depth law (corr -0.064, median |err| 0.133). The real states sit at r~0.041 in the saturated tail, where the local slope is 6.3x below the Lipschitz maximum, so the GLOBAL maximin margin does not govern their local robustness",
+  "GENERATION": "G3_PRACTICALLY_EQUIVALENT",
+  "generation_reason": "CI [-0.0002918254069521884, 0.00010206258133409713] lies inside +-0.02",
+  "UTILITY": "U_PASS",
+  "utility_reason": "benign utility not degraded beyond the frozen bound",
+  "OVERALL": "C_GEOMETRIC_CERTIFICATE_VALID_NO_BEHAVIORAL_TRANSFER",
+  "overall_reason": "the certificate is exact and never violated, but the depth law does not govern the states the model actually produces, and generation shows no distinguishable gain",
+  "classifier_sha256": "69f5d26945fc6e698b8102006b4a032932ace1bd6f6e77e5be548b44d91f9860"
+}

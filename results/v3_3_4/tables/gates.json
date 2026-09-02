@@ -1,0 +1,45 @@
+{
+  "math": {
+    "M_n_equals_G_n": true,
+    "infimum_not_minimum": true,
+    "M3_unique_max_at_third": true,
+    "M3_at_third_is_1_27": true,
+    "rho_max_law": true,
+    "depth_values_correct": true
+  },
+  "certificate": {
+    "violations": 0,
+    "n_below_cert_configs": 468,
+    "lipschitz_argmax_is_third": true,
+    "exact_argmax_is_third": false,
+    "exact_argmax": 0.29600000000000004
+  },
+  "coordinate": {
+    "certificate_sound": true,
+    "depthshift_corr": -0.06401843996644775,
+    "depthshift_median_abs_error": 0.1333333333333333,
+    "median_r": 0.041495367884635925,
+    "conservatism_factor": 6.285599920777048
+  },
+  "generation": {
+    "available": true,
+    "budget_matched_final": true,
+    "cantor_vs_best_alt_ci": [
+      -0.0002918254069521884,
+      0.00010206258133409713
+    ],
+    "sesoi": 0.02,
+    "any_significant": false,
+    "centre_ablation": {
+      "mean_diff": 0.005716457251930101,
+      "ci_lo": -0.01110983792643041,
+      "ci_hi": 0.022811860201393763
+    },
+    "auc_spread": 0.005790877288014085
+  },
+  "utility": {
+    "pass": true,
+    "false_refusal_spread": 0.0,
+    "min_coherence": 0.9984594559071788
+  }
+}

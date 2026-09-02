@@ -1,0 +1,4 @@
+n,rho_empirical_peak,rho_theory,abs_error,peak_median_switch_eps,frac_switched_at_peak
+2,0.44,0.25,0.19,2.7,1.0
+3,0.2,0.3333333333333333,0.1333333333333333,2.0500000000000003,1.0
+5,0.44,0.4,0.03999999999999998,0.4,1.0

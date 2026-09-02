@@ -1,0 +1,16 @@
+{
+  "available": true,
+  "budget_matched_final": true,
+  "cantor_vs_best_alt_ci": [
+    -0.0002918254069521884,
+    0.00010206258133409713
+  ],
+  "sesoi": 0.02,
+  "any_significant": false,
+  "centre_ablation": {
+    "mean_diff": 0.005716457251930101,
+    "ci_lo": -0.01110983792643041,
+    "ci_hi": 0.022811860201393763
+  },
+  "auc_spread": 0.005790877288014085
+}
