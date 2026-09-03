@@ -1,0 +1,24 @@
+{
+  "action-ro (primary)": {
+    "label_column": "y_safe",
+    "train_base_rate": 0.6611111111111111,
+    "confirm_auroc": 0.9335887611749681,
+    "confirm_balanced_accuracy": 0.865581098339719,
+    "confirm_brier": 0.13032747169978123,
+    "null_brier": 0.2171986201888162
+  },
+  "LEX32 (independent)": {
+    "label_column": "refusal_proxy",
+    "train_base_rate": 0.7166666666666667,
+    "confirm_auroc": 0.9458930899608866,
+    "confirm_balanced_accuracy": 0.8445241199478488,
+    "confirm_brier": 0.12139222084537844,
+    "null_brier": 0.21282679738562088
+  },
+  "cosine_between_the_two_hyperplanes": 0.8255111682558836,
+  "cross_auroc": {
+    "action-ro sensor -> LEX32 labels": 0.9517601043024773,
+    "LEX32 sensor -> action-ro labels": 0.9316730523627075
+  },
+  "conclusion": "Both labellers yield a sensor that generalises, and the two hyperplanes point in nearly the same direction, so the result is a property of the residual state rather than of one labeller."
+}

@@ -8,3 +8,5 @@ rho=0.25  ATTACK_W  eps=0.9207 lex_refusal=0.650 q_rms=0.0336
 rho=0.25  ATTACK_W  eps=1.8413 lex_refusal=0.500 q_rms=0.0387
 rho=0.25  ATTACK_W  eps=3.6826 lex_refusal=0.300 q_rms=0.0490
 rho=0.25  ATTACK_W  eps=7.3821 lex_refusal=0.150 q_rms=0.0500
+rho=0.25  ATTACK_V  eps=0.1014 lex_refusal=0.787 q_rms=0.0285
+rho=0.25  ATTACK_V  eps=0.1520 lex_refusal=0.787 q_rms=0.0286
