@@ -1,0 +1,48 @@
+{
+  "layer": 14,
+  "separability": 3.0016636848449707,
+  "sigma_P0": 0.6522499918937683,
+  "first_token": {
+    "max_abs_dlogit": 2.5934338569641113,
+    "kl": 0.040778808295726776,
+    "top1_flip": 0.0625,
+    "prefill_only": true
+  },
+  "causality": [
+    {
+      "dose_sigma": -2,
+      "z_p0": 3.8973145484924316,
+      "refusal": 0.7,
+      "coherence": 1.0
+    },
+    {
+      "dose_sigma": -1,
+      "z_p0": 4.549564361572266,
+      "refusal": 0.7,
+      "coherence": 1.0
+    },
+    {
+      "dose_sigma": 0,
+      "z_p0": 5.2018141746521,
+      "refusal": 0.7,
+      "coherence": 1.0
+    },
+    {
+      "dose_sigma": 1,
+      "z_p0": 5.854063987731934,
+      "refusal": 0.7,
+      "coherence": 1.0
+    },
+    {
+      "dose_sigma": 2,
+      "z_p0": 6.506314277648926,
+      "refusal": 0.7,
+      "coherence": 1.0
+    }
+  ],
+  "corr_dose_refusal": NaN,
+  "refusal_span": 0.0,
+  "degeneration": false,
+  "causal": false,
+  "v_sha": "29cb0ef52b610e27"
+}

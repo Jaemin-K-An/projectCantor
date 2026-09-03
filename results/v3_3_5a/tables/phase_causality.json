@@ -1,0 +1,30 @@
+{
+  "rows": [
+    {
+      "phase": "P0 (pre-token-1)",
+      "b_raw": 0.02639843175022571,
+      "sigma_phase": 0.6327973126851176,
+      "beta_std": 0.016704856670644315,
+      "dP_2sigma": 0.008313620830077584,
+      "n_obs": 660
+    },
+    {
+      "phase": "G1 (first decode)",
+      "b_raw": 0.03537588898602343,
+      "sigma_phase": 0.561342617897206,
+      "beta_std": 0.019857994133855326,
+      "dP_2sigma": 0.007622262120770107,
+      "n_obs": 660
+    },
+    {
+      "phase": "GLOBAL (all forwards)",
+      "b_raw": 0.6954872452264297,
+      "sigma_phase": 0.5463424829587905,
+      "beta_std": 0.3799742284231768,
+      "dP_2sigma": 0.04256296745749577,
+      "n_obs": 800
+    }
+  ],
+  "interpretation": "GLOBAL >> single-state: refusal control is temporally distributed, not localised at any one residual state",
+  "p0_over_g1": 0.8412157118207968
+}
