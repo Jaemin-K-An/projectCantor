@@ -1,0 +1,21 @@
+{
+  "SENSOR": "SENS2_REFUSAL_SENSOR_ONLY",
+  "ACTUATOR": "ACT1_CAUSAL_ACTUATOR_REPLICATED",
+  "COUPLING": "COUP1_CONTROLLABLE",
+  "CERTIFICATE": "CERT1_CANTOR_SENSOR_CERTIFICATE_VALID",
+  "SEMANTIC": "SEM3_PROXY_ONLY",
+  "GENERATION": "GEN0_NOT_RUN",
+  "UTILITY": "U0_NOT_RUN",
+  "OVERALL": "G_INCONCLUSIVE",
+  "architecture_complete": false,
+  "semantic_claim_allowed": false,
+  "structural_claim": "For the frozen sensor hyperplane and fixed window W, epsilon_h(rho) = 2W rho^2 (1-2rho) is uniquely maximised at rho=1/3",
+  "structural_claim_is_conditional_on": [
+    "the learned sensor",
+    "model qwen2.5-0.5b-instruct layer 14",
+    "the P0 state definition",
+    "the fixed W",
+    "the depth-3 policy geometry"
+  ],
+  "llm_is_not_claimed_to_be_fractal": true
+}
