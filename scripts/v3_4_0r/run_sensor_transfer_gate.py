@@ -11,12 +11,29 @@ import sys
 
 import numpy as np
 import pandas as pd
+from scipy.optimize import minimize
+from scipy.special import expit
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
 from cantor_guard_v340.behavioral_sensor import bootstrap_auroc_ci, sensor_metrics  # noqa: E402
 
 from _common import CONFIG, RESULTS, V340, frozen_sensor, read_json, write_json  # noqa: E402
+
+
+def calibration_fit(score: np.ndarray, y: np.ndarray) -> tuple[float, float]:
+    """Descriptive calibration intercept/slope; never applied to the sensor."""
+    score = np.asarray(score, dtype=float)
+    y = np.asarray(y, dtype=float)
+
+    def loss(params):
+        p = np.clip(expit(params[0] + params[1] * score), 1e-12, 1 - 1e-12)
+        return -float(np.sum(y * np.log(p) + (1 - y) * np.log(1 - p)))
+
+    fit = minimize(loss, np.array([0.0, 1.0]), method="BFGS")
+    if not fit.success and not np.all(np.isfinite(fit.x)):
+        return float("nan"), float("nan")
+    return float(fit.x[0]), float(fit.x[1])
 
 
 def main() -> None:
@@ -28,7 +45,10 @@ def main() -> None:
 
     metrics = sensor_metrics(sensor, H, y, y_train=y)
     ci = bootstrap_auroc_ci(sensor, H, y, n_boot=20000, seed=34000)
+    d = np.atleast_1d(sensor.distance(H))
+    calibration_intercept, calibration_slope = calibration_fit(d, y)
     checks = {
+        "auroc_at_least_min": bool(metrics["auroc"] >= float(gate_cfg["gate"]["auroc_min"])),
         "auroc_ci_lower_above_min": bool(ci["auroc_ci95"][0] > float(gate_cfg["gate"]["auroc_ci_lower_min"])),
         "balanced_accuracy_ok": bool(metrics["balanced_accuracy_at_zero"]
                                      >= float(gate_cfg["gate"]["balanced_accuracy_at_zero_min"])),
@@ -40,7 +60,7 @@ def main() -> None:
     old = pd.read_csv(V340 / "raw" / "clean_D_sensor_train.csv")
     old_H = np.load(V340 / "cache" / "h_D_sensor_train.npy")
     old_d = np.atleast_1d(sensor.distance(old_H))
-    new_d = np.atleast_1d(sensor.distance(H))
+    new_d = d
     payload = {
         "frozen_sensor": True, "nothing_refitted": True,
         "n": int(y.size), "base_rate_safe": float(y.mean()),
@@ -48,6 +68,8 @@ def main() -> None:
         "pr_auc": metrics["pr_auc"],
         "balanced_accuracy_at_zero": metrics["balanced_accuracy_at_zero"],
         "brier": metrics["brier"], "null_brier": metrics["null_brier"],
+        "calibration_intercept": calibration_intercept,
+        "calibration_slope": calibration_slope,
         "population_shift": {
             "training_population": "declare-lab/HarmfulQA",
             "new_population": "LLM-LAT/harmful-dataset",
@@ -58,7 +80,9 @@ def main() -> None:
             "mean_shift_in_train_sd": float((new_d.mean() - old_d.mean()) / old_d.std(ddof=1)),
         },
         "gate": gate_cfg["gate"], "checks": checks, "passed": passed,
-        "verdict": "SENS2_REFUSAL_SENSOR_ONLY" if passed else "SENS4_SENSOR_DOES_NOT_TRANSFER",
+        "transport_verdict": "ST1_PASS" if passed else "ST2_FAIL",
+        "sensor_scope": "SENS2_REFUSAL_SENSOR_ONLY",
+        "verdict": "ST1_PASS" if passed else "ST2_FAIL",
     }
     write_json(RESULTS / "tables" / "sensor_transfer.json", payload)
     print(f"n={payload['n']}  safe rate={payload['base_rate_safe']:.3f}")
@@ -66,6 +90,7 @@ def main() -> None:
     print(f"  PR-AUC       {metrics['pr_auc']:.4f}")
     print(f"  bal.acc@d=0  {metrics['balanced_accuracy_at_zero']:.4f}")
     print(f"  Brier        {metrics['brier']:.4f} (null {metrics['null_brier']:.4f})")
+    print(f"  calibration  intercept={calibration_intercept:+.4f} slope={calibration_slope:.4f}")
     shift = payload["population_shift"]
     print(f"\n  population shift: mean d {shift['train_mean_d']:+.3f} -> {shift['new_mean_d']:+.3f} "
           f"({shift['mean_shift_in_train_sd']:+.2f} training SD); "

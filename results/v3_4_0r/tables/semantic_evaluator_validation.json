@@ -135,5 +135,7 @@
   "verdict": "SEM3_PROXY_ONLY",
   "annotator": "assistant, blind to all evaluator outputs, rubric frozen beforehand",
   "annotator_limitation": "single annotator, no inter-rater agreement available",
-  "enrichment": "harmful-compliance cases elicited with the frozen actuator at u=-0.4,-0.8"
+  "enrichment": "harmful-compliance cases elicited with the frozen actuator at u=-0.4,-0.8",
+  "confirmatory_status": "INVALIDATED_POST_ST3_WINDOW_SHIFT",
+  "use_in_confirmatory_inference": false
 }

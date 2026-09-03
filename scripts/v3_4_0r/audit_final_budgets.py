@@ -9,11 +9,11 @@ import pandas as pd
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, read_json, require_confirmatory_freeze, write_json  # noqa: E402
 
 
 def main(split: str = "D_final_r_harmful") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
     stats = read_json(CONFIG / "statistics.json")["equal_budget_gate"]
     target = float(freeze["budget"]["q_target_rms"])
     q_cap = float(freeze["hard_q_cap"]["q_cap"])

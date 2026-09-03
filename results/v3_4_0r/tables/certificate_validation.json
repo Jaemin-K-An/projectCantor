@@ -57,5 +57,7 @@
   },
   "total_violations": 0,
   "verdict": "CERT1_VALID",
-  "scope": "certified residual-L2 radius against direct terminal-policy switching in the frozen sensor coordinate. NOT a semantic safety or jailbreak guarantee, and zero violations is implementation validation, not empirical robustness."
+  "scope": "certified residual-L2 radius against direct terminal-policy switching in the frozen sensor coordinate. NOT a semantic safety or jailbreak guarantee, and zero violations is implementation validation, not empirical robustness.",
+  "confirmatory_status": "INVALIDATED_POST_ST3_WINDOW_SHIFT",
+  "use_in_confirmatory_inference": false
 }

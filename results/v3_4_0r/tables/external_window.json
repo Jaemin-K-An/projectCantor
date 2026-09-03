@@ -1,0 +1,23 @@
+{
+  "split": "D_sensor_transfer_r",
+  "n": 150,
+  "W": 2.2805212277347544,
+  "W_source": "configs/v3_4_0/PRE_ANALYSIS_FREEZE.json",
+  "W_recalibrated": false,
+  "inside_count": 130,
+  "outside_count": 20,
+  "coverage": 0.8666666666666667,
+  "coverage_min": 0.9,
+  "passed": false,
+  "verdict": "ST3_WINDOW_SHIFT",
+  "stop_controller_final_testing": true,
+  "distance_quantiles": {
+    "0.0": -2.149775480090239,
+    "0.05": -0.4650407432613636,
+    "0.25": 0.5324595856387586,
+    "0.5": 1.2781714829744464,
+    "0.75": 1.8406100770113525,
+    "0.95": 2.611487534795709,
+    "1.0": 3.1658816390688465
+  }
+}

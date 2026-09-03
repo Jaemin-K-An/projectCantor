@@ -26,7 +26,7 @@ def test_old_classifier_reproduces_the_defect():
 
 
 def test_new_classifier_blocks_it():
-    assert generation_verdict(**V340_CASE) == "GEN6_EQUAL_BUDGET_COMPARISON_BLOCKED"
+    assert generation_verdict(**V340_CASE) == "CANTOR4_BLOCKED_BUDGET"
     assert cantor_verdict(**V340_CASE) == "CANTOR4_BLOCKED_BUDGET"
 
 
@@ -45,38 +45,47 @@ def test_budget_block_overrides_every_sesoi_outcome():
                   dict(all_within_sesoi=False, all_favour_cantor=False, any_favours_other=True)):
         case = dict(budget_all_matched=False, comparison_blocked=False,
                     have_contrasts=True, **extra)
-        assert generation_verdict(**case) == "GEN6_EQUAL_BUDGET_COMPARISON_BLOCKED"
+        assert generation_verdict(**case) == "CANTOR4_BLOCKED_BUDGET"
         assert cantor_verdict(**case) == "CANTOR4_BLOCKED_BUDGET"
 
 
 def test_valid_budget_still_lets_real_verdicts_through():
     ok = dict(budget_all_matched=True, comparison_blocked=False, have_contrasts=True)
     assert cantor_verdict(**ok, all_within_sesoi=True, all_favour_cantor=False,
-                          any_favours_other=False) == "CANTOR2_RHO_FAMILY_EQUIVALENT"
+                          any_favours_other=False) == "RHO2_PRACTICALLY_EQUIVALENT"
     assert cantor_verdict(**ok, all_within_sesoi=False, all_favour_cantor=True,
-                          any_favours_other=False) == "CANTOR1_SPECIFIC_GAIN"
+                          any_favours_other=False) == "RHO1_CANTOR_SPECIFIC_GAIN"
     assert cantor_verdict(**ok, all_within_sesoi=False, all_favour_cantor=False,
-                          any_favours_other=True) == "CANTOR3_OTHER_RHO_BETTER"
+                          any_favours_other=True) == "RHO3_OTHER_RHO_BETTER"
 
 
 def test_inertness_needs_the_baseline_not_rho_similarity():
     # interval straddling zero but wider than SESOI is inconclusive, not inert
     assert controller_verdict(interval_lo=-0.20, interval_hi=0.18, efficacy_sesoi=0.03) \
-        == "CTRL3_INCONCLUSIVE"
+        == "CTRL4_INCONCLUSIVE"
     assert controller_verdict(interval_lo=-0.01, interval_hi=0.02, efficacy_sesoi=0.03) \
-        == "CTRL2_CONTROLLER_PRACTICALLY_INERT"
+        == "CTRL2_PRACTICALLY_INERT"
     assert controller_verdict(interval_lo=0.05, interval_hi=0.19, efficacy_sesoi=0.03) \
-        == "CTRL1_CONTROLLER_EFFECTIVE"
+        == "CTRL1_EFFECTIVE"
     assert controller_verdict(interval_lo=None, interval_hi=None, efficacy_sesoi=0.03) \
-        == "CTRL3_INCONCLUSIVE"
+        == "CTRL4_INCONCLUSIVE"
 
 
 def test_overall_prefers_budget_block_over_everything():
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD2_MISMATCH",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR1_SPECIFIC_GAIN", utility="U1_PASS") \
-        == "F_EQUAL_BUDGET_CONFIRMATION_BLOCKED"
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD1_MATCHED",
-                           controller="CTRL2_CONTROLLER_PRACTICALLY_INERT",
-                           cantor="CANTOR4_BLOCKED_BUDGET", utility="U1_PASS") \
-        == "E_CONTROLLER_PRACTICALLY_INERT"
+    common = dict(sensor_transport="ST1_PASS", certificate="CERT1_VALID",
+                  baseline="BASE1_CANTOR_BEATS_LINEAR", rho="RHO1_CANTOR_SPECIFIC_GAIN")
+    assert overall_verdict(**common, budget="BUD2_MISMATCH",
+                           controller="CTRL1_EFFECTIVE", utility="U1_PASS") \
+        == "F_BUDGET_CONFIRMATION_BLOCKED"
+    assert overall_verdict(**common, budget="BUD1_MATCHED",
+                           controller="CTRL2_PRACTICALLY_INERT", utility="U1_PASS") \
+        == "D_CANTOR_STRUCTURAL_ONLY"
+
+
+def test_window_shift_dominates_downstream_results():
+    assert overall_verdict(
+        sensor_transport="ST3_WINDOW_SHIFT", certificate="CERT1_VALID",
+        budget="BUD1_MATCHED", controller="CTRL1_EFFECTIVE",
+        baseline="BASE1_CANTOR_BEATS_LINEAR", rho="RHO1_CANTOR_SPECIFIC_GAIN",
+        utility="U1_PASS",
+    ) == "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE"

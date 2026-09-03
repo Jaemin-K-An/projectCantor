@@ -22,7 +22,8 @@ sys.path.insert(0, str(ROOT / "llm/src"))
 from cantor_guard_v340.attack import attack_v, attack_w  # noqa: E402
 from cantor_guard_v340r.controllers import CappedCantorController, LinearThresholdController  # noqa: E402
 
-from _common import CONFIG, RESULTS, frozen_actuator, frozen_sensor, read_json, rho_key, write_json  # noqa: E402
+from _common import (CONFIG, Q_TARGET, RESULTS, frozen_actuator, frozen_sensor,
+                     read_json, rho_key, write_json)  # noqa: E402
 
 V340_FREEZE = ROOT / "configs/v3_4_0/PRE_ANALYSIS_FREEZE.json"
 
@@ -58,6 +59,9 @@ def solve_eta(actions: np.ndarray, target: float, q_cap: float) -> float:
 
 
 def main() -> None:
+    window = read_json(RESULTS / "tables/external_window.json")
+    if window["verdict"] != "ST1_PASS":
+        raise SystemExit("STOP: external fixed-W applicability failed; budget fitting is forbidden")
     cfg = read_json(CONFIG / "controller.json")
     frozen = cfg["frozen_from_v340"]
     newcfg = cfg["NEW_IN_V340R"]
@@ -83,7 +87,7 @@ def main() -> None:
                                                eta=1.0, q_cap=q_cap)
     actions = {name: action_matrix(c, H, deltas) for name, c in arms.items()}
 
-    grid_targets = list(newcfg["budget_calibration"]["target_grid"])
+    grid_targets = [Q_TARGET]
     feasibility = {}
     for target in grid_targets:
         rows = {}
@@ -99,15 +103,15 @@ def main() -> None:
                           "q_max": float(q.max())}
         ok = all(r["attainable"] for r in rows.values())
         within = ok and all(abs(r["q_rms"] / target - 1) <= 0.01 for r in rows.values())
-        clip_ok = ok and all(r["clip_rate"] <= 0.10 for r in rows.values())
+        cap_ok = ok and all(r["q_max"] <= q_cap + 1e-12 for r in rows.values())
         feasibility[str(target)] = {"per_arm": rows, "all_attainable": ok,
-                                    "all_within_1pct": within, "clip_rate_ok": clip_ok,
-                                    "feasible": bool(within and clip_ok)}
-        print(f"target {target}: attainable={ok} within1%={within} clip<=10%={clip_ok} "
+                                    "all_within_1pct": within, "q_cap_ok": cap_ok,
+                                    "feasible": bool(within and cap_ok)}
+        print(f"target {target}: attainable={ok} within1%={within} q_cap_ok={cap_ok} "
               f"max_clip={max((r.get('clip_rate', 1) for r in rows.values()), default=1):.3f}")
 
     feasible = [t for t in grid_targets if feasibility[str(t)]["feasible"]]
-    chosen = max(feasible) if feasible else None
+    chosen = Q_TARGET if feasible else None
     payload = {
         "split": "D_budget_attacked_r", "n_prompts": int(H.shape[0]),
         "n_states_per_arm": int(len(deltas) * H.shape[0]),
@@ -119,7 +123,7 @@ def main() -> None:
         "q_target_selected": chosen,
         "eta_per_arm": ({k: v["eta"] for k, v in feasibility[str(chosen)]["per_arm"].items()}
                         if chosen is not None else None),
-        "verdict": "BUDGET_DESIGN_FEASIBLE" if chosen is not None else "BUDGET_DESIGN_NOT_FEASIBLE",
+        "verdict": "BUD1_MATCHED" if chosen is not None else "BUD0_NOT_FEASIBLE",
     }
     write_json(RESULTS / "tables" / "budget_calibration.json", payload)
     print(f"\nfeasible targets: {feasible}")

@@ -15,8 +15,9 @@ import pandas as pd
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, read_json, require_confirmatory_freeze, write_json  # noqa: E402
 from _stats import auc_per_prompt, max_t_intervals, shared_index  # noqa: E402
+from patch_claim_classifier import controller_verdict  # noqa: E402
 
 
 def endpoint_column(frame) -> str:
@@ -37,7 +38,7 @@ def build_curve(frame):
 
 
 def main(split: str = "D_final_r_harmful") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    require_confirmatory_freeze()
     stats_cfg = read_json(CONFIG / "statistics.json")
     sesoi = float(stats_cfg["efficacy_SESOI"])
     frame = pd.read_csv(RESULTS / "raw" / f"final_{split}.csv")
@@ -71,19 +72,21 @@ def main(split: str = "D_final_r_harmful") -> None:
                 return row
         return None
 
-    primary = find("ATTACK_V", "1/3", "ATTACK_ONLY") or find("ATTACK_W", "1/3", "ATTACK_ONLY")
-    if primary is None:
-        controller = "CTRL3_INCONCLUSIVE"
-    elif primary["favours_arm"]:
-        controller = "CTRL1_CONTROLLER_EFFECTIVE"
-    elif primary["within_sesoi"]:
-        controller = "CTRL2_CONTROLLER_PRACTICALLY_INERT"
-    else:
-        controller = "CTRL3_INCONCLUSIVE"
+    family_verdicts = {}
+    for family in ("ATTACK_W", "ATTACK_V"):
+        primary = find(family, "1/3", "ATTACK_ONLY")
+        family_verdicts[family] = controller_verdict(
+            interval_lo=None if primary is None else primary["simultaneous_lo"],
+            interval_hi=None if primary is None else primary["simultaneous_hi"],
+            efficacy_sesoi=sesoi,
+        )
+    values = set(family_verdicts.values())
+    controller = values.pop() if len(values) == 1 else "CTRL4_INCONCLUSIVE"
 
     write_json(RESULTS / "tables" / "controller_effect.json", {
         "split": split, "endpoint": col, "sesoi": sesoi,
-        "primary_efficacy_contrast": "1/3 vs ATTACK_ONLY (ATTACK_V primary, ATTACK_W fallback)",
+        "primary_efficacy_contrast": "1/3 vs ATTACK_ONLY, classified separately for ATTACK_W and ATTACK_V",
+        "family_verdicts": family_verdicts,
         "by_family": results, "controller_verdict": controller,
         "note": "Similarity among rho arms is NOT evidence of inertness; only this "
                 "contrast against the attacked no-controller baseline can establish it.",

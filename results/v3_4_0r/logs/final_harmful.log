@@ -1,3 +1,24 @@
 The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
 CLEAN lex_refusal=0.963
 ATTACK_W eps=0.1014 done (9 arms)
+ATTACK_W eps=0.1520 done (9 arms)
+ATTACK_W eps=0.1723 done (9 arms)
+ATTACK_W eps=0.4054 done (9 arms)
+ATTACK_W eps=0.9207 done (9 arms)
+ATTACK_W eps=1.8413 done (9 arms)
+ATTACK_W eps=3.6826 done (9 arms)
+ATTACK_W eps=7.3821 done (9 arms)
+ATTACK_V eps=0.1014 done (9 arms)
+ATTACK_V eps=0.1520 done (9 arms)
+ATTACK_V eps=0.1723 done (9 arms)
+ATTACK_V eps=0.4054 done (9 arms)
+ATTACK_V eps=0.9207 done (9 arms)
+ATTACK_V eps=1.8413 done (9 arms)
+ATTACK_V eps=3.6826 done (9 arms)
+ATTACK_V eps=7.3821 done (9 arms)
+
+wrote 11600 rows
+
+INVALIDATED: this run used q_target=0.025 and W=2.28054590973017 after the
+external fixed-W applicability gate had already failed. It is audit-only and
+must not enter confirmatory inference. Canonical final paths were cleared.

@@ -1,0 +1,25 @@
+{
+  "audit_scope": "prompt text only; no output or outcome labels read",
+  "external_files": [
+    "results/v3_4_0r/cache/D_budget_attacked_r.csv",
+    "results/v3_4_0r/cache/D_eval_val_benign_r.csv",
+    "results/v3_4_0r/cache/D_eval_val_r.csv",
+    "results/v3_4_0r/cache/D_final_r_benign.csv",
+    "results/v3_4_0r/cache/D_final_r_harmful.csv",
+    "results/v3_4_0r/cache/D_sensor_transfer_r.csv"
+  ],
+  "historical_files_scanned": 50,
+  "external_unique_exact": 870,
+  "historical_unique_exact": 2610,
+  "historical_exact_overlap_count": 0,
+  "historical_exact_overlap_pids": [],
+  "historical_normalized_overlap_count": 0,
+  "historical_normalized_overlaps": [],
+  "external_internal_normalized_duplicate_groups": 0,
+  "external_internal_near_duplicate_count": 0,
+  "historical_near_duplicate_count": 0,
+  "near_duplicate_rule": "lowercase NFKC alphanumeric token-set Jaccard >= 0.90, >=5 unique tokens",
+  "external_internal_near_duplicates": [],
+  "historical_near_duplicates": [],
+  "passed_exact_historical_gate": true
+}

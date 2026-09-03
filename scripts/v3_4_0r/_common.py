@@ -9,6 +9,9 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 CONFIG = ROOT / "configs/v3_4_0r"
 RESULTS = ROOT / "results/v3_4_0r"
 V340 = ROOT / "results/v3_4_0"
+FROZEN_W = 2.2805212277347544
+Q_TARGET = 0.03
+Q_CAP = 0.05
 
 
 def read_json(path) -> dict:
@@ -49,3 +52,29 @@ def frozen_actuator():
     cfg = read_json(ROOT / "configs/v3_4_0/actuator.json")
     return Actuator(np.load(ROOT / cfg["direction_file"]).astype(float).reshape(-1),
                     int(cfg["safe_sign"]))
+
+
+def require_confirmatory_freeze() -> dict:
+    """Load a valid freeze or stop before any final/certificate operation."""
+    manifest = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    if manifest.get("status") != "PRE_ANALYSIS_FROZEN":
+        raise RuntimeError(
+            "V3.4.0R final-stage execution requires PRE_ANALYSIS_FROZEN; "
+            f"observed {manifest.get('status', 'MISSING')}"
+        )
+    if float(manifest["inherited_frozen"]["W"]) != FROZEN_W:
+        raise RuntimeError("frozen W mismatch")
+    if float(manifest["budget"]["q_target_rms"]) != Q_TARGET:
+        raise RuntimeError("frozen q target mismatch")
+    if float(manifest["hard_q_cap"]["q_cap"]) != Q_CAP:
+        raise RuntimeError("frozen q cap mismatch")
+    return manifest
+
+
+def require_external_window_pass() -> None:
+    transfer = read_json(RESULTS / "tables/sensor_transfer.json")
+    window = read_json(RESULTS / "tables/external_window.json")
+    if transfer.get("transport_verdict") != "ST1_PASS":
+        raise RuntimeError("external sensor transport gate failed")
+    if window.get("verdict") != "ST1_PASS":
+        raise RuntimeError("external fixed-W applicability gate failed")

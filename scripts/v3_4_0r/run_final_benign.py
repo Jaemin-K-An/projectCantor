@@ -14,12 +14,15 @@ from cantor_guard.models import load_model  # noqa: E402
 from cantor_guard_v32.metrics32 import coherence32, is_refusal32  # noqa: E402
 from cantor_guard_v340.p0_generation import generate_defended  # noqa: E402
 
-from _common import CONFIG, RESULTS, frozen_actuator, frozen_sensor, read_json  # noqa: E402
+from _common import RESULTS, frozen_actuator, frozen_sensor, require_confirmatory_freeze  # noqa: E402
 from run_final_harmful import build_arms  # noqa: E402
 
 
 def main(split: str = "D_final_r_benign") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
+    output = RESULTS / "raw" / f"utility_{split}.csv"
+    if output.exists():
+        raise SystemExit(f"STOP: {output} already exists; final data cannot be regenerated")
     seed_everything(20260903)
     sensor, actuator = frozen_sensor(), frozen_actuator()
     arms = build_arms(freeze, sensor, actuator)
@@ -50,7 +53,7 @@ def main(split: str = "D_final_r_benign") -> None:
         print(f"{name:<14} false_refusal={np.mean([r['refusal_proxy'] for r in sel]):.3f} "
               f"coh={np.mean([r['coherence'] for r in sel]):.3f} "
               f"q_rms={np.sqrt(np.mean([r['q_ctrl']**2 for r in sel])):.4f}", flush=True)
-    pd.DataFrame(rows).to_csv(RESULTS / "raw" / f"utility_{split}.csv", index=False)
+    pd.DataFrame(rows).to_csv(output, index=False)
     pd.DataFrame(private).to_csv(RESULTS / "private" / f"utility_{split}_completions.csv", index=False)
     print(f"\nwrote {len(rows)} rows")
 

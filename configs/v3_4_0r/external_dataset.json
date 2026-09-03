@@ -1,0 +1,19 @@
+{
+  "name": "LLM-LAT/harmful-dataset",
+  "repository": "https://huggingface.co/datasets/LLM-LAT/harmful-dataset",
+  "revision": "8bfba31bc6d93a5b71808fee5275ef4b6330ed91",
+  "file": "data/train-00000-of-00001.parquet",
+  "file_sha256": "51a41eaebf21eabec33ea90366d01d5bee7edb933d439c7017ad6e0107a645b1",
+  "license": "not specified in the dataset card at the pinned revision",
+  "language": "English",
+  "candidate_rows": 4948,
+  "unique_prompt_texts": 4946,
+  "fresh_unique_after_registry_exclusion": 4768,
+  "selected_before_model_output": true,
+  "selection_used_benchmark_outcomes": false,
+  "historical_population": "declare-lab/HarmfulQA",
+  "benign_source": {
+    "name": "tatsu-lab/alpaca",
+    "revision": "dce01c9b08f87459cf36a430d809084718273017"
+  }
+}

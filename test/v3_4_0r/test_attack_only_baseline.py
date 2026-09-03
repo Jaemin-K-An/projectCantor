@@ -42,4 +42,4 @@ def test_inertness_cannot_be_claimed_from_rho_similarity_alone():
 
     # rho arms identical to each other says nothing; only the baseline contrast counts
     assert controller_verdict(interval_lo=None, interval_hi=None,
-                              efficacy_sesoi=0.03) == "CTRL3_INCONCLUSIVE"
+                              efficacy_sesoi=0.03) == "CTRL4_INCONCLUSIVE"

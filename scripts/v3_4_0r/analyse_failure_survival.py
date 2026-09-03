@@ -22,7 +22,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
 from cantor_guard_v340.cantor_geometry import epsilon_h  # noqa: E402
 
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, read_json, require_confirmatory_freeze, write_json  # noqa: E402
 from _stats import discrete_survival  # noqa: E402
 from analyse_controller_effect import endpoint_column  # noqa: E402
 
@@ -41,7 +41,7 @@ def classify_transition(base_kind, base_index, kind, index) -> str:
 
 
 def main(split: str = "D_final_r_harmful") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
     W = float(freeze["inherited_frozen"]["W"])
     grid = [e for e in freeze["attacks"]["grid_absolute"] if e > 0]
     frame = pd.read_csv(RESULTS / "raw" / f"final_{split}.csv")

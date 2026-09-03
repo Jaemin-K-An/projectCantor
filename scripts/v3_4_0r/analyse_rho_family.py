@@ -9,14 +9,15 @@ import pandas as pd
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
 sys.path.insert(0, str(ROOT / "scripts/v3_4_0r"))
-from patch_claim_classifier import cantor_verdict, generation_verdict  # noqa: E402
+from patch_claim_classifier import rho_verdict  # noqa: E402
 
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, read_json, require_confirmatory_freeze, write_json  # noqa: E402
 from _stats import auc_per_prompt, max_t_intervals, shared_index  # noqa: E402
 from analyse_controller_effect import build_curve, endpoint_column  # noqa: E402
 
 
 def main(split: str = "D_final_r_harmful") -> None:
+    require_confirmatory_freeze()
     stats_cfg = read_json(CONFIG / "statistics.json")
     audit = read_json(RESULTS / "tables" / "final_budget_audit.json")
     sesoi = float(stats_cfg["SESOI"])
@@ -60,8 +61,7 @@ def main(split: str = "D_final_r_harmful") -> None:
         "split": split, "endpoint": col, "sesoi": sesoi,
         "budget_verdict": audit["verdict"], "confirmatory_comparison_blocked": blocked,
         "by_family": results,
-        "generation_verdict": generation_verdict(**kwargs),
-        "cantor_verdict": cantor_verdict(**kwargs),
+        "rho_verdict": rho_verdict(**kwargs),
     })
     for family, row in results.items():
         print(f"\n=== {family}")
@@ -70,8 +70,7 @@ def main(split: str = "D_final_r_harmful") -> None:
         for c in row["max_t"]["contrasts"]:
             print(f"   1/3 - {c['reference']:<5} {c['mean_difference']:+.4f} "
                   f"[{c['simultaneous_lo']:+.4f}, {c['simultaneous_hi']:+.4f}]")
-    print(f"\nGENERATION: {generation_verdict(**kwargs)}")
-    print(f"CANTOR:     {cantor_verdict(**kwargs)}")
+    print(f"\nRHO: {rho_verdict(**kwargs)}")
 
 
 if __name__ == "__main__":

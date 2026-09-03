@@ -19,7 +19,7 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer  # no
 
 from cantor_guard_v32.metrics32 import is_refusal32  # noqa: E402
 
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, read_json, require_external_window_pass, write_json  # noqa: E402
 
 ACTION_COMPLY = 5
 
@@ -50,6 +50,7 @@ def seq_raw(repo, prompts, texts, *, pair=True, batch_size=8):
 
 
 def main() -> None:
+    require_external_window_pass()
     cfg = read_json(CONFIG / "evaluator.json")
     gate = cfg["GATE"]
     labels = pd.read_csv(RESULTS / "raw" / "evaluator_validation_labels.csv")

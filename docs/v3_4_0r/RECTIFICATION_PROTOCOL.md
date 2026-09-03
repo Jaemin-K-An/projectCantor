@@ -1,43 +1,20 @@
 # V3.4.0R 교정 프로토콜
 
-## 무엇을 바꾸지 않는가
+V3.4.0R은 새 Cantor 가설이 아니라 V3.4.0의 verdict/budget/baseline/censoring 결함을
+고치는 외부 확인 실험이다. 역사적 `results/configs/docs/v3_4_0`은 수정하지 않는다.
 
-모델 `qwen2.5-0.5b-instruct`, layer 14, P0 정의, sensor `w`와 `b`, actuator
-`v_safe`, `W = 2.2805`, 깊이 3, rho family, leaf action 스케줄, guard 규칙,
-window 정책, 공격 격자, Cantor 수학. 새 sensor도 새 actuator도 적합하지 않는다.
-layer·token·rho 탐색을 하지 않는다.
+동결값은 sensor hash `f16942ce…f402f1fe`, actuator hash
+`c22957e2…d480172a`, `W=2.2805212277347544`, κ≈0.31022973, depth 3,
+rho `{.25,.28,.30,1/3,.36,.40,.44}`, 기존 actions와 attack grid다.
+`d0=0`은 class-weighted classifier hyperplane이지 자연 모집단 50% 행동 경계가 아니다.
 
-## 무엇을 바꾸는가
+수리 항목은 statewise `q<=.05`, attacked-state `q_rms=.03` calibration,
+`ATTACK_ONLY`, 비재귀 `LINEAR(a(r)=r)`, 올바른 위험 방향(큰 leaf index), 우측 절단과
+reversion을 보존하는 실패 분석, 그리고 budget mismatch가 동등성보다 우선하는
+판정 기계다.
 
-**제어 법칙의 예산 규율**과 **실험 설계**뿐이다.
-
-1. `q_cap`을 실제 강제한다: `q_ctrl = min(eta·a(cell), q_cap)`.
-2. `eta`를 **attacked 상태 분포**에서 보정한다.
-3. `ATTACK_ONLY`(공격만, controller 없음) 기준선을 추가한다.
-4. `LINEAR`(같은 sensor·actuator·예산, 재귀 분할 없음) 기준선을 추가한다.
-5. 실패 분석을 절단 인지 생존분석으로 바꾸고 위험 leaf 방향을 고친다.
-6. 판정 기계에서 예산 유효성을 **경성 선행조건**으로 만든다.
-
-## 모집단 변경 (강제된 것)
-
-HarmfulQA는 **고갈되었다**: 미사용 28개가 남았고 V3.4.0R은 800개 이상이
-필요하다. 따라서 harmful 프롬프트를 `LLM-LAT/harmful-dataset`에서 뽑는다
-(신선 4,768개). benign은 alpaca(51,852개 신선).
-
-이것은 **동결된 sensor를 훈련 모집단 밖에서 시험**한다는 뜻이며, 프로토콜 수리와
-교란된다. 그래서 `D_sensor_transfer_r`(150개) 이전 gate를 두었다.
-
-**결과**: 동결 sensor는 아무것도 재적합하지 않고 새 모집단에서 AUROC
-**0.8992 [0.8291, 0.9562]**, `d=0`에서 balanced accuracy 0.7348을 냈다.
-모집단은 훈련 대비 `+0.69` 훈련 SD만큼 안전 쪽으로 이동했고 안전율은
-0.661 → 0.860으로 올랐다. gate 통과.
-
-## 중단 규칙
-
-sensor transfer 실패 → 중단. 예산 설계 불가능 → 중단.
-최종 예산 실패 → rho 추론 차단(재보정 금지).
-
-## 동결 시점
-
-`configs/v3_4_0r/PRE_ANALYSIS_FREEZE.json`을 예산 보정과 기준선 인스턴스화
-직후, `D_final_r`을 열기 **전에** 커밋했다 (`712a9e1`).
+외부 transport gate와 fixed-W gate는 controller 실험보다 먼저 실행한다. 결과는
+sensor discrimination `ST1_PASS`, fixed-window `ST3_WINDOW_SHIFT`다. 후자가 hard
+stop이므로 budget/freeze/final을 확증 단계로 실행하지 않는다. 앞선 로컬 작업이
+이 순서를 어기고 만든 q=.025 및 final 산출물은 모두 audit-only이며 최종 판정에
+쓰지 않는다.

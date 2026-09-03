@@ -7,7 +7,7 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
-from _common import CONFIG, RESULTS, V340, read_json, write_json  # noqa: E402
+from _common import CONFIG, FROZEN_W, Q_CAP, Q_TARGET, RESULTS, V340, read_json, write_json  # noqa: E402
 
 
 def main() -> None:
@@ -15,17 +15,31 @@ def main() -> None:
     stats = read_json(CONFIG / "statistics.json")
     budget = read_json(RESULTS / "tables" / "budget_calibration.json")
     transfer = read_json(RESULTS / "tables" / "sensor_transfer.json")
+    window = read_json(RESULTS / "tables" / "external_window.json")
     evaluator = read_json(RESULTS / "tables" / "semantic_evaluator_validation.json")
     v340 = read_json(ROOT / "configs/v3_4_0/PRE_ANALYSIS_FREEZE.json")
-    if budget["verdict"] != "BUDGET_DESIGN_FEASIBLE":
+    if transfer.get("transport_verdict") != "ST1_PASS":
+        raise SystemExit("sensor transport failed; V3.4.0R stops before the final")
+    if window.get("verdict") != "ST1_PASS":
+        raise SystemExit("external fixed-W applicability failed; V3.4.0R stops before the final")
+    if budget["verdict"] != "BUD1_MATCHED" or budget.get("q_target_selected") != Q_TARGET:
         raise SystemExit("budget design not feasible; V3.4.0R stops before the final")
+    if float(cfg["frozen_from_v340"]["W"]) != FROZEN_W:
+        raise SystemExit("frozen W mismatch")
+    if float(cfg["NEW_IN_V340R"]["hard_q_cap"]["q_cap"]) != Q_CAP:
+        raise SystemExit("frozen q cap mismatch")
+    final_paths = [RESULTS / "raw/final_D_final_r_harmful.csv",
+                   RESULTS / "raw/utility_D_final_r_benign.csv"]
+    if any(path.exists() for path in final_paths):
+        raise SystemExit("D_final_r was already touched; refuse to freeze")
 
     payload = {
         "version": "3.4.0r",
+        "status": "PRE_ANALYSIS_FROZEN",
         "frozen_before": "D_final_r_harmful and D_final_r_benign were opened",
         "inherited_frozen": cfg["frozen_from_v340"],
         "sensor_w_sha256": hashlib.sha256((V340 / "cache" / "sensor_w.npy").read_bytes()).hexdigest(),
-        "sensor_transfer": {"verdict": transfer["verdict"], "auroc": transfer["auroc"],
+        "sensor_transfer": {"verdict": transfer["transport_verdict"], "auroc": transfer["auroc"],
                             "auroc_ci95": transfer["auroc_ci95"],
                             "population_shift": transfer["population_shift"]},
         "hard_q_cap": cfg["NEW_IN_V340R"]["hard_q_cap"],
@@ -34,11 +48,8 @@ def main() -> None:
                    "calibrated_on": "ATTACKED states, D_budget_attacked_r, n=300, no generation",
                    "selection_rule": budget["selection_rule"],
                    "feasible_targets": budget["feasible_targets"],
-                   "note": "The rule selects for BUDGET VALIDITY, not efficacy. The chosen "
-                           "0.025 is smaller than V3.4.0's 0.03 because honouring the cap "
-                           "with at most 10% clipping forces it down. A weaker controller is "
-                           "the price of a valid equal-budget comparison, and is disclosed "
-                           "here rather than discovered afterwards."},
+                   "note": "The historical q_target_rms=0.03 is fixed. Clipping is reported, "
+                           "but is not a criterion for changing the target."},
         "arms": ["CLEAN", "ATTACK_ONLY", "LINEAR", "0.25", "0.28", "0.30", "1/3", "0.36", "0.40", "0.44"],
         "attacks": {"families": ["ATTACK_W", "ATTACK_V"],
                     "grid_absolute": v340["attacks"]["generation_grid_absolute"],

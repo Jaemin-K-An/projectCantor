@@ -23,12 +23,13 @@ from cantor_guard.models import load_model  # noqa: E402
 from cantor_guard_v32.metrics32 import coherence32, is_refusal32  # noqa: E402
 from cantor_guard_v335c.p0_attack_generation import generate_attacked_p0  # noqa: E402
 
-from _common import RESULTS, frozen_actuator  # noqa: E402
+from _common import RESULTS, frozen_actuator, require_external_window_pass  # noqa: E402
 
 DOSES = (-0.4, -0.8)
 
 
 def main(split: str = "D_eval_val_r") -> None:
+    require_external_window_pass()
     seed_everything(20260903)
     prompts = pd.read_csv(RESULTS / "cache" / f"{split}.csv")
     actuator = frozen_actuator()

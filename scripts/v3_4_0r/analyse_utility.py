@@ -15,11 +15,11 @@ import pandas as pd
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
-from _common import CONFIG, RESULTS, read_json, write_json  # noqa: E402
+from _common import CONFIG, RESULTS, require_confirmatory_freeze, write_json  # noqa: E402
 
 
 def main(split: str = "D_final_r_benign") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
     gate = freeze["utility_gate"]
     frame = pd.read_csv(RESULTS / "raw" / f"utility_{split}.csv")
     col = "y_safe" if "y_safe" in frame.columns else "refusal_proxy"

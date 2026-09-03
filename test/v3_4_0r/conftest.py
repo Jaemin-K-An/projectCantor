@@ -9,6 +9,12 @@ ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "llm/src"))
 sys.path.insert(0, str(ROOT / "scripts/v3_4_0r"))
 
+# Earlier version suites use the same top-level helper names.  Pytest keeps
+# them in sys.modules across collection, so force V3.4.0R to import its own
+# helpers after putting this version first on sys.path.
+for _name in ("_common", "_stats", "patch_claim_classifier"):
+    sys.modules.pop(_name, None)
+
 RESULTS = ROOT / "results/v3_4_0r"
 CONFIG = ROOT / "configs/v3_4_0r"
 

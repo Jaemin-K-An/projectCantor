@@ -351,5 +351,8 @@
     "0.44": 0.04164260381991322,
     "LINEAR": 0.04286683532151232
   },
-  "verdict": "BUDGET_DESIGN_FEASIBLE"
+  "verdict": "BUDGET_DESIGN_FEASIBLE",
+  "confirmatory_status": "INVALIDATED_POST_ST3_WINDOW_SHIFT",
+  "use_in_confirmatory_inference": false,
+  "protocol_defect": "q_target was changed to 0.025 using an undeclared clipping-rate criterion; the frozen target was 0.03"
 }

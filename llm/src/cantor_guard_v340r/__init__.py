@@ -5,3 +5,6 @@ CONTROL LAW's budget discipline (a real statewise cap) and the experimental
 design (attacked-state calibration, no-controller and non-Cantor baselines).
 """
 from .controllers import CappedCantorController, LinearThresholdController  # noqa: F401
+from .linear_sensor_actuator import LinearSensorActuator  # noqa: F401
+
+__all__ = ["CappedCantorController", "LinearThresholdController", "LinearSensorActuator"]

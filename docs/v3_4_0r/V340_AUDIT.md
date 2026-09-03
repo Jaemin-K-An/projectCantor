@@ -55,3 +55,14 @@ probe는 `class_weight="balanced"`로 적합되었다. 따라서 `d_0 = 0`은 **
 분류기의 결정 초평면**이지 자연 배포 모집단에서 `P(refusal)=0.5`인 지점이 아니다.
 V3.4.0R은 이를 **SENSOR DECISION BOUNDARY**로 부르고, 보정 offset `tau_d`는
 적용하지 않는다 — 프로토콜을 고치는 동안 아키텍처까지 바꾸지 않기 위해서다.
+
+## 재개 감사 (V3.4.0R)
+
+재개 시점의 로컬 HEAD `1940366`은 아직 GitHub에 없는 V3.4.0R 선행 작업이었다.
+감사 결과 역사적 W를 `2.2805459097…`로 잘못 복사했고, 사양에 없는 clipping 10%
+조건으로 q target을 .025로 바꿨으며, fixed-W applicability gate를 생략한 사실을
+확인했다. 역사적 정답은 W=`2.2805212277347544`, q target=.03이다.
+
+올바른 W로 gate를 실행한 결과 external coverage는 0.8667로 0.90 기준을 실패했다.
+따라서 선행 local commits의 downstream 결과는 비확증으로 무효화하며 V3.4.0R은
+`ST3_WINDOW_SHIFT`에서 중단한다.

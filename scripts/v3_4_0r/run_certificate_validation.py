@@ -12,16 +12,18 @@ from cantor_guard_v340.attack import attack_v, attack_w  # noqa: E402
 from cantor_guard_v340.cantor_geometry import Cell, classify, epsilon_h  # noqa: E402
 from cantor_guard_v340r.controllers import CappedCantorController  # noqa: E402
 
-from _common import CONFIG, RESULTS, frozen_actuator, frozen_sensor, read_json, rho_key, write_json  # noqa: E402
+from _common import (RESULTS, ROOT, frozen_actuator, frozen_sensor,
+                     read_json, require_confirmatory_freeze, rho_key, write_json)  # noqa: E402
 
 
 def main() -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
     frozen = freeze["inherited_frozen"]
     W = float(frozen["W"])
     kappa_sensor, actuator = frozen_sensor(), frozen_actuator()
     kappa = float(kappa_sensor.coupling(actuator.v_safe))
-    grid = [e for e in freeze["attacks"]["grid_absolute"] if e > 0]
+    old_freeze = read_json(ROOT / "configs/v3_4_0/PRE_ANALYSIS_FREEZE.json")
+    grid = [e for e in old_freeze["attacks"]["certificate_validation_grid_absolute"] if e > 0]
     H = np.load(RESULTS / "cache" / "h_D_final_r_harmful.npy") \
         if (RESULTS / "cache" / "h_D_final_r_harmful.npy").exists() \
         else np.load(RESULTS / "cache" / "h_D_budget_attacked_r.npy")

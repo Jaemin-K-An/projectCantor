@@ -28,22 +28,19 @@ def test_translation_preserves_the_certificate(sensor, rng):
 def test_unique_maximiser_and_value():
     grid = np.linspace(1e-6, 0.5 - 1e-6, 2_000_001)
     assert grid[int(margin_m3(grid).argmax())] == pytest.approx(1 / 3, abs=1e-6)
-    W = 2.2805459097301697
+    W = 2.2805212277347544
     assert epsilon_h(1 / 3, W) == pytest.approx(epsilon_h_cantor(W)) == pytest.approx(2 * W / 27)
     for rho in (0.25, 0.28, 0.30, 0.36, 0.40, 0.44):
         assert epsilon_h(1 / 3, W) > epsilon_h(rho, W)
 
 
-def test_implementation_validated_with_zero_violations():
-    cert = json.loads((ROOT / "results/v3_4_0r/tables/certificate_validation.json").read_text())
-    assert cert["verdict"] == "CERT1_VALID"
-    assert cert["total_violations"] == 0
-    assert all(row["tests_below_certificate"] > 0 for row in cert["per_rho"].values())
+def test_post_gate_certificate_run_is_not_confirmatory():
+    invalid = json.loads((ROOT / "results/v3_4_0r/tables/POST_GATE_INVALIDATION.json").read_text())
+    assert "results/v3_4_0r/tables/certificate_validation.json" in invalid["invalidated_artifacts"]
+    assert invalid["blocking_gate"] == "ST3_WINDOW_SHIFT"
 
 
 def test_certificate_scope_is_stated_narrowly():
-    cert = json.loads((ROOT / "results/v3_4_0r/tables/certificate_validation.json").read_text())
-    scope = cert["scope"].lower()
-    assert "direct terminal-policy switching" in scope
-    assert "not a semantic safety" in scope
-    assert "implementation validation" in scope
+    verdict = json.loads((ROOT / "results/v3_4_0r/tables/final_verdict.json").read_text())
+    assert verdict["structural_claim_scope"] == "residual policy-transition certificate only"
+    assert verdict["semantic_safety_guarantee_claimed"] is False

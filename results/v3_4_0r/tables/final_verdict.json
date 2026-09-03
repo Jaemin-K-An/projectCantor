@@ -1,0 +1,19 @@
+{
+  "SENSOR_TRANSPORT": "ST3_WINDOW_SHIFT",
+  "SENSOR_SCOPE": "SENS2_REFUSAL_SENSOR_ONLY",
+  "ACTUATOR": "ACT1_FROZEN_REPLICATED",
+  "CERTIFICATE": "NOT_RUN_EXTERNAL_TRANSPORT_GATE",
+  "BUDGET": "NOT_RUN_EXTERNAL_TRANSPORT_GATE",
+  "CONTROLLER": "CTRL4_INCONCLUSIVE",
+  "BASELINE": "BASE4_INCONCLUSIVE",
+  "RHO": "RHO4_INCONCLUSIVE",
+  "SEMANTIC": "SEM3_PROXY_ONLY",
+  "UTILITY": "NOT_RUN_EXTERNAL_TRANSPORT_GATE",
+  "OVERALL": "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE",
+  "structural_claim": "For fixed W, epsilon_h(rho)=2W*rho^2*(1-2rho) is uniquely maximised at rho=1/3.",
+  "structural_claim_scope": "residual policy-transition certificate only",
+  "empirical_behavioral_optimum_claimed": false,
+  "semantic_safety_guarantee_claimed": false,
+  "stop_reason": "fixed-W coverage 0.8667 < 0.90",
+  "invalid_q025_final_used": false
+}

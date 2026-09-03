@@ -1,0 +1,16 @@
+{
+  "sensor_transport": "ST1_PASS",
+  "sensor_scope": "SENS2_REFUSAL_SENSOR_ONLY",
+  "auroc": 0.8992248062015504,
+  "auroc_ci95": [
+    0.8291358024691359,
+    0.9562044528773318
+  ],
+  "balanced_accuracy_at_zero": 0.7347729789590255,
+  "fixed_W_coverage": 0.8666666666666667,
+  "fixed_W_gate": 0.9,
+  "window_verdict": "ST3_WINDOW_SHIFT",
+  "overall_transport_state": "ST3_WINDOW_SHIFT",
+  "sensor_retrained": false,
+  "W_recalibrated": false
+}

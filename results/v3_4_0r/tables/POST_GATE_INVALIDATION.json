@@ -1,0 +1,40 @@
+{
+  "status": "INVALIDATED_NOT_CONFIRMATORY",
+  "blocking_gate": "ST3_WINDOW_SHIFT",
+  "blocking_result": {
+    "W": 2.2805212277347544,
+    "coverage": 0.8666666666666667,
+    "coverage_min": 0.9,
+    "inside": 130,
+    "n": 150
+  },
+  "protocol_deviations_found_on_resume": [
+    "The inherited W was copied as 2.28054590973017 instead of the immutable V3.4.0 value 2.2805212277347544.",
+    "An undeclared clipping-rate <=0.10 criterion was introduced.",
+    "The frozen q_target_rms was changed from 0.03 to 0.025 even though the protocol forbids changing it.",
+    "The external fixed-W applicability gate was not run before downstream work.",
+    "Budget calibration, evaluator work, certificate validation, protocol freeze, and final generation continued after the applicability gate would have stopped the study."
+  ],
+  "invalidated_commits": ["712a9e1", "1940366"],
+  "invalidated_artifacts": [
+    "results/v3_4_0r/tables/budget_calibration.json",
+    "results/v3_4_0r/tables/budget_states_collected.json",
+    "results/v3_4_0r/tables/semantic_evaluator_validation.json",
+    "results/v3_4_0r/tables/certificate_validation.json",
+    "results/v3_4_0r/raw/elicited_compliance.csv",
+    "results/v3_4_0r/raw/evaluator_predictions.csv",
+    "results/v3_4_0r/raw/evaluator_validation_labels.csv",
+    "results/v3_4_0r/invalidated/final_q025_D_final_r_harmful.csv"
+  ],
+  "invalid_final": {
+    "rows": 11600,
+    "prompts": 80,
+    "q_target_rms": 0.025,
+    "raw_sha256": "2435f8fa1bb970d1b5082b0d6bbeaca12d07821d9d08f0bb1cae2e26f363e7c1",
+    "private_sha256": "e1d7681e408f4bf6048460c6ed5b6626e8b470c4172e1b5aab0391e61b559de8",
+    "use_in_claims": false
+  },
+  "canonical_final_paths_cleared": true,
+  "no_final_statistics_computed": true,
+  "correct_overall_verdict": "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE"
+}

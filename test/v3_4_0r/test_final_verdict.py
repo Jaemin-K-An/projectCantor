@@ -1,82 +1,59 @@
-"""The verdict machine must be a pure function of the stored gates."""
-import importlib
+"""The verdict machine is a pure function of the stored preregistered gates."""
 import json
 import pathlib
-import sys
 
-import pytest
+from patch_claim_classifier import baseline_verdict, controller_verdict, overall_verdict
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "scripts/v3_4_0r"))
-from patch_claim_classifier import cantor_verdict, controller_verdict, overall_verdict  # noqa: E402
 
 
-def test_budget_mismatch_dominates_every_other_gate():
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD2_MISMATCH",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR1_SPECIFIC_GAIN", utility="U1_PASS") \
-        == "F_EQUAL_BUDGET_CONFIRMATION_BLOCKED"
+def common(**overrides):
+    values = dict(
+        sensor_transport="ST1_PASS", certificate="CERT1_VALID", budget="BUD1_MATCHED",
+        controller="CTRL1_EFFECTIVE", baseline="BASE1_CANTOR_BEATS_LINEAR",
+        rho="RHO1_CANTOR_SPECIFIC_GAIN", utility="U1_PASS",
+    )
+    values.update(overrides)
+    return values
 
 
-def test_inert_controller_gives_verdict_e():
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD1_MATCHED",
-                           controller="CTRL2_CONTROLLER_PRACTICALLY_INERT",
-                           cantor="CANTOR2_RHO_FAMILY_EQUIVALENT", utility="U1_PASS") \
-        == "E_CONTROLLER_PRACTICALLY_INERT"
+def test_window_shift_has_first_precedence():
+    assert overall_verdict(**common(sensor_transport="ST3_WINDOW_SHIFT")) \
+        == "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE"
 
 
-def test_effective_controller_without_cantor_specificity_is_verdict_d():
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD1_MATCHED",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR3_OTHER_RHO_BETTER", utility="U1_PASS") \
-        == "D_SENSOR_ACTUATOR_CONTROLLER_EFFECTIVE_BUT_CANTOR_NOT_SPECIAL"
+def test_budget_mismatch_blocks_equal_budget_confirmation():
+    assert overall_verdict(**common(budget="BUD2_MISMATCH")) \
+        == "F_BUDGET_CONFIRMATION_BLOCKED"
 
 
-def test_cantor_gain_requires_everything():
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD1_MATCHED",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR1_SPECIFIC_GAIN", utility="U1_PASS") \
-        == "B_CANTOR_STRUCTURAL_AND_BEHAVIORAL_ADVANTAGE"
-    assert overall_verdict(certificate="CERT1_VALID", budget="BUD1_MATCHED",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR1_SPECIFIC_GAIN", utility="U2_FAIL") \
-        == "G_INCONCLUSIVE"
+def test_supported_and_cantor_specific_paths():
+    assert overall_verdict(**common()) == "B_CANTOR_ADDS_BEHAVIORAL_VALUE"
+    assert overall_verdict(**common(baseline="BASE4_INCONCLUSIVE", rho="RHO4_INCONCLUSIVE")) \
+        == "A_EXTERNAL_SENSOR_ACTUATOR_CONTROLLER_SUPPORTED"
+    assert overall_verdict(**common(baseline="BASE2_CANTOR_LINEAR_EQUIVALENT")) \
+        == "C_CONTROLLER_WORKS_BUT_CANTOR_NOT_SPECIAL"
 
 
-def test_certificate_failure_blocks_everything():
-    assert overall_verdict(certificate="CERT2_IMPLEMENTATION_FAILURE", budget="BUD1_MATCHED",
-                           controller="CTRL1_CONTROLLER_EFFECTIVE",
-                           cantor="CANTOR1_SPECIFIC_GAIN", utility="U1_PASS") \
-        == "G_INCONCLUSIVE"
-
-
-def test_controller_verdict_needs_the_interval_inside_sesoi_for_inertness():
+def test_structural_only_requires_direct_inertness_interval():
+    assert overall_verdict(**common(controller="CTRL2_PRACTICALLY_INERT")) \
+        == "D_CANTOR_STRUCTURAL_ONLY"
     assert controller_verdict(interval_lo=-0.02, interval_hi=0.01, efficacy_sesoi=0.03) \
-        == "CTRL2_CONTROLLER_PRACTICALLY_INERT"
+        == "CTRL2_PRACTICALLY_INERT"
     assert controller_verdict(interval_lo=-0.09, interval_hi=0.09, efficacy_sesoi=0.03) \
-        == "CTRL3_INCONCLUSIVE"
+        == "CTRL4_INCONCLUSIVE"
 
 
-def test_recorded_verdict_is_internally_consistent():
-    path = ROOT / "results/v3_4_0r/tables/final_verdict.json"
-    if not path.exists():
-        pytest.skip("final verdict not produced yet")
-    v = json.loads(path.read_text())
-    assert v["OVERALL"] == overall_verdict(certificate=v["CERTIFICATE"], budget=v["BUDGET"],
-                                           controller=v["CONTROLLER_EFFECT"],
-                                           cantor=v["CANTOR_BEHAVIOR"], utility=v["UTILITY"])
-    if v["BUDGET"] == "BUD2_MISMATCH":
-        assert v["CANTOR_BEHAVIOR"] == "CANTOR4_BLOCKED_BUDGET"
-        assert v["GENERATION"] == "GEN6_EQUAL_BUDGET_COMPARISON_BLOCKED"
-    if v["SEMANTIC"] != "SEM1_VALID":
-        assert v["semantic_claim_allowed"] is False
+def test_linear_baseline_labels():
+    assert baseline_verdict(interval_lo=0.04, interval_hi=0.08, sesoi=0.03) \
+        == "BASE1_CANTOR_BEATS_LINEAR"
+    assert baseline_verdict(interval_lo=-0.02, interval_hi=0.02, sesoi=0.03) \
+        == "BASE2_CANTOR_LINEAR_EQUIVALENT"
 
 
-def test_structural_claim_is_phrased_as_structural_only():
-    path = ROOT / "results/v3_4_0r/tables/final_verdict.json"
-    if not path.exists():
-        pytest.skip("final verdict not produced yet")
-    v = json.loads(path.read_text())
-    assert "STRUCTURAL POLICY-SEPARATION OPTIMUM" in v["structural_claim"]
-    assert "not an empirical LLM safety optimum" in v["structural_claim"]
-    assert v["llm_is_not_claimed_to_be_fractal"] is True
+def test_recorded_stop_verdict_is_consistent_and_narrow():
+    v = json.loads((ROOT / "results/v3_4_0r/tables/final_verdict.json").read_text())
+    assert v["SENSOR_TRANSPORT"] == "ST3_WINDOW_SHIFT"
+    assert v["OVERALL"] == "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE"
+    assert v["invalid_q025_final_used"] is False
+    assert v["semantic_safety_guarantee_claimed"] is False

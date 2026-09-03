@@ -23,7 +23,7 @@ from cantor_guard_v340.attack import attack_v, attack_w  # noqa: E402
 from cantor_guard_v340.p0_generation import generate_defended  # noqa: E402
 from cantor_guard_v340r.controllers import CappedCantorController, LinearThresholdController  # noqa: E402
 
-from _common import CONFIG, RESULTS, frozen_actuator, frozen_sensor, read_json  # noqa: E402
+from _common import RESULTS, frozen_actuator, frozen_sensor, require_confirmatory_freeze  # noqa: E402
 
 
 def build_arms(freeze, sensor, actuator):
@@ -43,7 +43,10 @@ def build_arms(freeze, sensor, actuator):
 
 
 def main(split: str = "D_final_r_harmful") -> None:
-    freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
+    freeze = require_confirmatory_freeze()
+    output = RESULTS / "raw" / f"final_{split}.csv"
+    if output.exists():
+        raise SystemExit(f"STOP: {output} already exists; final data cannot be regenerated")
     seed_everything(20260903)
     sensor, actuator = frozen_sensor(), frozen_actuator()
     arms = build_arms(freeze, sensor, actuator)
@@ -86,7 +89,7 @@ def main(split: str = "D_final_r_harmful") -> None:
                 record(arm, family, eps, gen)
             print(f"{family} eps={eps:.4f} done ({len(arms)} arms)", flush=True)
 
-    pd.DataFrame(rows).to_csv(RESULTS / "raw" / f"final_{split}.csv", index=False)
+    pd.DataFrame(rows).to_csv(output, index=False)
     pd.DataFrame(private).to_csv(RESULTS / "private" / f"final_{split}_completions.csv", index=False)
     print(f"\nwrote {len(rows)} rows")
 

@@ -38,8 +38,11 @@ V3.4.0은 rho controller들을 **서로하고만** 비교했다. 따라서 다�
 
 ## 무력함 판정 규칙
 
-`CTRL2_CONTROLLER_PRACTICALLY_INERT`는 **Cantor 1/3 대 `ATTACK_ONLY`의 동시구간이
+`CTRL2_PRACTICALLY_INERT`는 **Cantor 1/3 대 `ATTACK_ONLY`의 동시구간이
 효능 SESOI 안에 완전히 들어갈 때에만** 붙는다.
 
 - rho끼리 비슷하다는 사실은 **충분하지 않다**.
-- 0을 포함하지만 SESOI보다 넓은 구간은 `CTRL3_INCONCLUSIVE`이지 무력함이 아니다.
+- 0을 포함하지만 SESOI보다 넓은 구간은 `CTRL4_INCONCLUSIVE`이지 무력함이 아니다.
+
+V3.4.0R에서는 fixed-W gate가 먼저 실패했으므로 이 arm들은 설계·테스트만 되었고
+유효한 final 비교에는 투입되지 않았다.

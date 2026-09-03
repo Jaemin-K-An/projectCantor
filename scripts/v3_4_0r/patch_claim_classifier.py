@@ -1,69 +1,88 @@
-"""Phase 1 -- the corrected verdict machine.
-
-The V3.4.0 classifier could emit a practical-equivalence label while the budget
-audit said no arm was valid. Here budget validity is a HARD PRECONDITION that
-overrides every SESOI result, and controller efficacy is evaluated against an
-attacked no-controller baseline rather than inferred from rho similarity.
-"""
+"""Pure V3.4.0R verdict functions with hard gate precedence."""
 from __future__ import annotations
 
 
 def generation_verdict(*, budget_all_matched: bool, comparison_blocked: bool,
                        all_within_sesoi: bool, all_favour_cantor: bool,
                        any_favours_other: bool, have_contrasts: bool) -> str:
-    """Budget validity dominates. No override exists."""
-    if comparison_blocked or not budget_all_matched:
-        return "GEN6_EQUAL_BUDGET_COMPARISON_BLOCKED"
-    if not have_contrasts:
-        return "GEN5_INCONCLUSIVE"
-    if all_favour_cantor:
-        return "GEN1_CANTOR_GAIN"
-    if any_favours_other:
-        return "GEN3_OTHER_RHO_BETTER"
-    if all_within_sesoi:
-        return "GEN2_RHO_FAMILY_PRACTICALLY_EQUIVALENT"
-    return "GEN5_INCONCLUSIVE"
-
-
-def cantor_verdict(*, budget_all_matched: bool, comparison_blocked: bool,
-                   all_within_sesoi: bool, all_favour_cantor: bool,
-                   any_favours_other: bool, have_contrasts: bool) -> str:
     if comparison_blocked or not budget_all_matched:
         return "CANTOR4_BLOCKED_BUDGET"
     if not have_contrasts:
-        return "CANTOR5_INCONCLUSIVE"
+        return "RHO4_INCONCLUSIVE"
     if all_favour_cantor:
-        return "CANTOR1_SPECIFIC_GAIN"
+        return "RHO1_CANTOR_SPECIFIC_GAIN"
     if any_favours_other:
-        return "CANTOR3_OTHER_RHO_BETTER"
+        return "RHO3_OTHER_RHO_BETTER"
     if all_within_sesoi:
-        return "CANTOR2_RHO_FAMILY_EQUIVALENT"
-    return "CANTOR5_INCONCLUSIVE"
+        return "RHO2_PRACTICALLY_EQUIVALENT"
+    return "RHO4_INCONCLUSIVE"
+
+
+def rho_verdict(**kwargs) -> str:
+    return generation_verdict(**kwargs)
+
+
+def cantor_verdict(**kwargs) -> str:
+    """Compatibility alias retained for older local tests/scripts."""
+    return generation_verdict(**kwargs)
 
 
 def controller_verdict(*, interval_lo: float | None, interval_hi: float | None,
                        efficacy_sesoi: float) -> str:
-    """Efficacy is decided against attacked NO-CONTROLLER, never by rho similarity.
-
-    CTRL2 (inert) requires the interval to lie wholly inside the SESOI band --
-    an interval that merely contains zero is inconclusive, not inert.
-    """
     if interval_lo is None or interval_hi is None:
-        return "CTRL3_INCONCLUSIVE"
+        return "CTRL4_INCONCLUSIVE"
     if interval_lo > efficacy_sesoi:
-        return "CTRL1_CONTROLLER_EFFECTIVE"
+        return "CTRL1_EFFECTIVE"
+    if interval_hi < -efficacy_sesoi:
+        return "CTRL3_HARMFUL"
     if interval_lo >= -efficacy_sesoi and interval_hi <= efficacy_sesoi:
-        return "CTRL2_CONTROLLER_PRACTICALLY_INERT"
-    return "CTRL3_INCONCLUSIVE"
+        return "CTRL2_PRACTICALLY_INERT"
+    return "CTRL4_INCONCLUSIVE"
+
+
+def baseline_verdict(*, interval_lo: float | None, interval_hi: float | None,
+                     sesoi: float) -> str:
+    if interval_lo is None or interval_hi is None:
+        return "BASE4_INCONCLUSIVE"
+    if interval_lo > sesoi:
+        return "BASE1_CANTOR_BEATS_LINEAR"
+    if interval_hi < -sesoi:
+        return "BASE3_LINEAR_BEATS_CANTOR"
+    if interval_lo >= -sesoi and interval_hi <= sesoi:
+        return "BASE2_CANTOR_LINEAR_EQUIVALENT"
+    return "BASE4_INCONCLUSIVE"
+
+
+def overall_verdict(*, sensor_transport: str, certificate: str, budget: str,
+                    controller: str, baseline: str, rho: str, utility: str) -> str:
+    """Apply the preregistered decision tree; upstream gates dominate."""
+    if sensor_transport in {"ST2_FAIL", "ST3_WINDOW_SHIFT"}:
+        return "E_EXTERNAL_SENSOR_TRANSPORT_FAILURE"
+    if budget == "BUD2_MISMATCH":
+        return "F_BUDGET_CONFIRMATION_BLOCKED"
+    supported = (
+        sensor_transport == "ST1_PASS"
+        and certificate == "CERT1_VALID"
+        and budget == "BUD1_MATCHED"
+        and controller == "CTRL1_EFFECTIVE"
+        and utility == "U1_PASS"
+    )
+    if supported and baseline == "BASE1_CANTOR_BEATS_LINEAR" and rho == "RHO1_CANTOR_SPECIFIC_GAIN":
+        return "B_CANTOR_ADDS_BEHAVIORAL_VALUE"
+    if supported and (baseline == "BASE2_CANTOR_LINEAR_EQUIVALENT"
+                      or rho == "RHO2_PRACTICALLY_EQUIVALENT"):
+        return "C_CONTROLLER_WORKS_BUT_CANTOR_NOT_SPECIAL"
+    if supported:
+        return "A_EXTERNAL_SENSOR_ACTUATOR_CONTROLLER_SUPPORTED"
+    if certificate == "CERT1_VALID" and controller == "CTRL2_PRACTICALLY_INERT":
+        return "D_CANTOR_STRUCTURAL_ONLY"
+    return "G_INCONCLUSIVE"
 
 
 def legacy_v340_generation_verdict(*, all_within_sesoi: bool, all_favour_cantor: bool,
                                    any_favours_other: bool, have_contrasts: bool,
                                    **_ignored) -> str:
-    """The V3.4.0 logic, kept ONLY so the regression test can prove it was wrong.
-
-    Note it never reads the budget at all -- that is the defect.
-    """
+    """Historical defective logic, retained only for its regression test."""
     if not have_contrasts:
         return "GEN5_INCONCLUSIVE"
     if all_favour_cantor:
@@ -73,22 +92,3 @@ def legacy_v340_generation_verdict(*, all_within_sesoi: bool, all_favour_cantor:
     if all_within_sesoi:
         return "GEN2_RHO_FAMILY_PRACTICALLY_EQUIVALENT"
     return "GEN5_INCONCLUSIVE"
-
-
-def overall_verdict(*, certificate: str, budget: str, controller: str,
-                    cantor: str, utility: str) -> str:
-    if budget == "BUD2_MISMATCH":
-        return "F_EQUAL_BUDGET_CONFIRMATION_BLOCKED"
-    if certificate != "CERT1_VALID":
-        return "G_INCONCLUSIVE"
-    if controller == "CTRL2_CONTROLLER_PRACTICALLY_INERT":
-        return "E_CONTROLLER_PRACTICALLY_INERT"
-    if controller != "CTRL1_CONTROLLER_EFFECTIVE" or utility != "U1_PASS":
-        return "G_INCONCLUSIVE"
-    if cantor == "CANTOR1_SPECIFIC_GAIN":
-        return "B_CANTOR_STRUCTURAL_AND_BEHAVIORAL_ADVANTAGE"
-    if cantor == "CANTOR2_RHO_FAMILY_EQUIVALENT":
-        return "C_CANTOR_STRUCTURAL_ONLY_RHO_EQUIVALENT"
-    if cantor in ("CANTOR3_OTHER_RHO_BETTER", "CANTOR5_INCONCLUSIVE"):
-        return "D_SENSOR_ACTUATOR_CONTROLLER_EFFECTIVE_BUT_CANTOR_NOT_SPECIAL"
-    return "G_INCONCLUSIVE"

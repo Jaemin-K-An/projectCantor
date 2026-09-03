@@ -6,5 +6,7 @@
   "labels_consulted": false,
   "mean_d": 1.2438940464486627,
   "sd_d": 1.0144720948326524,
-  "mean_h_norm": 18.2300064044282
+  "mean_h_norm": 18.2300064044282,
+  "confirmatory_status": "INVALIDATED_POST_ST3_WINDOW_SHIFT",
+  "use_in_confirmatory_inference": false
 }
