@@ -1,0 +1,7 @@
+Initializing global attention on CLS token...
+Input ids are automatically padded to be a multiple of `config.attention_window`: 512
+  final_D_final_harmful: 0/9520
+  final_D_final_harmful: 640/9520
+  final_D_final_harmful: 1280/9520
+  final_D_final_harmful: 1920/9520
+  final_D_final_harmful: 2560/9520

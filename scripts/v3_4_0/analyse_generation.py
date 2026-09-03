@@ -40,7 +40,11 @@ def main(split: str = "D_final_harmful") -> None:
                              group_cols=("rho_key", "pid"))
         wide = auc.pivot(index="pid", columns="rho_key", values="auc").dropna()
         arms = [rho_key(r) for r in freeze["geometry"]["rho_family"]]
-        usable = [a for a in arms if a in wide.columns and a not in audit["excluded_rho"]]
+        # Budget-mismatched rho cannot enter a CONFIRMATORY equal-budget
+        # comparison (frozen rule).  They are still reported descriptively --
+        # suppressing measured numbers would be worse than labelling them --
+        # but the confirmatory verdict stays blocked by the classifier.
+        usable = [a for a in arms if a in wide.columns]
         idx = shared_index(len(wide), n_boot=int(stats_cfg["n_boot"]), seed=int(stats_cfg["seed"]))
         per_prompt = {a: wide[a].to_numpy(dtype=float) for a in usable}
         contrasts = [("1/3", rho_key(b)) for _, b in stats_cfg["primary_comparisons"]
@@ -64,8 +68,20 @@ def main(split: str = "D_final_harmful") -> None:
         }
         auc.to_csv(RESULTS / "tables" / f"auc_per_prompt_{family}.csv", index=False)
 
+    blocked = len(audit["excluded_rho"]) > 0
     write_json(RESULTS / "tables" / "generation_analysis.json", {
         "split": split, "endpoint": "refusal robustness AUC (SEM3_PROXY_ONLY)",
+        "confirmatory_comparison_blocked": blocked,
+        "blocked_reason": (
+            "Every rho missed the frozen +/-3% budget tolerance on D_final "
+            "(realised q_rms 0.0343-0.0374 against a 0.0300 target). eta was "
+            "calibrated on CLEAN states but the controller runs on ATTACKED "
+            "states, which sit in higher-action cells and fall outside the "
+            "window more often (18% vs 12%). The deviation also grows with rho "
+            "(+14% at 0.25 to +25% at 0.44), so larger rho spent more energy. "
+            "The numbers below are DESCRIPTIVE only; no equal-budget claim "
+            "follows from them, and nothing was retuned after D_final."
+        ) if blocked else None,
         "sesoi": sesoi, "primary_comparisons": stats_cfg["primary_comparisons"],
         "excluded_rho": audit["excluded_rho"], "by_family": results,
         "no_post_hoc_comparator_selection": True,

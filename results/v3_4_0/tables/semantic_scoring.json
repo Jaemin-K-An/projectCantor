@@ -1,0 +1,13 @@
+{
+  "labeller": "LibrAI/longformer-action-ro",
+  "refusal_action_classes": [
+    0,
+    1
+  ],
+  "endpoint_name": "refusal robustness (NOT semantic harmful compliance)",
+  "semantic_gate": "FAILED in Phase 1 -- SEM3_PROXY_ONLY",
+  "scored": [
+    "final_D_final_harmful",
+    "utility_D_final_benign"
+  ]
+}

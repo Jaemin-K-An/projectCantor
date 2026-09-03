@@ -1,0 +1,136 @@
+{
+  "kappa": 0.3102297257950366,
+  "by_family": {
+    "ATTACK_V": {
+      "n": 4480,
+      "max_abs_error": 4.7412677783853496e-08,
+      "median_abs_error": 1.141422531145131e-08,
+      "mean_dd_attack": -0.5684121809262749,
+      "mean_dd_controller": 0.1710619504279686,
+      "restoration_fraction": 0.30094701726695744
+    },
+    "ATTACK_W": {
+      "n": 4480,
+      "max_abs_error": 5.5624774120133225e-08,
+      "median_abs_error": 1.2667347004668983e-08,
+      "mean_dd_attack": -1.832229872160983,
+      "mean_dd_controller": 0.20645079835526847,
+      "restoration_fraction": 0.11267734550783992
+    }
+  },
+  "sensor_scores_by_family_and_rho": [
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.25",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.0019729321872088866,
+      "fraction_corrected_closer_to_clean": 0.66875
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.28",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.0018060656044739166,
+      "fraction_corrected_closer_to_clean": 0.6859375
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.30",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.0027000079677474086,
+      "fraction_corrected_closer_to_clean": 0.6875
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.36",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.00065311761619129,
+      "fraction_corrected_closer_to_clean": 0.690625
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.40",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.000962128978523813,
+      "fraction_corrected_closer_to_clean": 0.6984375
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "0.44",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": 0.0015641558615633766,
+      "fraction_corrected_closer_to_clean": 0.709375
+    },
+    {
+      "family": "ATTACK_V",
+      "rho_key": "1/3",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -0.17218430067464963,
+      "mean_d_corrected": -0.001326355234185206,
+      "fraction_corrected_closer_to_clean": 0.684375
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.25",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.233720162579848,
+      "fraction_corrected_closer_to_clean": 0.98125
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.28",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2315032954395646,
+      "fraction_corrected_closer_to_clean": 0.9796875
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.30",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2324321220551517,
+      "fraction_corrected_closer_to_clean": 0.978125
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.36",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2289034415593205,
+      "fraction_corrected_closer_to_clean": 0.9671875
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.40",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2282900382616406,
+      "fraction_corrected_closer_to_clean": 0.9609375
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "0.44",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2216590953647364,
+      "fraction_corrected_closer_to_clean": 0.94375
+    },
+    {
+      "family": "ATTACK_W",
+      "rho_key": "1/3",
+      "mean_d_clean": 0.3962278802516253,
+      "mean_d_attacked": -1.4360019919093578,
+      "mean_d_corrected": -1.2303501996183628,
+      "fraction_corrected_closer_to_clean": 0.9734375
+    }
+  ],
+  "note": "ATTACK-W error is bounded by float32 hook precision; anything larger would mean the injected perturbation is not what the analysis assumes."
+}

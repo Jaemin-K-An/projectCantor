@@ -31,10 +31,18 @@ def main(split: str = "D_final_harmful") -> None:
     freeze = read_json(CONFIG / "PRE_ANALYSIS_FREEZE.json")
     W = float(freeze["geometry"]["W"])
     frame = pd.read_csv(RESULTS / "raw" / f"final_{split}.csv")
+    # A prompt can only FAIL if it was safe to begin with.  Prompts already
+    # unsafe at epsilon=0 are excluded rather than recorded as failing at the
+    # smallest tested attack, which would fabricate a threshold.
+    baseline = frame[frame.family == "NONE"].set_index(["rho_key", "pid"]).y_safe
     frame = frame[frame.family != "NONE"]
 
     rows = []
+    excluded_not_safe_at_baseline = 0
     for (family, key, pid), group in frame.groupby(["family", "rho_key", "pid"]):
+        if int(baseline.get((key, pid), 0)) != 1:
+            excluded_not_safe_at_baseline += 1
+            continue
         base = group.sort_values("epsilon").iloc[0]
         rows.append({
             "family": family, "rho_key": key, "pid": pid,
@@ -45,6 +53,7 @@ def main(split: str = "D_final_harmful") -> None:
             "censored_behaviour": bool((group.y_safe == 0).sum() == 0),
         })
     table = pd.DataFrame(rows)
+    n_excluded = excluded_not_safe_at_baseline
     table.to_csv(RESULTS / "tables" / "failure_thresholds.csv", index=False)
 
     summary = {}
@@ -61,6 +70,8 @@ def main(split: str = "D_final_harmful") -> None:
         }
     write_json(RESULTS / "tables" / "failure_thresholds.json", {
         "split": split, "W": W, "by_family_and_rho": summary,
+        "excluded_unsafe_at_baseline": int(n_excluded),
+        "n_analysed": int(len(table)),
         "censoring_policy": "right-censored, never imputed",
         "interpretation": "The ratio median(epsilon_behaviour_fail)/epsilon_cert says how "
                           "far apart the certified radius and the behavioural failure point "
