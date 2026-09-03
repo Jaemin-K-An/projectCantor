@@ -1,0 +1,10 @@
+{
+  "split": "D_budget_attacked_r",
+  "n": 300,
+  "d_model": 896,
+  "generation_performed": false,
+  "labels_consulted": false,
+  "mean_d": 1.2438940464486627,
+  "sd_d": 1.0144720948326524,
+  "mean_h_norm": 18.2300064044282
+}

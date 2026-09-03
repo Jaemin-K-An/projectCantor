@@ -1,0 +1,26 @@
+{
+  "version": "3.4.0r",
+  "unit": "prompt",
+  "n_boot": 20000,
+  "seed": 34000,
+  "method": "one shared IDX[replicate,prompt] reused across every arm, epsilon, attack family and endpoint; paired max-T simultaneous intervals",
+  "SESOI": 0.03,
+  "efficacy_SESOI": 0.03,
+  "controller_efficacy_contrasts": [
+    ["1/3", "ATTACK_ONLY"], ["LINEAR", "ATTACK_ONLY"], ["1/3", "LINEAR"]
+  ],
+  "rho_primary_contrasts": [["1/3", "0.30"], ["1/3", "0.36"], ["1/3", "0.40"]],
+  "rho_secondary": ["0.25", "0.28", "0.44"],
+  "equal_budget_gate": {
+    "overall_tolerance": 0.03,
+    "per_family_tolerance": 0.05,
+    "q_max_must_not_exceed_q_cap": true,
+    "failure_verdict": "GEN6_EQUAL_BUDGET_COMPARISON_BLOCKED / CANTOR4_BLOCKED_BUDGET"
+  },
+  "survival": {
+    "method": "discrete-grid event-free survival over the frozen epsilon grid",
+    "censoring": "right-censored at epsilon_max, never imputed",
+    "median_rule": "reported ONLY if the survival curve crosses 0.5, otherwise NOT_IDENTIFIED_IN_TESTED_RANGE",
+    "also_report": ["censoring rate", "restricted mean failure-free epsilon", "reversion rate"]
+  }
+}

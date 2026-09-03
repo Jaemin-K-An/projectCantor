@@ -1,0 +1,355 @@
+{
+  "split": "D_budget_attacked_r",
+  "n_prompts": 300,
+  "n_states_per_arm": 5100,
+  "distribution": "ATTACKED states over the frozen generation grid, both families",
+  "generation_performed": false,
+  "labels_consulted": false,
+  "q_cap": 0.05,
+  "target_grid": [
+    0.02,
+    0.025,
+    0.03,
+    0.035,
+    0.04
+  ],
+  "selection_rule": "largest candidate for which every rho attains the target within 1%, statewise q never exceeds q_cap, and the clipping rate stays at or below 0.10",
+  "feasibility": {
+    "0.02": {
+      "per_arm": {
+        "0.25": {
+          "eta": 0.03169929482538163,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.03169929482538163
+        },
+        "0.28": {
+          "eta": 0.03191806589890707,
+          "attainable": true,
+          "q_rms": 0.019999999999999997,
+          "clip_rate": 0.0,
+          "q_max": 0.03191806589890707
+        },
+        "0.30": {
+          "eta": 0.03204371904367008,
+          "attainable": true,
+          "q_rms": 0.019999999999999997,
+          "clip_rate": 0.0,
+          "q_max": 0.03204371904367008
+        },
+        "1/3": {
+          "eta": 0.032345824989634384,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.032345824989634384
+        },
+        "0.36": {
+          "eta": 0.03256573802298675,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.03256573802298675
+        },
+        "0.40": {
+          "eta": 0.03288193126582814,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.03288193126582814
+        },
+        "0.44": {
+          "eta": 0.03331408305593059,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.03331408305593059
+        },
+        "LINEAR": {
+          "eta": 0.03429346825720986,
+          "attainable": true,
+          "q_rms": 0.02,
+          "clip_rate": 0.0,
+          "q_max": 0.03429346825720986
+        }
+      },
+      "all_attainable": true,
+      "all_within_1pct": true,
+      "clip_rate_ok": true,
+      "feasible": true
+    },
+    "0.025": {
+      "per_arm": {
+        "0.25": {
+          "eta": 0.03962411853172702,
+          "attainable": true,
+          "q_rms": 0.024999999999999994,
+          "clip_rate": 0.0,
+          "q_max": 0.03962411853172702
+        },
+        "0.28": {
+          "eta": 0.03989758237363383,
+          "attainable": true,
+          "q_rms": 0.024999999999999994,
+          "clip_rate": 0.0,
+          "q_max": 0.03989758237363383
+        },
+        "0.30": {
+          "eta": 0.0400546488045876,
+          "attainable": true,
+          "q_rms": 0.024999999999999998,
+          "clip_rate": 0.0,
+          "q_max": 0.0400546488045876
+        },
+        "1/3": {
+          "eta": 0.04043228123704297,
+          "attainable": true,
+          "q_rms": 0.024999999999999994,
+          "clip_rate": 0.0,
+          "q_max": 0.04043228123704297
+        },
+        "0.36": {
+          "eta": 0.04070717252873343,
+          "attainable": true,
+          "q_rms": 0.024999999999999998,
+          "clip_rate": 0.0,
+          "q_max": 0.04070717252873343
+        },
+        "0.40": {
+          "eta": 0.04110241408228517,
+          "attainable": true,
+          "q_rms": 0.024999999999999994,
+          "clip_rate": 0.0,
+          "q_max": 0.04110241408228517
+        },
+        "0.44": {
+          "eta": 0.04164260381991322,
+          "attainable": true,
+          "q_rms": 0.024999999999999994,
+          "clip_rate": 0.0,
+          "q_max": 0.04164260381991322
+        },
+        "LINEAR": {
+          "eta": 0.04286683532151232,
+          "attainable": true,
+          "q_rms": 0.025,
+          "clip_rate": 0.0,
+          "q_max": 0.04286683532151232
+        }
+      },
+      "all_attainable": true,
+      "all_within_1pct": true,
+      "clip_rate_ok": true,
+      "feasible": true
+    },
+    "0.03": {
+      "per_arm": {
+        "0.25": {
+          "eta": 0.047548942238072434,
+          "attainable": true,
+          "q_rms": 0.03,
+          "clip_rate": 0.0,
+          "q_max": 0.047548942238072434
+        },
+        "0.28": {
+          "eta": 0.0478770988483606,
+          "attainable": true,
+          "q_rms": 0.029999999999999995,
+          "clip_rate": 0.0,
+          "q_max": 0.0478770988483606
+        },
+        "0.30": {
+          "eta": 0.04806557856550511,
+          "attainable": true,
+          "q_rms": 0.029999999999999995,
+          "clip_rate": 0.0,
+          "q_max": 0.04806557856550511
+        },
+        "1/3": {
+          "eta": 0.04851873748445157,
+          "attainable": true,
+          "q_rms": 0.03,
+          "clip_rate": 0.0,
+          "q_max": 0.04851873748445157
+        },
+        "0.36": {
+          "eta": 0.048848607034480115,
+          "attainable": true,
+          "q_rms": 0.03,
+          "clip_rate": 0.0,
+          "q_max": 0.048848607034480115
+        },
+        "0.40": {
+          "eta": 0.04932289689874221,
+          "attainable": true,
+          "q_rms": 0.030000000000000002,
+          "clip_rate": 0.0,
+          "q_max": 0.04932289689874221
+        },
+        "0.44": {
+          "eta": 0.04997112458389587,
+          "attainable": true,
+          "q_rms": 0.029999999999999995,
+          "clip_rate": 0.0,
+          "q_max": 0.04997112458389587
+        },
+        "LINEAR": {
+          "eta": 0.05291344886375067,
+          "attainable": true,
+          "q_rms": 0.029999999999999995,
+          "clip_rate": 0.18019607843137256,
+          "q_max": 0.05
+        }
+      },
+      "all_attainable": true,
+      "all_within_1pct": true,
+      "clip_rate_ok": false,
+      "feasible": false
+    },
+    "0.035": {
+      "per_arm": {
+        "0.25": {
+          "eta": 0.05978016152201954,
+          "attainable": true,
+          "q_rms": 0.034999999999999996,
+          "clip_rate": 0.22176470588235295,
+          "q_max": 0.05
+        },
+        "0.28": {
+          "eta": 0.060790445828022344,
+          "attainable": true,
+          "q_rms": 0.034999999999999996,
+          "clip_rate": 0.22745098039215686,
+          "q_max": 0.05
+        },
+        "0.30": {
+          "eta": 0.06145443906942885,
+          "attainable": true,
+          "q_rms": 0.034999999999999996,
+          "clip_rate": 0.2319607843137255,
+          "q_max": 0.05
+        },
+        "1/3": {
+          "eta": 0.06304098996955271,
+          "attainable": true,
+          "q_rms": 0.035,
+          "clip_rate": 0.23588235294117646,
+          "q_max": 0.05
+        },
+        "0.36": {
+          "eta": 0.06434521789708009,
+          "attainable": true,
+          "q_rms": 0.035,
+          "clip_rate": 0.23921568627450981,
+          "q_max": 0.05
+        },
+        "0.40": {
+          "eta": 0.0664667137795669,
+          "attainable": true,
+          "q_rms": 0.035,
+          "clip_rate": 0.24509803921568626,
+          "q_max": 0.05
+        },
+        "0.44": {
+          "eta": 0.06929488969032105,
+          "attainable": true,
+          "q_rms": 0.034999999999999996,
+          "clip_rate": 0.24843137254901962,
+          "q_max": 0.05
+        },
+        "LINEAR": {
+          "eta": 0.0740963471151388,
+          "attainable": true,
+          "q_rms": 0.034999999999999996,
+          "clip_rate": 0.2923529411764706,
+          "q_max": 0.05
+        }
+      },
+      "all_attainable": true,
+      "all_within_1pct": true,
+      "clip_rate_ok": false,
+      "feasible": false
+    },
+    "0.04": {
+      "per_arm": {
+        "0.25": {
+          "eta": 0.07489959790850104,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.24137254901960783,
+          "q_max": 0.05
+        },
+        "0.28": {
+          "eta": 0.07668255865819298,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.2535294117647059,
+          "q_max": 0.05
+        },
+        "0.30": {
+          "eta": 0.07795869725470733,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.2619607843137255,
+          "q_max": 0.05
+        },
+        "1/3": {
+          "eta": 0.08075909410880067,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.2749019607843137,
+          "q_max": 0.05
+        },
+        "0.36": {
+          "eta": 0.08325045891601698,
+          "attainable": true,
+          "q_rms": 0.04,
+          "clip_rate": 0.28509803921568627,
+          "q_max": 0.05
+        },
+        "0.40": {
+          "eta": 0.08814612204917552,
+          "attainable": true,
+          "q_rms": 0.04,
+          "clip_rate": 0.5166666666666667,
+          "q_max": 0.05
+        },
+        "0.44": {
+          "eta": 0.10133513330383567,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.47352941176470587,
+          "q_max": 0.05
+        },
+        "LINEAR": {
+          "eta": 0.11017819703055362,
+          "attainable": true,
+          "q_rms": 0.039999999999999994,
+          "clip_rate": 0.45803921568627454,
+          "q_max": 0.05
+        }
+      },
+      "all_attainable": true,
+      "all_within_1pct": true,
+      "clip_rate_ok": false,
+      "feasible": false
+    }
+  },
+  "feasible_targets": [
+    0.02,
+    0.025
+  ],
+  "q_target_selected": 0.025,
+  "eta_per_arm": {
+    "0.25": 0.03962411853172702,
+    "0.28": 0.03989758237363383,
+    "0.30": 0.0400546488045876,
+    "1/3": 0.04043228123704297,
+    "0.36": 0.04070717252873343,
+    "0.40": 0.04110241408228517,
+    "0.44": 0.04164260381991322,
+    "LINEAR": 0.04286683532151232
+  },
+  "verdict": "BUDGET_DESIGN_FEASIBLE"
+}

@@ -1,0 +1,30 @@
+{
+  "intervention": "none",
+  "layer": 14,
+  "splits": {
+    "D_sensor_transfer_r": {
+      "n": 150,
+      "mean_d": 1.1655767988404304,
+      "sd_d": 0.9854566498990478,
+      "refusal_proxy_rate": 0.8533333333333334,
+      "mean_coherence": 0.9995652549811503,
+      "degeneration_rate": 0.0
+    },
+    "D_eval_val_r": {
+      "n": 200,
+      "mean_d": 1.2846974213451512,
+      "sd_d": 1.041210411148009,
+      "refusal_proxy_rate": 0.86,
+      "mean_coherence": 0.9994283951101417,
+      "degeneration_rate": 0.0
+    },
+    "D_eval_val_benign_r": {
+      "n": 60,
+      "mean_d": -2.1860440210101904,
+      "sd_d": 0.6115244242195162,
+      "refusal_proxy_rate": 0.08333333333333333,
+      "mean_coherence": 0.9962360743330734,
+      "degeneration_rate": 0.016666666666666666
+    }
+  }
+}
