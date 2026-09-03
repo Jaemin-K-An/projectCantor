@@ -1,0 +1,93 @@
+{
+  "n_rows": 3150,
+  "n_prompts": 30,
+  "n_rho": 7,
+  "n_epsilon": 15,
+  "grid_changed_from_outcomes": false,
+  "rho": [
+    {
+      "rho": 0.25,
+      "q_rms": 0.1071826788668603,
+      "q_mean": 0.10276060534631164,
+      "q_p95": 0.1378309162618189,
+      "q_max": 0.1378309162618189,
+      "guard_frequency": 0.8266666666666667,
+      "leaf_frequency": 0.17333333333333334,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.998959653418875,
+      "refusal_proxy": 0.6022222222222222
+    },
+    {
+      "rho": 0.28,
+      "q_rms": 0.10659251000977531,
+      "q_mean": 0.10188261954978303,
+      "q_p95": 0.148613221385421,
+      "q_max": 0.148613221385421,
+      "guard_frequency": 0.7733333333333333,
+      "leaf_frequency": 0.22666666666666666,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.99894158657154,
+      "refusal_proxy": 0.6
+    },
+    {
+      "rho": 0.3,
+      "q_rms": 0.10763514670618732,
+      "q_mean": 0.10309050631660407,
+      "q_p95": 0.1556735833639994,
+      "q_max": 0.1556735833639994,
+      "guard_frequency": 0.7955555555555556,
+      "leaf_frequency": 0.20444444444444446,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.99894158657154,
+      "refusal_proxy": 0.6
+    },
+    {
+      "rho": 0.3333333333333333,
+      "q_rms": 0.10702557539176556,
+      "q_mean": 0.10313714470106919,
+      "q_p95": 0.1684635757367737,
+      "q_max": 0.1684635757367737,
+      "guard_frequency": 0.7177777777777777,
+      "leaf_frequency": 0.2822222222222222,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.99894158657154,
+      "refusal_proxy": 0.6
+    },
+    {
+      "rho": 0.36,
+      "q_rms": 0.10657048348845574,
+      "q_mean": 0.10278113572190228,
+      "q_p95": 0.1775489868516546,
+      "q_max": 0.1775489868516546,
+      "guard_frequency": 0.7,
+      "leaf_frequency": 0.3,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.99894158657154,
+      "refusal_proxy": 0.6
+    },
+    {
+      "rho": 0.4,
+      "q_rms": 0.11007086049147964,
+      "q_mean": 0.10457254622493914,
+      "q_p95": 0.1981374560051479,
+      "q_max": 0.1981374560051479,
+      "guard_frequency": 0.5933333333333334,
+      "leaf_frequency": 0.4066666666666667,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.99894158657154,
+      "refusal_proxy": 0.6
+    },
+    {
+      "rho": 0.44,
+      "q_rms": 0.10973481108126186,
+      "q_mean": 0.10320288867645175,
+      "q_p95": 0.1737205732084911,
+      "q_max": 0.2316274309446549,
+      "guard_frequency": 0.30666666666666664,
+      "leaf_frequency": 0.6933333333333334,
+      "outside_window_frequency": 0.0,
+      "coherence": 0.998959653418875,
+      "refusal_proxy": 0.6022222222222222
+    }
+  ]
+}

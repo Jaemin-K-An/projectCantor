@@ -9,7 +9,7 @@
 
 # ---- V2: never commit raw harmful model outputs ----
 results/v2/private/
-llm/**/__pycache__/
+**/__pycache__/
 **/*.egg-info/
 .venv/
 # model / activation caches are large and regenerable
@@ -50,3 +50,7 @@ results/v3_3_5a/cache/
 
 # ---- V3.3.5b ----
 results/v3_3_5b/cache/
+
+# ---- V3.3.5c ----
+results/v3_3_5c/cache/
+results/v3_3_5c/private/

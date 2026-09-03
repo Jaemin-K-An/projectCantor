@@ -1,0 +1,5 @@
+{
+  "verdict": "T1_P0_CONCENTRATION_SUPPORTED",
+  "td1_candidates": [],
+  "reason": "at least one preregistered distributed-minus-P0 interval lies wholly below -SESOI"
+}

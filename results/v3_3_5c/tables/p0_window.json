@@ -1,0 +1,11 @@
+{
+  "tau_beh_P0": 3.0706789596469957,
+  "W": 3.325636448865837,
+  "rule": "1.05 * Q_0.99(|z_clean-tau|)",
+  "n": 40,
+  "calibration_coverage": 0.975,
+  "same_tau_every_rho": true,
+  "same_W_every_rho": true,
+  "outside_policy": "OUTSIDE_WINDOW_CONSERVATIVE_FALLBACK",
+  "clipping": false
+}

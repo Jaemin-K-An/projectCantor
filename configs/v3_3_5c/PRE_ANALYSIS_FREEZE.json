@@ -1,0 +1,7 @@
+{
+  "status": "NOT_FROZEN_BEHAVIORAL_GATE_FAILED",
+  "behavioral_verdict": "B3_BOUNDARY_UNIDENTIFIABLE",
+  "reason": "The corrected clean-sigma identifiability gate failed on both fresh DEV and CONFIRM. No final protocol was frozen and D_final_P0_335c was not touched.",
+  "D_final_touched": false,
+  "formal_freeze_commit_created": false
+}

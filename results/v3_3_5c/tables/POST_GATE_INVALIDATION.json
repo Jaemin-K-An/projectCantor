@@ -1,0 +1,16 @@
+{
+  "status": "INVALIDATED_NOT_CONFIRMATORY",
+  "reason": "A pre-freeze audit found that the first boundary pass divided tau interval width by the dose-expanded z_after standard deviation instead of the clean P0 prompt standard deviation required by the protocol.",
+  "corrected_behavioral_verdict": "B3_BOUNDARY_UNIDENTIFIABLE",
+  "invalidated_artifacts": [
+    "results/v3_3_5c/tables/p0_window.json",
+    "results/v3_3_5c/raw/window_calibration.csv",
+    "results/v3_3_5c/tables/controller_budget_calibration.json",
+    "results/v3_3_5c/raw/p0_attack_dev.csv",
+    "results/v3_3_5c/private/p0_attack_dev_completions.csv",
+    "results/v3_3_5c/tables/p0_attack_dev_summary.json"
+  ],
+  "use_in_final_claims": false,
+  "D_final_touched": false,
+  "freeze_created": false
+}

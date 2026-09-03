@@ -1,0 +1,135 @@
+{
+  "status": "CONTROLLER_BUDGET_FROZEN",
+  "selection_uses_rho_outcomes": false,
+  "selection_rule": "Choose the smallest common candidate at or above the previously observed normalized P0 causal floor, with nonzero actions for every rho, coherence >=0.95, degeneration <=0.05, and q_max <=0.30; do not use rho safety outcomes.",
+  "calibration_attack_grid": [
+    0.0,
+    0.07726118598,
+    0.139070134764,
+    0.2107123254,
+    0.214969140055,
+    0.237051366075,
+    0.238947777004,
+    0.241840282562,
+    0.243775004822,
+    0.24388000625,
+    0.246343440657,
+    0.248806875063,
+    0.270977784722,
+    0.307929300821,
+    0.369515160985
+  ],
+  "calibration_population": "D_budget_P0_335c crossed with the outcome-independent common absolute attack grid",
+  "q_target": 0.1,
+  "eta_by_rho": {
+    "0.25": 0.24120410345818324,
+    "0.28": 0.26007313742448673,
+    "0.30": 0.27242877088699907,
+    "1/3": 0.2948112575393541,
+    "0.36": 0.31071072699039565,
+    "0.40": 0.3467405480090089,
+    "0.44": 0.4053480041531461
+  },
+  "candidates": [
+    {
+      "target": 0.02,
+      "eligible": false,
+      "reason": "below outcome-independent causal floor established before V3.3.5c"
+    },
+    {
+      "target": 0.05,
+      "eligible": false,
+      "reason": "below outcome-independent causal floor established before V3.3.5c"
+    },
+    {
+      "target": 0.1,
+      "eligible": true,
+      "rho": {
+        "0.25": {
+          "eta": 0.24120410345818324,
+          "intervention_frequency": 1.0,
+          "q_mean": 0.09495018675814196,
+          "q_rms": 0.1,
+          "q_p95": 0.13783091626181898,
+          "q_max": 0.13783091626181898,
+          "clean_deployment_q_rms": 0.0902941543002179,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "0.28": {
+          "eta": 0.26007313742448673,
+          "intervention_frequency": 1.0,
+          "q_mean": 0.09478221008359071,
+          "q_rms": 0.1,
+          "q_p95": 0.148613221385421,
+          "q_max": 0.148613221385421,
+          "clean_deployment_q_rms": 0.08947700804857724,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "0.30": {
+          "eta": 0.27242877088699907,
+          "intervention_frequency": 1.0,
+          "q_mean": 0.09487440052794856,
+          "q_rms": 0.10000000000000002,
+          "q_p95": 0.15567358336399947,
+          "q_max": 0.15567358336399947,
+          "clean_deployment_q_rms": 0.09043817937198029,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "1/3": {
+          "eta": 0.2948112575393541,
+          "intervention_frequency": 1.0,
+          "q_mean": 0.09499473854045855,
+          "q_rms": 0.1,
+          "q_p95": 0.16846357573677376,
+          "q_max": 0.16846357573677376,
+          "clean_deployment_q_rms": 0.08967158579601595,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "0.36": {
+          "eta": 0.31071072699039565,
+          "intervention_frequency": 1.0,
+          "q_mean": 0.09429823968343436,
+          "q_rms": 0.1,
+          "q_p95": 0.17754898685165466,
+          "q_max": 0.17754898685165466,
+          "clean_deployment_q_rms": 0.08690534738756536,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "0.40": {
+          "eta": 0.3467405480090089,
+          "intervention_frequency": 0.9933333333333333,
+          "q_mean": 0.09290445159352491,
+          "q_rms": 0.1,
+          "q_p95": 0.14860309200386093,
+          "q_max": 0.19813745600514793,
+          "clean_deployment_q_rms": 0.08579603517083985,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        },
+        "0.44": {
+          "eta": 0.4053480041531461,
+          "intervention_frequency": 0.9688888888888889,
+          "q_mean": 0.0903346980684154,
+          "q_rms": 0.10000000000000002,
+          "q_p95": 0.17372057320849119,
+          "q_max": 0.2316274309446549,
+          "clean_deployment_q_rms": 0.08257228238447704,
+          "coherence": 1.0,
+          "degeneration_rate": 0.0,
+          "passes": true
+        }
+      }
+    }
+  ]
+}

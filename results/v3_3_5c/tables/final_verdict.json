@@ -1,0 +1,12 @@
+{
+  "TEMPORAL_CORRECTION": "T1_P0_CONCENTRATION_SUPPORTED",
+  "BEHAVIORAL": "B3_BOUNDARY_UNIDENTIFIABLE",
+  "SEMANTIC_EVALUATOR": "S2_PROXY_ONLY",
+  "CERTIFICATE": "C3_WINDOW_APPLICABILITY_FAILURE",
+  "GENERATION": "G6_NOT_RUN_BEHAVIORAL_GATE",
+  "UTILITY": "U3_NOT_RUN",
+  "OVERALL": "E_P0_BEHAVIORAL_ANCHOR_NOT_REPLICATED",
+  "structural_claim": "rho=1/3 uniquely maximises 2W*rho^2*(1-2rho) in the fixed affine depth-3 family",
+  "semantic_claim_allowed": false,
+  "historical_global_accumulation_proven": false
+}
