@@ -1,0 +1,11 @@
+{
+  "anchor_is_behavioural": false,
+  "anchor": 1.421342134475708,
+  "W": 1.3731722730025646,
+  "window_coverage_cal": 0.975,
+  "violations": 0,
+  "n_below_cert": 42,
+  "max_dz_error": 4.470348358154297e-07,
+  "cantor_rank_1": true,
+  "real_forward_attack": true
+}

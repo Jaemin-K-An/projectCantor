@@ -1,0 +1,73 @@
+{
+  "split": "D_beh_g1_dev",
+  "model": "qwen2.5-0.5b-instruct",
+  "layer": 14,
+  "doses": [
+    -100.0,
+    -80.0,
+    -60.0,
+    -45.0,
+    -30.0,
+    -20.0,
+    -14.0,
+    -8.0,
+    -4.0,
+    0.0,
+    4.0
+  ],
+  "logistic": {
+    "a": 0.9083719701049348,
+    "b": 0.03673472069766951,
+    "tau_g1": -24.727885576725313
+  },
+  "bootstrap": {
+    "tau_hat": -24.727885576725313,
+    "slope_hat": 0.03673472069766951,
+    "intercept_hat": 0.9083719701049348,
+    "tau_ci95": [
+      -36.71547688436131,
+      -10.37886993263937
+    ],
+    "slope_ci95": [
+      0.026038432778461438,
+      0.051301187004601186
+    ],
+    "n_prompts": 40,
+    "n_obs": 440,
+    "boot_ok_fraction": 1.0
+  },
+  "isotonic": -28.6722412109375,
+  "identifiability": {
+    "both_classes_present": true,
+    "slope_nondegenerate": false,
+    "slope_direction_sensible": true,
+    "transition_inside_range": true,
+    "ci_finite": true,
+    "fit_not_flat": true,
+    "transition_observed": true,
+    "observed_refusal_range": [
+      0.075,
+      0.75
+    ],
+    "ci_width_reasonable": false,
+    "ci_width_sigma": 28.446370680622785,
+    "all_pass": false
+  },
+  "status": "TAU_G1_UNIDENTIFIABLE",
+  "tau_g1": null,
+  "W": null,
+  "g1_trace_verified": true,
+  "refusal_by_dose": {
+    "-100.0": 0.225,
+    "-80.0": 0.075,
+    "-60.0": 0.15,
+    "-45.0": 0.15,
+    "-30.0": 0.475,
+    "-20.0": 0.525,
+    "-14.0": 0.6,
+    "-8.0": 0.75,
+    "-4.0": 0.75,
+    "0.0": 0.75,
+    "4.0": 0.75
+  }
+}

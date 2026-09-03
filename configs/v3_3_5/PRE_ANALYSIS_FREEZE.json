@@ -1,0 +1,56 @@
+{
+  "frozen_at_utc": "2026-09-03T00:06:36.374841+00:00",
+  "git_sha": "8f6633b9e390876453693add6a7bde6db41cc840",
+  "files": {
+    "splits": "0a09bae0227e56ba35fc0594974a5b4b8a0cd25a46907c5e7d15f5070f53d94b",
+    "classifier": "2bb7a4ba3a9fdd20728b7cba9ad8d8b85b32218154217d9c41d67112150f85c6",
+    "affine_coordinate": "8e4989dae52901ccbe048c2592c374850b81802ada973b4112e44fb7c0f40fa8",
+    "certificate": "308fc4c6eb4d2e3038c7e8f1badd48379bf929689f3cd43a3882b4f13b75eb6d",
+    "affine_policy": "b9d94b8a8aaefa3e8373c0caed9231725c813e2d57e02e40a7a759ebe6e59f7e",
+    "g1_generation": "0d2135674e173d2bd0674986959c4fb91b3d1a39d6d7db56a3e4cbdad361d0f7",
+    "g1_boundary_dev": "e394f9a583d1921e8cc588a06ea599ba366ed025a8f1f7a94a01fc318fbd62c0",
+    "g1_boundary_confirm": "04336298b62f9db222dcb4837a5d97bb1052f5b76469d21d91c6b5828d5e471b",
+    "certificate_result": "025c56650cc8c7829bf9cad1a5c656f3e5fb191fd356e985d4ed9bd967457422"
+  },
+  "file_paths": {
+    "splits": "configs/v3_3_5/splits.json",
+    "classifier": "scripts/v3_3_5/final_claim_check_v335.py",
+    "affine_coordinate": "llm/src/cantor_guard_v335/affine_coordinate.py",
+    "certificate": "llm/src/cantor_guard_v335/certificate.py",
+    "affine_policy": "llm/src/cantor_guard_v335/affine_guarded_policy.py",
+    "g1_generation": "llm/src/cantor_guard_v335/g1_only_generation.py",
+    "g1_boundary_dev": "results/v3_3_5/tables/g1_boundary_D_beh_g1_dev.json",
+    "g1_boundary_confirm": "results/v3_3_5/tables/g1_boundary_D_beh_g1_confirm.json",
+    "certificate_result": "results/v3_3_5/tables/certificate_summary.json"
+  },
+  "classifier_sha256": "2bb7a4ba3a9fdd20728b7cba9ad8d8b85b32218154217d9c41d67112150f85c6",
+  "W_rule": "W = 1.05 * Q_0.99(|z_G1 - anchor|) on D_window_cal only",
+  "rho_grid": [
+    0.25,
+    0.28,
+    0.3,
+    0.3333333333333333,
+    0.36,
+    0.4,
+    0.44
+  ],
+  "depth": 3,
+  "q_G1_target": 0.02,
+  "q_cap": 0.05,
+  "budget_tolerance_final": 0.03,
+  "sesoi_auc": 0.02,
+  "bootstrap_reps": 20000,
+  "multiplicity": "max-T simultaneous",
+  "CHRONOLOGY": {
+    "before_seal": [
+      "Theorem CP proved; affine certificate derived (exact argmax 1/3 at n=3)",
+      "G1-only hook implemented and phase trace verified (prefill 1, G1 1, G2+ 46)",
+      "G1 dose bracket searched on D_beh_g1_dev ONLY; grid then frozen",
+      "confirmatory fit on D_beh_g1_confirm reproduced DEV: TAU_G1_UNIDENTIFIABLE",
+      "certificate validated with REAL forward attacks on D_attack_dev, using a GEOMETRIC anchor explicitly labelled as not behavioural",
+      "V3.3.4 negative findings preserved unchanged"
+    ],
+    "D_final_335_touched": false,
+    "reason_final_not_run": "tau_G1 unidentifiable; substituting tau_mid or the V3.3.3 global tau_beh is forbidden, so no admissible behavioural centre exists and the final set was deliberately left unspent"
+  }
+}

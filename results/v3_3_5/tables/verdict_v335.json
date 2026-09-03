@@ -1,0 +1,15 @@
+{
+  "MATH": "M1_CP_AND_M2_CANTOR_EXACT_MAXIMIN_PROVED",
+  "math_reason": "Theorem CP forces an affine map from the coordinate-preservation requirement alone; under it eps_z^A = 2W*M_n(rho) is EXACT and argmax at n=3 is exactly 1/3, with eps_C = 2W/27. The V3.3.4 logistic optimum (~0.296) is preserved as a historical control.",
+  "BEHAVIOR": "B2_G1_BOUNDARY_UNIDENTIFIABLE",
+  "behavior_reason": "a G1-ONLY dose does not causally determine refusal in this model: slope 0.0354 (gate 0.05), bootstrap CI width 24.7 sigma (gate 3.0), reproduced on an independent confirmation split. Substituting tau_mid or the V3.3.3 GLOBAL tau_beh is forbidden.",
+  "CERTIFICATE": "C1_EXACT_AFFINE_CERTIFICATE_VALIDATED",
+  "certificate_reason": "no direct switch in 42 below-certificate configurations under real forward attacks; |dz|-eps error 4.5e-07; Cantor ranks first. ANCHOR CAVEAT: tau_G1 was unidentifiable, so this was demonstrated on a purely GEOMETRIC anchor (median clean z_G1). The certificate is therefore verified as an implementation, NOT anchored to a causal behavioural boundary.",
+  "GENERATION": "G5_INCONCLUSIVE",
+  "generation_reason": "not run: with tau_G1 unidentifiable there is no admissible behavioural centre, and substituting one is forbidden. D_final_335 was left UNTOUCHED.",
+  "UTILITY": "U_NOT_RUN",
+  "utility_reason": "generation not run",
+  "OVERALL": "E_NO_APPLICABLE_BEHAVIORAL_CONTROLLER",
+  "overall_reason": "the exact affine Cantor certificate is proved and validated in implementation, but the G1 state it certifies does not by itself causally determine refusal in this model, so no behaviourally anchored controller could be instantiated",
+  "classifier_sha256": "2bb7a4ba3a9fdd20728b7cba9ad8d8b85b32218154217d9c41d67112150f85c6"
+}
