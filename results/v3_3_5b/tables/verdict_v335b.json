@@ -1,0 +1,13 @@
+{
+  "MATH": "M1_CANTOR_AFFINE_MAXIMIN_VALID",
+  "math_reason": "frozen from V3.3.5: eps(rho)=2W rho^2(1-2rho), argmax 1/3",
+  "TEMPORAL": "TD3_SINGLE_STATE_BETTER",
+  "temporal_reason": "at matched trajectory L2 budget, CONCENTRATING the intervention at P0 is significantly BETTER than distributing it; the simultaneous intervals for EARLY_4/EARLY_8 minus P0_ONLY exclude zero in the negative direction at B2 = 0.4 and 0.8",
+  "TRAJECTORY": "TR3_NOT_RUN_TEMPORAL_GATE_FAILED",
+  "trajectory_reason": "Stage A did not support temporal distribution, so no trajectory coordinate was invented and D_final_traj was not spent",
+  "GENERATION": "G5_NOT_RUN",
+  "generation_reason": "Stage B never opened",
+  "OVERALL": "D_GLOBAL_ADVANTAGE_WAS_ACCUMULATION",
+  "overall_reason": "the large behavioural effect of the historical all-forward intervention is attributable to repeated intervention energy, not to a temporally distributed refusal mechanism. Under matched energy, concentration at P0 is at least as good and significantly better at the larger budgets.",
+  "classifier_sha256": "52134fd7f25a02cda814be8cb946ff30b65513794ad0b24fb7e80d1ce9f2f449"
+}

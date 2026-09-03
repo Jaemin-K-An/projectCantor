@@ -1,0 +1,85 @@
+{
+  "frozen_at_utc": "2026-09-03T01:52:54.110126+00:00",
+  "git_sha": "bba5294ede774d34d9072efeb8a46e2708d0aca9",
+  "files": {
+    "protocol": "871e728d49b3950789612feaf4b4eee931d3a2ef57bb9bcdead08ad950c9b7d2",
+    "splits": "6ab7de553bf7a8cf55e697dfd73fd4b78e58dc44650f4d348e10a48236e432e2",
+    "temporal_budget": "a8742614ea6a5c7f8fce2210c1b48923a84314306ce4bb6cd157afff694daa79",
+    "temporal_generation": "378ff70e62f65ab2d75322bcf6ac6c6fbf8b65d999fa8a83844769a6d277a21d",
+    "runner": "c116b763c6f0c3fc08884088217b50fbe01a870a91432d4d82083e9eedd7bbc5",
+    "regime_gap": "02876307e7a2e21fb6472498fea6a75fceadc985e9573c4be2178e96874153da",
+    "dev_result": "fc47dc6372f3d3ef97278c368a099469b059d4e149ace699d073133545d68076"
+  },
+  "file_paths": {
+    "protocol": "configs/v3_3_5b/protocol_stageA.json",
+    "splits": "configs/v3_3_5b/splits.json",
+    "temporal_budget": "llm/src/cantor_guard_v335b/temporal_budget.py",
+    "temporal_generation": "llm/src/cantor_guard_v335b/temporal_generation.py",
+    "runner": "scripts/v3_3_5b/run_matched_budget_temporal.py",
+    "regime_gap": "results/v3_3_5b/tables/regime_gap.json",
+    "dev_result": "results/v3_3_5b/raw/temporal_D_temporal_dev.csv"
+  },
+  "protocol": {
+    "model": "qwen2.5-0.5b-instruct",
+    "layer": 14,
+    "direction": "v_p0 from V3.3.5a (same direction for every schedule)",
+    "K_horizon": 8,
+    "schedules": [
+      "S1_P0_ONLY",
+      "S2_G1_ONLY",
+      "S3_EARLY_2",
+      "S4_EARLY_4",
+      "S5_EARLY_8",
+      "S6_ALL_K",
+      "S7_LATE_4"
+    ],
+    "weights": "uniform unit-L2, w_t = 1/sqrt(T)",
+    "budget": "B2 = sqrt(sum_t q_t^2), matched exactly across schedules",
+    "b2_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ],
+    "q_cap": 1.0,
+    "cap_disclosure": "pre-declared cap 0.05 produced ZERO variation in all 35 cells; effects begin at q~0.10 and the historical global dose was q~0.50. Coherence stays >=0.998 to q=1.6, so the coherence gate replaces the cap.",
+    "coherence_gate": 0.8,
+    "endpoint": "refusal rate vs signed matched B2 (refusal proxy)",
+    "primary_contrasts": [
+      [
+        "S4_EARLY_4",
+        "S1_P0_ONLY"
+      ],
+      [
+        "S4_EARLY_4",
+        "S2_G1_ONLY"
+      ],
+      [
+        "S5_EARLY_8",
+        "S1_P0_ONLY"
+      ],
+      [
+        "S5_EARLY_8",
+        "S2_G1_ONLY"
+      ]
+    ],
+    "sesoi_dP": 0.03,
+    "inference": "paired prompt-cluster bootstrap 20000, max-T simultaneous",
+    "seeds": {
+      "generation": 20260908,
+      "bootstrap": 7
+    }
+  },
+  "CHRONOLOGY": {
+    "before_seal": [
+      "matched-budget machinery implemented; B2 identical across schedules by construction",
+      "pre-declared q<=0.05 grid run on DEV: ZERO variation in all 35 cells",
+      "regime gap measured on DEV: effects begin at q~0.10; historical global dose q~0.50",
+      "grid extended to span the effect regime, cap change disclosed in the protocol",
+      "second DEV run showed concentration >= distribution at every matched B2"
+    ],
+    "D_temporal_confirm_touched": false,
+    "D_final_traj_touched": false
+  }
+}

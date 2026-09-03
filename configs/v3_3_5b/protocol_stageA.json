@@ -1,0 +1,19 @@
+{
+  "model": "qwen2.5-0.5b-instruct", "layer": 14,
+  "direction": "v_p0 from V3.3.5a (same direction for every schedule)",
+  "K_horizon": 8,
+  "schedules": ["S1_P0_ONLY","S2_G1_ONLY","S3_EARLY_2","S4_EARLY_4",
+                "S5_EARLY_8","S6_ALL_K","S7_LATE_4"],
+  "weights": "uniform unit-L2, w_t = 1/sqrt(T)",
+  "budget": "B2 = sqrt(sum_t q_t^2), matched exactly across schedules",
+  "b2_grid": [0.0, 0.1, 0.2, 0.4, 0.8],
+  "q_cap": 1.0,
+  "cap_disclosure": "pre-declared cap 0.05 produced ZERO variation in all 35 cells; effects begin at q~0.10 and the historical global dose was q~0.50. Coherence stays >=0.998 to q=1.6, so the coherence gate replaces the cap.",
+  "coherence_gate": 0.8,
+  "endpoint": "refusal rate vs signed matched B2 (refusal proxy)",
+  "primary_contrasts": [["S4_EARLY_4","S1_P0_ONLY"],["S4_EARLY_4","S2_G1_ONLY"],
+                        ["S5_EARLY_8","S1_P0_ONLY"],["S5_EARLY_8","S2_G1_ONLY"]],
+  "sesoi_dP": 0.03,
+  "inference": "paired prompt-cluster bootstrap 20000, max-T simultaneous",
+  "seeds": {"generation": 20260908, "bootstrap": 7}
+}

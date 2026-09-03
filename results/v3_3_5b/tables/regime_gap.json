@@ -1,0 +1,42 @@
+{
+  "mean_h_norm": 18.448577880859375,
+  "cap": 0.05,
+  "first_effective_q_nondegenerate": 0.1,
+  "historical_global_q_estimate": {
+    "-3sigma": 0.15055366013158328,
+    "-6sigma": 0.30110732026316656,
+    "-10sigma": 0.5018455337719443
+  },
+  "escalation": [
+    {
+      "q": 0.05,
+      "refusal": 0.625,
+      "coherence": 0.9992268190495256
+    },
+    {
+      "q": 0.1,
+      "refusal": 0.6,
+      "coherence": 0.9983340252835659
+    },
+    {
+      "q": 0.2,
+      "refusal": 0.475,
+      "coherence": 0.9984225534120214
+    },
+    {
+      "q": 0.4,
+      "refusal": 0.4,
+      "coherence": 0.9983850377716612
+    },
+    {
+      "q": 0.8,
+      "refusal": 0.125,
+      "coherence": 0.9986295036110203
+    },
+    {
+      "q": 1.6,
+      "refusal": 0.375,
+      "coherence": 0.9981621128804369
+    }
+  ]
+}
