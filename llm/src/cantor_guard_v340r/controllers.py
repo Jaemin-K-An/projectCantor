@@ -57,6 +57,10 @@ class _CapMixin:
             delta_d_expected=q * norms * self.kappa,
         )
 
+    def policy_record(self, h) -> list[dict]:
+        """Name the frozen V3.4.0 generation hook calls. Alias of ``records``."""
+        return self.records(h)
+
     def records(self, h) -> list[dict]:
         res = self.correct(h)
         return [
