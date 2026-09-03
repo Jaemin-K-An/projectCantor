@@ -54,3 +54,7 @@ results/v3_3_5b/cache/
 # ---- V3.3.5c ----
 results/v3_3_5c/cache/
 results/v3_3_5c/private/
+
+# ---- V3.4.0 ----
+results/v3_4_0/cache/
+results/v3_4_0/private/

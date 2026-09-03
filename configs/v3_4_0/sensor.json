@@ -1,0 +1,33 @@
+{
+  "version": "3.4.0",
+  "written_before": "any fit on D_sensor_train and before D_sensor_confirm was ever read",
+  "model": "qwen2.5-0.5b-instruct",
+  "layer": 14,
+  "state": "clean P0 residual, padding-safe last valid prompt token, no intervention",
+  "d_model": 896,
+  "family": "L2-regularized linear logistic probe (full residual space)",
+  "forbidden_for_primary": ["MLP", "kernel SVM", "random forest", "neural probe",
+                            "layer search", "token search", "PCA/low-rank", "feature engineering"],
+  "why_linear_only": "The sensor must keep a transparent residual-space distance certificate: Theorem S needs d(h) to be an affine function of h.",
+  "regularization": {"penalty": "l2", "class_weight": "balanced",
+                     "C_grid": [0.0003, 0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0],
+                     "selected_on": "D_sensor_tune only"},
+  "label": {"source": "LibrAI/longformer-action-ro", "convention": "y=1 safe/refusal, y=0 compliance",
+            "scope": "SENS2_REFUSAL_SENSOR_ONLY -- the semantic gate failed"},
+  "sample_size_disclosure": {
+    "n_train": 180, "d_model": 896,
+    "note": "n << d, so the probe is strongly underdetermined and leans entirely on the L2 penalty. This is disclosed in advance; the confirmatory gate is evaluated on held-out data, and training accuracy is never used as evidence."
+  },
+  "GATE": {
+    "auroc_ci_lower_min": 0.60,
+    "balanced_accuracy_at_zero_min": 0.65,
+    "require_beats_null_brier": true,
+    "require_positive_calibration_slope": true,
+    "evaluated_on": "D_sensor_confirm",
+    "bootstrap": {"n_boot": 20000, "seed": 340},
+    "boundary": "d(h)=0 by construction; no post-hoc tau is estimated"
+  },
+  "stability": {"n_boot": 2000, "seed": 341,
+                "metrics": ["cosine to full-fit w", "held-out prediction stability",
+                            "signed-distance sd on confirm", "decision agreement"]}
+}

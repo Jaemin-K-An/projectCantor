@@ -1,0 +1,37 @@
+{
+  "split": "D_sensor_confirm",
+  "n": 85,
+  "base_rate": 0.6823529411764706,
+  "old_projection": {
+    "coordinate": "z_v = <h, v> with 1-D logistic threshold fitted on D_sensor_train",
+    "tau": 4.8909748063544525,
+    "slope": 2.299205024667878,
+    "auroc": 0.855683269476373,
+    "pr_auc": 0.9163268345831449,
+    "balanced_accuracy_at_zero": 0.7669220945083014,
+    "brier": 0.14590934552467935,
+    "null_brier": 0.2171986201888162,
+    "calibration_slope": 1.5778274797909166
+  },
+  "new_sensor": {
+    "coordinate": "d_w = (w^T h + b)/||w||, boundary d=0 by construction",
+    "auroc": 0.9335887611749681,
+    "pr_auc": 0.9716572931288531,
+    "balanced_accuracy_at_zero": 0.865581098339719,
+    "brier": 0.13032747169978123,
+    "null_brier": 0.2171986201888162,
+    "calibration_slope": 2.402295151018158
+  },
+  "paired_bootstrap_auroc_new_minus_old": {
+    "auroc_difference_mean": 0.07798784193853141,
+    "auroc_difference_ci95": [
+      0.0029481132075472845,
+      0.16600070242656448
+    ],
+    "fraction_new_better": 0.9794,
+    "n_effective": 20000
+  },
+  "cos_w_v": 0.3102297257950366,
+  "angle_w_v_deg": 71.9269246253898,
+  "interpretation": "A large AUROC gap with a small |cos(w,v)| is the direct signature of the V3.4.0 hypothesis: the direction that senses behavioural state is not the direction that actuates it."
+}

@@ -1,0 +1,75 @@
+{
+  "label_source": "LibrAI/longformer-action-ro",
+  "refusal_action_classes": [
+    0,
+    1
+  ],
+  "convention": "y=1 safe/refusal, y=0 compliance (section 8)",
+  "semantic_gate": "FAILED -- SEM3_PROXY_ONLY; scope is SENS2_REFUSAL_SENSOR_ONLY",
+  "validated_refusal_balanced_accuracy": 0.966,
+  "splits": {
+    "D_eval_val_harmful": {
+      "n": 50,
+      "y_safe_rate": 0.7,
+      "n_safe": 35,
+      "n_compliance": 15,
+      "lex32_agreement": 0.86
+    },
+    "D_eval_val_benign": {
+      "n": 40,
+      "y_safe_rate": 0.025,
+      "n_safe": 1,
+      "n_compliance": 39,
+      "lex32_agreement": 0.95
+    },
+    "D_sensor_train": {
+      "n": 180,
+      "y_safe_rate": 0.6611111111111111,
+      "n_safe": 119,
+      "n_compliance": 61,
+      "lex32_agreement": 0.8222222222222222
+    },
+    "D_sensor_tune": {
+      "n": 45,
+      "y_safe_rate": 0.6888888888888889,
+      "n_safe": 31,
+      "n_compliance": 14,
+      "lex32_agreement": 0.7777777777777778
+    },
+    "D_sensor_confirm": {
+      "n": 85,
+      "y_safe_rate": 0.6823529411764706,
+      "n_safe": 58,
+      "n_compliance": 27,
+      "lex32_agreement": 0.8941176470588236
+    },
+    "D_actuator_validate": {
+      "n": 30,
+      "y_safe_rate": 0.7666666666666667,
+      "n_safe": 23,
+      "n_compliance": 7,
+      "lex32_agreement": 0.9333333333333333
+    },
+    "D_window_cal": {
+      "n": 30,
+      "y_safe_rate": 0.7333333333333333,
+      "n_safe": 22,
+      "n_compliance": 8,
+      "lex32_agreement": 0.9
+    },
+    "D_controller_budget": {
+      "n": 25,
+      "y_safe_rate": 0.68,
+      "n_safe": 17,
+      "n_compliance": 8,
+      "lex32_agreement": 0.84
+    },
+    "D_attack_dev": {
+      "n": 25,
+      "y_safe_rate": 0.68,
+      "n_safe": 17,
+      "n_compliance": 8,
+      "lex32_agreement": 0.84
+    }
+  }
+}

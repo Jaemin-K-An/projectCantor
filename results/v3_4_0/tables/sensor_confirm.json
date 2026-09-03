@@ -1,0 +1,145 @@
+{
+  "C_grid": [
+    0.0003,
+    0.001,
+    0.003,
+    0.01,
+    0.03,
+    0.1,
+    0.3,
+    1.0
+  ],
+  "sweep": [
+    {
+      "C": 0.0003,
+      "w_norm": 0.02766195896298088,
+      "train_auroc": 0.9049455847912936,
+      "tune_auroc": 0.9055299539170506,
+      "tune_balanced_accuracy_at_zero": 0.7764976958525346,
+      "tune_brier": 0.2428560123817616,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": -0.0005843691257569894
+    },
+    {
+      "C": 0.001,
+      "w_norm": 0.086129484416961,
+      "train_auroc": 0.9074252651880425,
+      "tune_auroc": 0.9078341013824885,
+      "tune_balanced_accuracy_at_zero": 0.7764976958525346,
+      "tune_brier": 0.22848335041439102,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": -0.00040883619444609387
+    },
+    {
+      "C": 0.003,
+      "w_norm": 0.21891673061827602,
+      "train_auroc": 0.9115580658492906,
+      "tune_auroc": 0.912442396313364,
+      "tune_balanced_accuracy_at_zero": 0.7764976958525346,
+      "tune_brier": 0.20001893059034972,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": -0.0008843304640734351
+    },
+    {
+      "C": 0.01,
+      "w_norm": 0.5015582503765873,
+      "train_auroc": 0.921476787436286,
+      "tune_auroc": 0.9170506912442397,
+      "tune_balanced_accuracy_at_zero": 0.8122119815668203,
+      "tune_brier": 0.15855920623960362,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": 0.004426096192046369
+    },
+    {
+      "C": 0.03,
+      "w_norm": 0.9058273430977781,
+      "train_auroc": 0.9359415897506543,
+      "tune_auroc": 0.9193548387096774,
+      "tune_balanced_accuracy_at_zero": 0.8283410138248848,
+      "tune_brier": 0.13132876938750399,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": 0.016586751040976955
+    },
+    {
+      "C": 0.1,
+      "w_norm": 1.6127383797420909,
+      "train_auroc": 0.9577076732332277,
+      "tune_auroc": 0.9032258064516129,
+      "tune_balanced_accuracy_at_zero": 0.8122119815668203,
+      "tune_brier": 0.12192153146230121,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": 0.05448186678161482
+    },
+    {
+      "C": 0.3,
+      "w_norm": 2.782005493744516,
+      "train_auroc": 0.9785094365615099,
+      "tune_auroc": 0.8870967741935484,
+      "tune_balanced_accuracy_at_zero": 0.8283410138248848,
+      "tune_brier": 0.12918734980695434,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": 0.09141266236796153
+    },
+    {
+      "C": 1.0,
+      "w_norm": 5.048807528159986,
+      "train_auroc": 0.9960049593607936,
+      "tune_auroc": 0.8640552995391705,
+      "tune_balanced_accuracy_at_zero": 0.7211981566820276,
+      "tune_brier": 0.14569159109247806,
+      "tune_null_brier": 0.21509259259259264,
+      "generalization_gap": 0.1319496598216231
+    }
+  ],
+  "C_selected": 0.03,
+  "selected_on": "D_sensor_tune",
+  "w_norm": 0.9058273430977781,
+  "b": -1.237113410818877,
+  "d_model": 896,
+  "n_train": 180,
+  "train_base_rate": 0.6611111111111111,
+  "confirm": {
+    "n": 85,
+    "base_rate": 0.6823529411764706,
+    "auroc": 0.9335887611749681,
+    "pr_auc": 0.9716572931288531,
+    "balanced_accuracy_at_zero": 0.865581098339719,
+    "accuracy_at_zero": 0.8705882352941177,
+    "brier": 0.13032747169978123,
+    "null_brier": 0.2171986201888162,
+    "mean_distance_y1": 0.9069911484051411,
+    "mean_distance_y0": -0.9643788508262825,
+    "confusion": {
+      "tn": 23,
+      "fp": 4,
+      "fn": 7,
+      "tp": 51
+    },
+    "calibration_slope": 2.402295151018158,
+    "calibration_intercept": 0.7023328259888011,
+    "beats_null_brier": true
+  },
+  "confirm_auroc_ci": {
+    "auroc_ci95": [
+      0.8763440860215055,
+      0.978448275862069
+    ],
+    "n_effective": 20000
+  },
+  "gate": {
+    "checks": {
+      "auroc_ci_lower_above_min": true,
+      "balanced_accuracy_at_zero_ok": true,
+      "beats_null_brier": true,
+      "calibration_slope_positive_finite": true
+    },
+    "passed": true,
+    "verdict": "SENSOR_GATE_PASS",
+    "thresholds": {
+      "auroc_ci_lower_min": 0.6,
+      "balanced_accuracy_min": 0.65
+    }
+  },
+  "verdict": "SENS2_REFUSAL_SENSOR_ONLY",
+  "label_scope": "SENS2_REFUSAL_SENSOR_ONLY (semantic evaluator gate failed)"
+}

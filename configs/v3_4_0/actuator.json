@@ -1,0 +1,16 @@
+{
+  "version": "3.4.0",
+  "direction_file": "results/v3_3_5a/cache/v_p0.npy",
+  "direction_sha256": "c22957e2fe05e9fa3bc158853dbb5c88965b62a98c2aefd63f11fa73d480172a",
+  "safe_sign": 1,
+  "frozen": true,
+  "retraining_forbidden": "v is NOT refitted for V3.4.0 and is never rotated toward w. A hybrid actuator would destroy the sensor/actuator test (section 51).",
+  "revalidation": {
+    "split": "D_actuator_validate",
+    "u_grid": [-0.4, -0.2, 0.0, 0.2, 0.4],
+    "dose": "delta_h = u * ||h_P0||_2 * v_safe, ||v_safe||=1",
+    "coherence_gate": 0.95,
+    "degeneration_gate": 0.05,
+    "pass_requires": "monotone-in-sign behavioural response with the frozen safe orientation, plus both gates"
+  }
+}

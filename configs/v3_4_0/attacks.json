@@ -1,0 +1,46 @@
+{
+  "version": "3.4.0",
+  "written_before": "D_attack_dev was generated and long before D_final was opened",
+  "families": {
+    "ATTACK_W": {
+      "delta": "s * eps * w_hat",
+      "sign": -1,
+      "property": "|delta_d| = eps exactly (Theorem S is tight here)",
+      "purpose": "certificate validation -- this is the attack the geometry is stated against"
+    },
+    "ATTACK_V": {
+      "delta": "eps * v_unsafe",
+      "property": "delta_d = -eps * kappa",
+      "purpose": "behavioural robustness -- the attack that actually changes generation"
+    }
+  },
+  "grid_rule": {
+    "anchor": "epsilon_Cantor = 2W/27",
+    "levels": [
+      0.0,
+      0.3,
+      0.6,
+      0.9,
+      0.98,
+      1.02,
+      1.5,
+      2.4,
+      3.6,
+      5.45,
+      10.9,
+      21.8,
+      43.7
+    ],
+    "why": "Anchoring on one fixed scalar gives ABSOLUTE epsilon values identical for every rho, while the level set is chosen to satisfy section 40: zero, below the smallest family certificate (0.3, 0.6), between certificates (0.9), just below and just above the Cantor certificate (0.98, 1.02), and well above every certificate (1.5, 2.4, 3.6).",
+    "same_values_for_every_rho": true,
+    "no_adversarial_optimization_against_final_data": true,
+    "GRID_EXTENSION_DISCLOSURE": {
+      "decided_on": "D_attack_dev, before the protocol freeze and before D_final was opened",
+      "problem": "The certificate scale and the behavioural scale are ~11x apart. epsilon_Cantor = 2W/27 = 0.1689 in residual L2 units is only 0.9% of ||h_P0|| ~ 18.4, whereas V3.3.5b/c established that behaviour only starts moving at a relative perturbation q ~ 0.10, i.e. ||delta_h|| ~ 1.84.",
+      "evidence": "On D_attack_dev the whole certificate-anchored grid (0 to 3.6 x epsilon_C = 0.608) moved the safe rate only 0.76 -> 0.68 for both attack families.",
+      "consequence_if_not_extended": "Section 43 asks whether a larger certified radius produces later BEHAVIOURAL failure. A grid that never reaches the behavioural threshold cannot answer that question in either direction.",
+      "extension": "Four levels were added, anchored on relative perturbation rather than on the certificate: 5.45x, 10.9x, 21.8x and 43.7x epsilon_C, which correspond to q = 0.05, 0.10, 0.20 and 0.40 at the median ||h_P0||.",
+      "outcome_independence": "The added values are identical for every rho and were chosen from the residual-norm scale alone. No rho outcome was consulted."
+    }
+  }
+}

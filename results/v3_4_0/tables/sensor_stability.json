@@ -1,0 +1,32 @@
+{
+  "n_boot_effective": 2000,
+  "C": 0.03,
+  "cosine_to_full_fit": {
+    "mean": 0.9262177091790704,
+    "ci95": [
+      0.8813366042457643,
+      0.9558019544882326
+    ]
+  },
+  "heldout_auroc": {
+    "mean": 0.9251803959131546,
+    "ci95": [
+      0.9067688378033205,
+      0.9406130268199234
+    ]
+  },
+  "decision_agreement_with_full_fit": {
+    "mean": 0.940629411764706,
+    "ci95": [
+      0.8941176470588236,
+      0.9882352941176471
+    ]
+  },
+  "confirm_signed_distance_sd": {
+    "mean_over_prompts": 0.21965805067564842,
+    "median": 0.20596184024790587,
+    "max": 0.5184261308491286,
+    "relative_to_clean_spread": 0.1747603569702704
+  },
+  "note": "Per-coefficient stability is not required and not reported: with n=180 in 896 dimensions individual weights are unidentified. Orientation and prediction stability are what the controller needs."
+}
