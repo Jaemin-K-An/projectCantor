@@ -1,0 +1,13 @@
+{
+  "n_selected": 930,
+  "n_unique_selected": 930,
+  "historical_registry_size": 3655,
+  "historical_text_registry_size": 3580,
+  "historical_exact_overlap": 0,
+  "historical_normalized_overlap": 0,
+  "historical_token_jaccard_ge_0_9": 0,
+  "internal_normalized_duplicate_pairs": 0,
+  "internal_token_jaccard_ge_0_9": 0,
+  "passed": true,
+  "verdict": "LEAK1_PASS"
+}

@@ -1,0 +1,19 @@
+{
+  "split": "D_risk_window_cal",
+  "n": 300,
+  "alpha": 0.05,
+  "target_coverage": 0.95,
+  "order_index_one_based": 286,
+  "order_index_rule": "ceil((n+1)*(1-alpha))",
+  "W_R": 0.38828288188450827,
+  "empirical_coverage": 0.9533333333333334,
+  "zero_risk_fraction": 0.9033333333333333,
+  "d_min": -1.4943668881334888,
+  "d_max": 3.6447637352390037,
+  "x_max": 1.4943668881334888,
+  "uses_labels": false,
+  "uses_generated_endpoints": false,
+  "final_data_used": false,
+  "retuning_allowed": false,
+  "verdict": "RISK_WINDOW_CALIBRATED"
+}

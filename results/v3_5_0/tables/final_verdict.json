@@ -1,0 +1,17 @@
+{
+  "GEOMETRY": "GEO1_ONE_SIDED_CANTOR_CERTIFICATE_VALID",
+  "SENSOR": "SENSOR1_EXTERNAL_REFUSAL_SENSOR_INHERITED",
+  "BUDGET": "BUD2_MISMATCH",
+  "CONTROLLER": "CTRL4_INCONCLUSIVE",
+  "LINEAR": "LIN4_INCONCLUSIVE",
+  "RHO": "RHO4_INCONCLUSIVE",
+  "UTILITY": "NOT_RUN_BUDGET_HARD_STOP",
+  "OVERALL": "INCONCLUSIVE",
+  "SUCCESS_A": false,
+  "SUCCESS_B": false,
+  "SUCCESS_C": false,
+  "stop_reason": "q_target_rms=.03 is unattainable under q_cap=.05 because too many frozen safe-side states must receive q=0",
+  "formal_freeze_status": "NOT_FROZEN_BUDGET_IMPOSSIBLE",
+  "D_final_v350_touched": false,
+  "semantic_safety_claimed": false
+}

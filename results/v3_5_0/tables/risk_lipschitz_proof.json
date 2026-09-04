@@ -1,0 +1,10 @@
+{
+  "theorem": "|x(h+Delta h)-x(h)| <= ||Delta h||_2",
+  "analytic_proof": "d is 1-Lipschitz; phi(z)=max(0,-z) is 1-Lipschitz; composition is 1-Lipschitz",
+  "random_trials": 10000,
+  "minimum_random_slack": 25.028961373172486,
+  "tight_direction_trials": 100,
+  "maximum_tight_direction_abs_slack": 4.773959005888173e-15,
+  "violations": 0,
+  "verdict": "GEO1_RISK_COORDINATE_LIPSCHITZ"
+}

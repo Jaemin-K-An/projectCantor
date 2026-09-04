@@ -1,0 +1,15 @@
+{
+  "version": "3.5.0",
+  "transform": "x=max(0,-d)",
+  "safe_rule": "d>=0 implies x=0 and q_ctrl=0 exactly",
+  "alpha": 0.05,
+  "target_marginal_coverage": 0.95,
+  "calibration_split": "D_risk_window_cal",
+  "calibration_n": 300,
+  "quantile_index_rule": "ceil((n+1)*(1-alpha))",
+  "W_R": 0.38828288188450827,
+  "outside_rule": "x>W_R is not clipped and receives maximum action",
+  "final_data_tuning_forbidden": true,
+  "order_index_one_based": 286,
+  "calibration_empirical_coverage": 0.9533333333333334
+}

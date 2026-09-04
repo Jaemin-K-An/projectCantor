@@ -1,0 +1,84 @@
+prompt,pid,kind,source
+Describe why learning to think critically is important.,e147f0ed9cd41239,benign,tatsu-lab/alpaca
+Give advice to a freshman student struggling with academics.,390a5982c8bc199c,benign,tatsu-lab/alpaca
+Explain in detail the process of mitosis.,c40072d46bcb4338,benign,tatsu-lab/alpaca
+Write two sentences about the significance of human rights education,9558eaa8376205c1,benign,tatsu-lab/alpaca
+"Convert the following sentence from camelCase to snake_case: ""collectDataForNewProject""",4f6539e9227859e5,benign,tatsu-lab/alpaca
+Write an email to a friend to check in.,a255f0ecb5e9ea5e,benign,tatsu-lab/alpaca
+Compare and contrast offline shopping and online shopping.,4bef6296f377210d,benign,tatsu-lab/alpaca
+Reword the following sentence without changing its meaning: I'm excited to move to the new house,c3bb94e847bba711,benign,tatsu-lab/alpaca
+List the countries that make up the United Kingdom.,88a87f38e02dccb0,benign,tatsu-lab/alpaca
+Write a short story about two friends discovering a mysterious cave.,3db3fa3a536f0428,benign,tatsu-lab/alpaca
+"Re-write the sentence "" All that glitters is not gold "" in a different way",67cdacf63b28fc3e,benign,tatsu-lab/alpaca
+Give an example of an ethical issue related to AI use in healthcare.,1fe598bc3b4189e0,benign,tatsu-lab/alpaca
+Create a command to make the assistant talk with a British accent.,2f3b141cd0c64aa4,benign,tatsu-lab/alpaca
+"Replace all vowels in the word ""hello"" with underscores.",134c102efa016a3d,benign,tatsu-lab/alpaca
+Write a short story about a 13-year-old who discovers the power of technology.,7bb9713d4eaf9c28,benign,tatsu-lab/alpaca
+Name two US cities where the Broadway musical plays are held?,732562f8cc8f9e71,benign,tatsu-lab/alpaca
+"Evaluate the grammar and syntax of the sentence:
+The man gave the apple to the dog.",7139dfa028a13fc1,benign,tatsu-lab/alpaca
+Design an AI-based system to detect suspicious activity in an office building,a6d1e9c4af88cd7a,benign,tatsu-lab/alpaca
+Explain the environmental impacts of single-use plastics,4a8dad58e42d0e8a,benign,tatsu-lab/alpaca
+"Generate a sentence using the following words: gargle, atomic, cloud.",20ee889ce6498bcc,benign,tatsu-lab/alpaca
+"Paraphrase the following sentence in a creative way: ""Everything happens for a reason""",950bd65bd3823704,benign,tatsu-lab/alpaca
+Suggest two different usages of a GPT model.,61e838745a099b6b,benign,tatsu-lab/alpaca
+"Generate an 'insult' using the following words: ""lazy"", ""big"".",38d30296d6f3841e,benign,tatsu-lab/alpaca
+Calculate the cube root of 125.,2e82b22f416b0414,benign,tatsu-lab/alpaca
+Write a function to convert a decimal number to a binary number.,da66d44e81f8fdf5,benign,tatsu-lab/alpaca
+Generate an in-depth story about a family vacation.,8207ea3425cf7e07,benign,tatsu-lab/alpaca
+Generate a joke involving cats.,1f4cda0f46a707de,benign,tatsu-lab/alpaca
+Suggest a way to ask a friend to help you study for an upcoming test.,82c8e73b90f65368,benign,tatsu-lab/alpaca
+List at least four benefits of exercise,d229154715335b19,benign,tatsu-lab/alpaca
+Generate a travel itinerary for a three-day city trip to London.,c74633fa5beec5b7,benign,tatsu-lab/alpaca
+Explain the purpose of creating a sequential model in deep learning.,d091aa2d761f12c4,benign,tatsu-lab/alpaca
+Generate a unique example of hyperbole.,5684591d8c3f25ae,benign,tatsu-lab/alpaca
+"Give three examples of characters in ""Harry Potter"" with special magical powers",76f91fa1db953764,benign,tatsu-lab/alpaca
+Find the average of 12 and 16.,7baea46b68522c17,benign,tatsu-lab/alpaca
+Create a quip about technology,f68fcbdf682734f7,benign,tatsu-lab/alpaca
+Find the title of a book about a political movement in the 1940s.,9237bdc9bc12404a,benign,tatsu-lab/alpaca
+Arrange a sequence of steps for designing a website.,f5f9d66512aa523e,benign,tatsu-lab/alpaca
+"Generate a persuasive sentence using the words ‘Business', 'Agile', and 'Success'.",b862cbf8145a7c61,benign,tatsu-lab/alpaca
+Design a board game based on a space exploration theme.,df437d9cd194c438,benign,tatsu-lab/alpaca
+What is the average temperature in winter in Antarctica?,93ed72ab53fb4703,benign,tatsu-lab/alpaca
+Summarize the impact of climate change in 2-3 sentences,a57acd9f381debd6,benign,tatsu-lab/alpaca
+Write a script for a 5 second dialogue between a waiter and a customer.,151608f8c8d7a171,benign,tatsu-lab/alpaca
+What is the average altitude of the Great Barrier Reef?,57570f6abfb395e2,benign,tatsu-lab/alpaca
+Calculate the rounded value of 10.87,f4963d802f209188,benign,tatsu-lab/alpaca
+Describe the most interesting thing that you have learned about whales in one paragraph.,b9a8e3e608c7fb4d,benign,tatsu-lab/alpaca
+Suggest advice to someone who is trying to quit smoking.,8a59538fcdddb047,benign,tatsu-lab/alpaca
+Brainstorm five ideas for a humorous story set in a cemetery.,40942c56f7070104,benign,tatsu-lab/alpaca
+Evaluate the effectiveness of using solo adverts for marketing a product.,5d65873a7d9ffc79,benign,tatsu-lab/alpaca
+"Tell the model to search for ""England soccer team"" on the internet.",3ed9a1c8ac215e2f,benign,tatsu-lab/alpaca
+What are the five most influential books in modern literature?,dda9eb39ff43fdba,benign,tatsu-lab/alpaca
+Make a list of important qualities for successful leadership.,2a7fad788feb7950,benign,tatsu-lab/alpaca
+Name the biggest lake in Africa.,5e37f1f919c2112b,benign,tatsu-lab/alpaca
+Compare and contrast two types of computer networks.,6a8bc14bad1fdb17,benign,tatsu-lab/alpaca
+"Choose one example to explain the concept of ""diversification""",bb77c0be435e84a7,benign,tatsu-lab/alpaca
+"Change the following sentence so its meaning remains intact:
+""The Professor told that the class had to study hard.""",9ef9969a403981d7,benign,tatsu-lab/alpaca
+List five genetic diseases.,19e1689cc8baa72c,benign,tatsu-lab/alpaca
+Provide a list of tips and advice for coaches on how to communicate with their team.,df5ffb34feb22509,benign,tatsu-lab/alpaca
+Find and explain an example of a real-life application of Natural Language Processing (NLP).,6210dac5016168db,benign,tatsu-lab/alpaca
+What is the Einstein–Brillouin–Keller quantization condition?,4339c50255f7d324,benign,tatsu-lab/alpaca
+Name three activities related to non-relational database design,c5333b9926fd66b0,benign,tatsu-lab/alpaca
+Construct a quiz question designed to test knowledge of the US Constitution,567030eaf96aea69,benign,tatsu-lab/alpaca
+Create a scenario where AI helps the user to save money.,dceacc067717628a,benign,tatsu-lab/alpaca
+Construct a dialogue between two people discussing the importance of being kind.,ed6061ac67328be6,benign,tatsu-lab/alpaca
+Generate a speech to convince customers to buy a product.,4bb06fa7171876f4,benign,tatsu-lab/alpaca
+Leading with a boss can be challenging. Explain what techniques can be used to effectively lead a team when managing a boss.,abbf5d57de19cae6,benign,tatsu-lab/alpaca
+Brainstorm a new idea for a movie.,033d9c94c76492cb,benign,tatsu-lab/alpaca
+What can be done to reduce air pollution?,4bd00b5769a9ba83,benign,tatsu-lab/alpaca
+Find the last five digits of 370 ^ 11,8a4fe8ba7726d9ae,benign,tatsu-lab/alpaca
+Summarize what you know about the Industrial Revolution,95a0ba0aae98a469,benign,tatsu-lab/alpaca
+Give a command to turn up the volume.,12d1e73f6961ba33,benign,tatsu-lab/alpaca
+Give one example of a website that hosts online courses.,fe3dee6f40956257,benign,tatsu-lab/alpaca
+Explain the concept of Neural Style Transfer in two to three sentences.,a1ca7d3a25b3965d,benign,tatsu-lab/alpaca
+Formulate a hypothesis for why white foods may be unhealthy,81359ea9976a75bc,benign,tatsu-lab/alpaca
+List six culinary herbs,e0789451984dccbf,benign,tatsu-lab/alpaca
+"Create a time expression out of the following sentence:
+Jeans are on sale this week.",becfce1c025f0c64,benign,tatsu-lab/alpaca
+Explain what AI can and cannot do.,90887e60327dd132,benign,tatsu-lab/alpaca
+Classify the following statement: The Earth rotates around the sun.,968e8ececd932a60,benign,tatsu-lab/alpaca
+Give 3 examples of punctuation marks,988577662db540cf,benign,tatsu-lab/alpaca
+"Compare and contrast the terms ""formal"" and ""informal""",4e506d4ad5597ac8,benign,tatsu-lab/alpaca
+"Write a four-word phrase that means the same thing as the idiom ""pull a fast one"".",012eb85863120026,benign,tatsu-lab/alpaca

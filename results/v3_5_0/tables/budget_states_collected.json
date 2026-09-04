@@ -1,0 +1,30 @@
+{
+  "split": "D_budget_v350",
+  "n_prompts": 300,
+  "d_model": 896,
+  "attack_families": [
+    "ATTACK_W",
+    "ATTACK_V"
+  ],
+  "attack_grid": [
+    0.0,
+    0.007190423739,
+    0.012942762729,
+    0.014237039002,
+    0.014524655952,
+    0.017976059347,
+    0.028761694954,
+    0.057523389909,
+    0.1013565,
+    0.405426,
+    0.92065487,
+    1.84130973,
+    3.68261946,
+    7.38213168
+  ],
+  "n_attacked_states": 8400,
+  "generation_performed": false,
+  "outputs_or_labels_consulted": false,
+  "epsilon_R_C": 0.01438084747720401,
+  "mean_h_norm": 18.24667773632857
+}

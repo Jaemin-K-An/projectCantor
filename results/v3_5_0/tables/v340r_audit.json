@@ -1,0 +1,41 @@
+{
+  "base_commit": "8d04b67933aa95b1fc452b27d6a2c77517486332",
+  "preserved_paths": {
+    "results/v3_4_0": {
+      "base_tree": "d47942353b068df9bdf0607c590a79340a151a8e",
+      "head_tree": "d47942353b068df9bdf0607c590a79340a151a8e",
+      "identical": true
+    },
+    "results/v3_4_0r": {
+      "base_tree": "8015ecb1d661a7cfc5abd2d633ce1b61d0f8aac7",
+      "head_tree": "8015ecb1d661a7cfc5abd2d633ce1b61d0f8aac7",
+      "identical": true
+    },
+    "configs/v3_4_0": {
+      "base_tree": "9a1988d85002dcc06dabdc8c31c96a519ace8088",
+      "head_tree": "9a1988d85002dcc06dabdc8c31c96a519ace8088",
+      "identical": true
+    },
+    "configs/v3_4_0r": {
+      "base_tree": "b95917f3c92e1affcd121fb21bb3fd13fc26f694",
+      "head_tree": "b95917f3c92e1affcd121fb21bb3fd13fc26f694",
+      "identical": true
+    },
+    "docs/v3_4_0": {
+      "base_tree": "f4e8cd8dfe3780706f7354feb3584fb7efd996b8",
+      "head_tree": "f4e8cd8dfe3780706f7354feb3584fb7efd996b8",
+      "identical": true
+    },
+    "docs/v3_4_0r": {
+      "base_tree": "bdcec3fb5374d1ef0ef952771f9f4aba1e74503d",
+      "head_tree": "bdcec3fb5374d1ef0ef952771f9f4aba1e74503d",
+      "identical": true
+    }
+  },
+  "sensor_sha256": "f16942ce8c6f89d2eaee2679da4778156450cd44fe1b9ac3529f3434f402f1fe",
+  "sensor_hash_exact": true,
+  "actuator_sha256": "c22957e2fe05e9fa3bc158853dbb5c88965b62a98c2aefd63f11fa73d480172a",
+  "actuator_hash_exact": true,
+  "passed": true,
+  "verdict": "AUDIT1_HISTORICAL_IMMUTABLE"
+}
