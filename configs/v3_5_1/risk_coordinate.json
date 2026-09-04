@@ -1,0 +1,16 @@
+{
+  "version": "3.5.1",
+  "risk_set": "R={h:d(h)<0}",
+  "transform": "x=max(0,-d)",
+  "calibration_domain": "d<0 only; safe-side zero mass excluded",
+  "K_RISK": 200,
+  "alpha": 0.05,
+  "order_index_rule": "ceil((n+1)*(1-alpha))",
+  "W_R": 1.3727408729684236,
+  "safe_rule": "d>=0 -> SAFE_SIDE -> action=0 exactly",
+  "outside_rule": "x>W_R -> OUTSIDE_RISK_WINDOW -> action=1 without clipping x",
+  "final_data_tuning_forbidden": true,
+  "order_index_one_based": 191,
+  "conditional_empirical_coverage": 0.955,
+  "calibration_artifact": "results/v3_5_1/tables/risk_conditional_window.json"
+}

@@ -1,0 +1,12 @@
+{
+  "candidate_pool_n": 3146,
+  "historical_registry_n": 4585,
+  "historical_text_registry_n": 4510,
+  "exact_overlap": 0,
+  "normalized_overlap": 0,
+  "token_jaccard_ge_0_9": 0,
+  "internal_pid_duplicates": 0,
+  "inherited_final_overlap_authorized": true,
+  "passed": true,
+  "verdict": "LEAK1_PASS"
+}

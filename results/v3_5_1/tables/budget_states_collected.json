@@ -1,0 +1,55 @@
+{
+  "split": "D_budget_v351",
+  "n_prompts": 300,
+  "d_model": 896,
+  "attack_families": [
+    "ATTACK_V",
+    "ATTACK_W"
+  ],
+  "attack_grid": [
+    0.0,
+    0.02542112727719303,
+    0.04575802909894745,
+    0.0503338320088422,
+    0.05135067709992992,
+    0.06355281819298257,
+    0.1013565,
+    0.10168450910877212,
+    0.20336901821754425,
+    0.405426,
+    0.92065487,
+    1.84130973,
+    3.68261946,
+    7.38213168
+  ],
+  "n_attacked_states": 8400,
+  "risk_eligible_n": 2162,
+  "risk_eligible_prevalence": 0.2573809523809524,
+  "per_family_risk_eligible_prevalence": {
+    "ATTACK_V": 0.2038095238095238,
+    "ATTACK_W": 0.310952380952381
+  },
+  "generation_performed": false,
+  "outputs_or_labels_consulted": false,
+  "epsilon_R_C": 0.05084225455438606,
+  "mean_h_norm": 18.207885874721452,
+  "sensor_actuator_coupling": 0.3102297257950366,
+  "hashes": {
+    "budget_csv_sha256": "39e4e5793086166f63c7949225f1c301d705632adc7decd5516fb5550383e271",
+    "budget_residuals_sha256": "5043c4f38b81e26e9333997cdc656f020e422ef101622dc923ba3c1d799661d1",
+    "attacked_states_csv_sha256": "1b4a429201d87c872f32826ada238fb2b0cf3913b662d635feb279831874e94a",
+    "attack_grid_sha256": "c4b2c8cd320a5af2778b93ec2cae7f1e07cdd043bb0512cbe845152ca6a5a710"
+  },
+  "model": {
+    "model_key": "qwen2.5-0.5b-instruct",
+    "model_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "model_family": "qwen2.5",
+    "device": "cpu",
+    "dtype": "float32",
+    "n_layers": 24,
+    "d_model": 896,
+    "attn_impl": "eager"
+  },
+  "verdict": "BUDGET_STATES_COLLECTED_WITHOUT_ENDPOINTS"
+}

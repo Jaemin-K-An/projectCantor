@@ -1,0 +1,17 @@
+{
+  "status": "INVALIDATED_PRE_MODEL_LEAKAGE_FAILURE",
+  "reason": "Two normalized token-set Jaccard >= 0.9 historical near-duplicates were found before any residual, endpoint, label, or model output was evaluated.",
+  "model_outputs_seen": false,
+  "remediation": "Remove the two pairs before applying the unchanged deterministic candidate-order seed, rebuild the pool, and rerun the full leakage audit.",
+  "superseded_by": "results/v3_5_1/tables/historical_leakage_audit.json",
+  "candidate_pool_n": 3148,
+  "historical_registry_n": 4585,
+  "historical_text_registry_n": 4510,
+  "exact_overlap": 0,
+  "normalized_overlap": 0,
+  "token_jaccard_ge_0_9": 2,
+  "internal_pid_duplicates": 0,
+  "inherited_final_overlap_authorized": true,
+  "passed": false,
+  "verdict": "LEAK2_FAIL"
+}

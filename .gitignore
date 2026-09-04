@@ -62,3 +62,6 @@ results/v3_4_0/private/
 # ---- V3.4.0R ----
 results/v3_4_0r/cache/
 results/v3_4_0r/private/
+
+# ---- V3.5.1: harmful completions are local-only research data ----
+results/v3_5_1/private/
