@@ -59,6 +59,14 @@ def require_freeze():
         raise RuntimeError(f"V3.5.1 final access requires PRE_ANALYSIS_FROZEN, got {freeze.get('status')}")
     if freeze["sensor"]["sha256"] != SENSOR_SHA or freeze["actuator"]["sha256"] != ACTUATOR_SHA:
         raise RuntimeError("frozen hashes changed")
+    if float(freeze["budget"]["q_target_risk_rms"]) != Q_TARGET:
+        raise RuntimeError("risk-conditional q target changed after freeze")
+    if float(freeze["budget"]["q_cap"]) != Q_CAP:
+        raise RuntimeError("q cap changed after freeze")
+    for relative, expected in freeze.get("frozen_file_hashes", {}).items():
+        path = ROOT / relative
+        if not path.exists() or sha256(path) != expected:
+            raise RuntimeError(f"post-freeze file mutation detected: {relative}")
     return freeze
 
 
@@ -74,3 +82,27 @@ def ensure_final_outputs_absent():
     if present:
         raise RuntimeError(f"pre-freeze final output access detected: {present}")
     return forbidden
+
+
+def build_arms(freeze, sensor, actuator, *, include_attack_only=True):
+    from cantor_guard_v351.linear_risk_controller import LinearRiskController
+    from cantor_guard_v351.risk_cantor_controller import RiskConditionalCantorController
+    W_R = float(freeze["risk_window"]["W_R"])
+    q_cap = float(freeze["budget"]["q_cap"])
+    etas = freeze["budget"]["eta_per_arm"]
+    arms = {}
+    if include_attack_only:
+        arms["ATTACK_ONLY"] = None
+    arms["LINEAR"] = LinearRiskController(
+        sensor=sensor, actuator=actuator, W_R=W_R,
+        eta=float(etas["LINEAR"]), q_cap=q_cap,
+    )
+    for rho in freeze["geometry"]["rho_family"]:
+        name = arm_key(rho)
+        arms[name] = RiskConditionalCantorController(
+            sensor=sensor, actuator=actuator, W_R=W_R, rho=float(rho),
+            eta=float(etas[name]), q_cap=q_cap,
+            leaf_actions=freeze["geometry"]["leaf_actions"],
+            outside_action=float(freeze["geometry"]["outside_risk_action"]),
+        )
+    return arms
