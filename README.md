@@ -1,5 +1,14 @@
 # 칸토어 게이트 동역학계·Neural ODE·LLM 잔차 안전 제어의 강건성 분석
 
+> **V3.6.0 추가됨** — [`docs/v3_6_0/FINAL_REPORT_KO.md`](docs/v3_6_0/FINAL_REPORT_KO.md)
+> 깊이 3 대칭 자기유사 재귀 정책군의 exact residual-L2 switch distance를 구현했다.
+> middle-third의 인증 반경은 **0.05084225**, solver 검산 112,564회에서 최대 상대
+> 오차 **3.94e-15**, 인증 반경 이하 직접 terminal 전환 **0건**이다. 자연 상태의
+> 관측 최소 거리도 비교 rho보다 컸다. 비재귀 균등 guard는 더 큰 간격을 제공하므로
+> 최적성 주장은 해당 재귀 family 내부로 한정한다. V3.5.1의 행동 우월성 부재는 유지한다.
+> SUCCESS A·B를 충족했고 C는 탐색적 token-KL 연관성 기준에서 충족했다.
+> 756개 생성의 비교에서는 문장·첫 토큰 선택·거부 라벨 변화가 없었다.
+>
 > **V3.5.1 추가됨** — [`docs/v3_5_1/FINAL_REPORT_KO.md`](docs/v3_5_1/FINAL_REPORT_KO.md)
 > one-sided controller의 calibration·action·budget domain을 모두 `d<0` 위험
 > 반공간에 맞춰 50,400행 확증 실험을 완료했다. 기하·조건부 예산·효용 gate는
