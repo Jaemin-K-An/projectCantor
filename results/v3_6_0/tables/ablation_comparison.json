@@ -1,0 +1,96 @@
+{
+  "rows": [
+    {
+      "name": "NO_GUARD",
+      "policies": 8,
+      "retained_measure": 1.0,
+      "guards": 0,
+      "CRE": 0.0,
+      "CRE_abs": 0.0,
+      "recursive": false
+    },
+    {
+      "name": "NON_RECURSIVE_GUARD",
+      "policies": 8,
+      "retained_measure": 0.29629629629629606,
+      "guards": 7,
+      "CRE": 0.10052910052910051,
+      "CRE_abs": 0.13800040521904786,
+      "recursive": false
+    },
+    {
+      "name": "MIDDLE_THIRD_CANTOR",
+      "policies": 8,
+      "retained_measure": 0.29629629629629606,
+      "guards": 7,
+      "CRE": 0.03703703703703704,
+      "CRE_abs": 0.05084225455438607,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.25,
+      "policies": 8,
+      "retained_measure": 0.125,
+      "guards": 7,
+      "CRE": 0.03125,
+      "CRE_abs": 0.04289815228026324,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.28,
+      "policies": 8,
+      "retained_measure": 0.17561600000000005,
+      "guards": 7,
+      "CRE": 0.034496,
+      "CRE_abs": 0.04735406915391874,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.3,
+      "policies": 8,
+      "retained_measure": 0.21599999999999997,
+      "guards": 7,
+      "CRE": 0.036,
+      "CRE_abs": 0.049418671426863243,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.36,
+      "policies": 8,
+      "retained_measure": 0.37324799999999997,
+      "guards": 7,
+      "CRE": 0.036288,
+      "CRE_abs": 0.04981402079827816,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.4,
+      "policies": 8,
+      "retained_measure": 0.5120000000000001,
+      "guards": 7,
+      "CRE": 0.032,
+      "CRE_abs": 0.043927707934989554,
+      "recursive": true
+    },
+    {
+      "name": "RECURSIVE_NONOPTIMAL",
+      "rho": 0.44,
+      "policies": 8,
+      "retained_measure": 0.681472,
+      "guards": 7,
+      "CRE": 0.023232000000000003,
+      "CRE_abs": 0.03189151596080242,
+      "recursive": true
+    }
+  ],
+  "nonrecursive_optimality_under_aggregate_constraints": "7 gaps sum to 19/27, so min gap <=19/189; equal gaps attain this",
+  "nonrecursive_beats_cantor": true,
+  "ratio_nonrecursive_to_cantor": 2.7142857142857135,
+  "no_guard_zero_infimum": "distinct uniform bins touch; arbitrarily small cross-bin perturbations exist",
+  "claim_scope": "Cantor unique optimum only within fixed-depth same-rho symmetric recursive family"
+}

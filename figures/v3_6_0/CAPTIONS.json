@@ -1,0 +1,7 @@
+{
+  "scope": "family-specific direct terminal-policy-switch certificate",
+  "F360-05": "Counterfactual projections are distinguished from unmodified LLM state samples.",
+  "F360-06": "Rates condition on each rho terminal-source mask; masks may differ. Global worst-case optimum does not order these rates.",
+  "F360-07": "Nonrecursive guard ablation preserves 8 policies and total leaf length 8/27; it has larger separation.",
+  "F360-08": "Certificate applies to first two layers; behavioral association requires independent evidence."
+}

@@ -1,0 +1,28 @@
+{
+  "lipschitz": {
+    "random_trials": 10000,
+    "raw_random_violations": 0,
+    "maximum_random_excess": -25.397919207816358,
+    "tight_trials": 100,
+    "tight_max_abs_error": 1.6653345369377348e-15,
+    "PASS": true,
+    "proof": "normalized affine sensor is exactly 1-Lipschitz, max(0,-d) is 1-Lipschitz; equality along normal inside risk halfspace"
+  },
+  "direct_switch_violations_below_or_equal": 0,
+  "maximum_violation": 0.0,
+  "minimum_raw_projected_slack": 2.144907613063629e-06,
+  "analytic_numeric_agreement": true,
+  "tolerance": {
+    "iterations": 52,
+    "witness_interior_fraction": 1e-08,
+    "absolute_tolerance": 1e-09,
+    "relative_tolerance": 1e-06,
+    "relative_denominator_floor": 1e-12
+  },
+  "maximum_absolute_error": 1.8041124150158794e-16,
+  "maximum_relative_error": 3.941159317100902e-15,
+  "total_solver_trials": 112564,
+  "certificate_scope": "terminal-to-terminal only; not guard entry, safe/outside transitions, continuous-path no-guard crossing, or semantics",
+  "boundary_convention": "guard owns internal endpoints; infimum not necessarily attained",
+  "PASS": true
+}

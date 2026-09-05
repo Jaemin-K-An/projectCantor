@@ -1,0 +1,79 @@
+{
+  "analytic_theorem": "M_n=rho^(n-1)*(1-2rho); derivative=rho^(n-2)*((n-1)-2n*rho), n>=2",
+  "proof": "derivative positive before (n-1)/(2n), negative after; M_n vanishes at both ends for n>=2",
+  "n1_exception": "M_1=1-2rho, derivative -2, no interior optimizer",
+  "M3_exact": "1/27",
+  "depth3_unique_optimizer": 0.3333333333333333,
+  "dense_grid_n": 500001,
+  "dense_grid_argmax": 0.3333333333333333,
+  "dense_grid_unique_max": true,
+  "per_rho": [
+    {
+      "rho": 0.25,
+      "CRE": 0.03125,
+      "CRE_abs": 0.04289815228026324,
+      "implementation_minimum_gap": 0.04289815228026324,
+      "implementation_error": 0.0,
+      "reference_value": 0.04289815228026324,
+      "reference_error": 0.0
+    },
+    {
+      "rho": 0.28,
+      "CRE": 0.034496,
+      "CRE_abs": 0.04735406915391874,
+      "implementation_minimum_gap": 0.04735406915391874,
+      "implementation_error": 0.0,
+      "reference_value": 0.04735406915391874,
+      "reference_error": 0.0
+    },
+    {
+      "rho": 0.3,
+      "CRE": 0.036,
+      "CRE_abs": 0.049418671426863243,
+      "implementation_minimum_gap": 0.04941867142686314,
+      "implementation_error": 1.0408340855860843e-16,
+      "reference_value": 0.049418671426863243,
+      "reference_error": 0.0
+    },
+    {
+      "rho": 0.3333333333333333,
+      "CRE": 0.03703703703703704,
+      "CRE_abs": 0.05084225455438607,
+      "implementation_minimum_gap": 0.050842254554386054,
+      "implementation_error": 1.3877787807814457e-17,
+      "reference_value": 0.05084225455438606,
+      "reference_error": 6.938893903907228e-18
+    },
+    {
+      "rho": 0.36,
+      "CRE": 0.036288,
+      "CRE_abs": 0.04981402079827816,
+      "implementation_minimum_gap": 0.049814020798277986,
+      "implementation_error": 1.734723475976807e-16,
+      "reference_value": 0.04981402079827816,
+      "reference_error": 0.0
+    },
+    {
+      "rho": 0.4,
+      "CRE": 0.032,
+      "CRE_abs": 0.043927707934989554,
+      "implementation_minimum_gap": 0.04392770793498944,
+      "implementation_error": 1.1102230246251565e-16,
+      "reference_value": 0.043927707934989554,
+      "reference_error": 0.0
+    },
+    {
+      "rho": 0.44,
+      "CRE": 0.023232,
+      "CRE_abs": 0.03189151596080242,
+      "implementation_minimum_gap": 0.03189151596080231,
+      "implementation_error": 1.1102230246251565e-16,
+      "reference_value": 0.03189151596080242,
+      "reference_error": 0.0
+    }
+  ],
+  "reference_match_tolerance": 1e-12,
+  "max_implementation_error": 1.734723475976807e-16,
+  "PASS": true,
+  "novelty": "general depth formula was already proved in V3.3.2; V3.6.0 contribution is exact routing solver, explicit scope and implementation validation"
+}

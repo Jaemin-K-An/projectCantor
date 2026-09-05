@@ -1,0 +1,23 @@
+{
+  "THEOREM": "PASS",
+  "LIPSCHITZ": "PASS",
+  "CERTIFICATE": "PASS",
+  "NATURAL_STATE_MINIMUM_GAIN": true,
+  "BEHAVIORAL_ALIGNMENT": true,
+  "SUCCESS_A_CERTIFIED_CANTOR": true,
+  "SUCCESS_B_IMPLEMENTED_CANTOR": true,
+  "SUCCESS_C_BEHAVIORAL_ALIGNMENT": true,
+  "OVERALL": "SUCCESS_C",
+  "scope": "fixed depth-3 symmetric self-similar recursive family; direct terminal-policy switch; frozen residual-L2 sensor geometry",
+  "semantic_safety_claimed": false,
+  "behavioral_superiority_claimed": false,
+  "V351_negative_result_preserved": true,
+  "qualifications": [
+    "n=1 has a supremum but no interior optimizer",
+    "terminal distances are infima; guards own internal boundaries",
+    "natural sample minima are not the global worst-case envelope",
+    "112000 projected trials are counterfactual probes, not independent natural states",
+    "nonrecursive equal-gap ablation has a larger minimum gap",
+    "secondary uses previously examined prompts and is exploratory"
+  ]
+}
