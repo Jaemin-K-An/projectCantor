@@ -1,5 +1,13 @@
 # 칸토어 게이트 동역학계·Neural ODE·LLM 잔차 안전 제어의 강건성 분석
 
+> **V3.5.1 추가됨** — [`docs/v3_5_1/FINAL_REPORT_KO.md`](docs/v3_5_1/FINAL_REPORT_KO.md)
+> one-sided controller의 calibration·action·budget domain을 모두 `d<0` 위험
+> 반공간에 맞춰 50,400행 확증 실험을 완료했다. 기하·조건부 예산·효용 gate는
+> 통과했지만 Cantor 1/3 대 attack-only는 사전 SESOI를 넘지 못했고, linear 및
+> rho 대조는 동등했다. 최종 판정은 **`CONFIRMATORY_CRITERIA_NOT_MET`**이며
+> SUCCESS A/B/C는 모두 false다. 평가 범위는 semantic safety가 아닌 frozen
+> external evaluator의 **refusal robustness**로 한정한다.
+>
 > **V3.1 (closure) 추가됨** — `docs/v3_1/FINAL_REPORT_KO.md` (branch `cantor-guard-v3.1`)
 > V3의 코드 결함 2건을 수정하고(진짜 상수 컨트롤러, V2 calibration 재구성),
 > **정리 T**(`‖u′‖ = 12E₀(9/2)^k`)를 증명했으며, **실제 LLM에서 실현 개입
