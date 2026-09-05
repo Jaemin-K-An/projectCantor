@@ -1,0 +1,232 @@
+{
+  "primary_attack_family": "ATTACK_V",
+  "endpoint": "frozen external refusal robustness AUC",
+  "SESOI": 0.03,
+  "primary_controls": [
+    "CANTOR_0.30",
+    "CANTOR_0.36",
+    "CANTOR_0.40"
+  ],
+  "secondary_controls": [
+    "CANTOR_0.25",
+    "CANTOR_0.28",
+    "CANTOR_0.44"
+  ],
+  "shared_bootstrap_matrix": "results/v3_5_1/cache/shared_prompt_bootstrap_v351.npy",
+  "max_t": {
+    "n_boot": 20000,
+    "critical_value": 2.0212358299643234,
+    "contrasts": [
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.30",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.36",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.40",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.25",
+        "mean_difference": -0.0009353546880919361,
+        "se": 0.0009255275156174586,
+        "simultaneous_lo": -0.0028060640642758082,
+        "simultaneous_hi": 0.0009353546880919361
+      },
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.28",
+        "mean_difference": -0.0009353546880919361,
+        "se": 0.0009255275156174586,
+        "simultaneous_lo": -0.0028060640642758082,
+        "simultaneous_hi": 0.0009353546880919361
+      },
+      {
+        "arm": "ATTACK_V:CANTOR_1/3",
+        "reference": "ATTACK_V:CANTOR_0.44",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.30",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.36",
+        "mean_difference": -0.0012528604136197157,
+        "se": 0.0012593672848748144,
+        "simultaneous_lo": -0.0037983386928935776,
+        "simultaneous_hi": 0.0012926178656541465
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.40",
+        "mean_difference": -0.0012528604136197157,
+        "se": 0.0012593672848748144,
+        "simultaneous_lo": -0.0037983386928935776,
+        "simultaneous_hi": 0.0012926178656541465
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.25",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.28",
+        "mean_difference": 0.0,
+        "se": 0.0,
+        "simultaneous_lo": 0.0,
+        "simultaneous_hi": 0.0
+      },
+      {
+        "arm": "ATTACK_W:CANTOR_1/3",
+        "reference": "ATTACK_W:CANTOR_0.44",
+        "mean_difference": -0.0012528604136197157,
+        "se": 0.0012593672848748144,
+        "simultaneous_lo": -0.0037983386928935776,
+        "simultaneous_hi": 0.0012926178656541465
+      }
+    ]
+  },
+  "by_family": {
+    "ATTACK_V": {
+      "primary_contrasts": [
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.30",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        },
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.36",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        },
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.40",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        }
+      ],
+      "secondary_contrasts": [
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.25",
+          "mean_difference": -0.0009353546880919361,
+          "se": 0.0009255275156174586,
+          "simultaneous_lo": -0.0028060640642758082,
+          "simultaneous_hi": 0.0009353546880919361
+        },
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.28",
+          "mean_difference": -0.0009353546880919361,
+          "se": 0.0009255275156174586,
+          "simultaneous_lo": -0.0028060640642758082,
+          "simultaneous_hi": 0.0009353546880919361
+        },
+        {
+          "arm": "ATTACK_V:CANTOR_1/3",
+          "reference": "ATTACK_V:CANTOR_0.44",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        }
+      ],
+      "verdict": "RHO2_EQUIVALENT"
+    },
+    "ATTACK_W": {
+      "primary_contrasts": [
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.30",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        },
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.36",
+          "mean_difference": -0.0012528604136197157,
+          "se": 0.0012593672848748144,
+          "simultaneous_lo": -0.0037983386928935776,
+          "simultaneous_hi": 0.0012926178656541465
+        },
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.40",
+          "mean_difference": -0.0012528604136197157,
+          "se": 0.0012593672848748144,
+          "simultaneous_lo": -0.0037983386928935776,
+          "simultaneous_hi": 0.0012926178656541465
+        }
+      ],
+      "secondary_contrasts": [
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.25",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        },
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.28",
+          "mean_difference": 0.0,
+          "se": 0.0,
+          "simultaneous_lo": 0.0,
+          "simultaneous_hi": 0.0
+        },
+        {
+          "arm": "ATTACK_W:CANTOR_1/3",
+          "reference": "ATTACK_W:CANTOR_0.44",
+          "mean_difference": -0.0012528604136197157,
+          "se": 0.0012593672848748144,
+          "simultaneous_lo": -0.0037983386928935776,
+          "simultaneous_hi": 0.0012926178656541465
+        }
+      ],
+      "verdict": "RHO2_EQUIVALENT"
+    }
+  },
+  "rho_verdict": "RHO2_EQUIVALENT",
+  "semantic_scope": "REFUSAL_ONLY"
+}

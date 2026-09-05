@@ -1,0 +1,19 @@
+{
+  "status": "INVALIDATED_MIXED_COMPUTE_BACKEND_BEFORE_EXTERNAL_ENDPOINT",
+  "reason": "CPU-to-MPS resume split ATTACK_V epsilon=0.5*epsilon_R_C across backends; binary eligibility agreed but pre-control d differed up to 3.36e-5",
+  "settings_changed": false,
+  "prompts_grid_arms_eta_changed": false,
+  "external_refusal_labels_seen": false,
+  "lexical_refusal_proxy_was_computed_during_generation": true,
+  "invalidated_rows": 4000,
+  "conditions": [
+    "ATTACK_V epsilon=0 all arms (CPU)",
+    "ATTACK_W epsilon=0 all arms (copied from CPU ATTACK_V zero)",
+    "ATTACK_V epsilon=0.02542112727719303 ATTACK_ONLY and LINEAR (CPU)"
+  ],
+  "retained_valid_rows": 46400,
+  "required_remediation": "regenerate the exact invalidated cells on MPS under the unchanged PRE_ANALYSIS_FREEZE",
+  "invalidated_raw_sha256": "cc89c3bbf07761af583810689d647a9e7066cbd25718b78f9410f224deabc3d8",
+  "invalidated_generation_marker": "results/v3_5_1/tables/INVALIDATED_mixed_backend_final_harmful_generation.json",
+  "invalidated_budget_audit": "results/v3_5_1/tables/INVALIDATED_mixed_backend_final_budget_audit.json"
+}

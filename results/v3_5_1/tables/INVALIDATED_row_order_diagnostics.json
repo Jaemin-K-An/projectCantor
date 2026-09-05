@@ -1,0 +1,269 @@
+{
+  "exploratory_only": true,
+  "used_for_retuning": false,
+  "risk_window_change": {
+    "W_R_v350": 0.38828288188450827,
+    "W_R_v351": 1.3727408729684236,
+    "absolute_change": 0.9844579910839153,
+    "ratio": 3.535414351273757,
+    "conditional_coverage_v351": 0.955,
+    "epsilon_R_C_v350": 0.01438084747720401,
+    "epsilon_R_C_v351": 0.05084225455438606,
+    "epsilon_R_C_ratio": 3.535414351273757
+  },
+  "cantor_cell_and_control_occupancy": {
+    "CANTOR_0.25": {
+      "cell_type": {
+        "safe": 4231,
+        "guard": 763,
+        "outside": 510,
+        "leaf": 96
+      },
+      "guard_fraction": 0.13625,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.875,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.03383298220026,
+        "0.95": 0.0386662653717257,
+        "1": 0.0386662653717257
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_0.28": {
+      "cell_type": {
+        "safe": 4231,
+        "guard": 711,
+        "outside": 510,
+        "leaf": 148
+      },
+      "guard_fraction": 0.12696428571428572,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.875,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0339069470781202,
+        "0.95": 0.0387507966607088,
+        "1": 0.0387507966607088
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_0.30": {
+      "cell_type": {
+        "safe": 4231,
+        "guard": 668,
+        "outside": 510,
+        "leaf": 191
+      },
+      "guard_fraction": 0.11928571428571429,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.875,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0339676204290377,
+        "0.95": 0.0388201376331859,
+        "1": 0.0388201376331859
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_1/3": {
+      "cell_type": {
+        "safe": 4231,
+        "guard": 591,
+        "outside": 510,
+        "leaf": 268
+      },
+      "guard_fraction": 0.10553571428571429,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.875,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0340580011647387,
+        "0.95": 0.0389234299025586,
+        "1": 0.0389234299025586
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_0.36": {
+      "cell_type": {
+        "safe": 4231,
+        "guard": 533,
+        "outside": 510,
+        "leaf": 326
+      },
+      "guard_fraction": 0.09517857142857143,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.875,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0341401306323818,
+        "0.95": 0.0390172921512935,
+        "1": 0.0390172921512935
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_0.40": {
+      "cell_type": {
+        "safe": 4231,
+        "outside": 510,
+        "guard": 431,
+        "leaf": 428
+      },
+      "guard_fraction": 0.07696428571428572,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 1.0,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0391903857583251,
+        "0.95": 0.0391903857583251,
+        "1": 0.0391903857583251
+      },
+      "clipping_fraction": 0.0
+    },
+    "CANTOR_0.44": {
+      "cell_type": {
+        "safe": 4231,
+        "leaf": 563,
+        "outside": 510,
+        "guard": 296
+      },
+      "guard_fraction": 0.05285714285714286,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 1.0,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.0393103211807609,
+        "0.95": 0.0393103211807609,
+        "1": 0.0393103211807609
+      },
+      "clipping_fraction": 0.0
+    },
+    "LINEAR": {
+      "cell_type": {
+        "safe": 4231,
+        "linear": 859,
+        "outside": 510
+      },
+      "guard_fraction": 0.0,
+      "outside_risk_window_fraction": 0.09107142857142857,
+      "action_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.9144969227942183,
+        "0.95": 1.0,
+        "1": 1.0
+      },
+      "q_quantiles": {
+        "0": 0.0,
+        "0.25": 0.0,
+        "0.5": 0.0,
+        "0.75": 0.0,
+        "0.9": 0.03746036335227303,
+        "0.95": 0.0409628096263178,
+        "1": 0.0409628096263178
+      },
+      "clipping_fraction": 0.0
+    }
+  },
+  "terminal_switch_table": "results/v3_5_1/tables/terminal_switch_diagnostics.csv",
+  "refusal_sensor_relationship": {
+    "correlation_d_attacked_y_safe": 0.4939279538054949,
+    "correlation_d_corrected_y_safe": 0.4902784261355833
+  },
+  "sensor_actuator_coupling": {
+    "kappa_safe": 0.3102297257950366,
+    "correction_direction_matches_sensor_safe_sign": true,
+    "mean_expected_sensor_displacement": 0.03862057527466127
+  },
+  "matched_mapping_difference": {
+    "risk_state_mean_abs_action_difference_linear_vs_cantor_1_3": 0.224145396733445,
+    "ATTACK_V_mean_auc_CANTOR_1_3": 0.7978432493465086,
+    "ATTACK_V_mean_auc_LINEAR": 0.7997196795533185,
+    "ATTACK_V_auc_difference": -0.0018764302068098315,
+    "interpretation": "Behavioral differences, if any, arise from the frozen risk-to-action mapping because sensor, actuator, cap, grid, prompts and conditional RMS target are shared."
+  },
+  "middle_third_geometry_behavior_alignment": {
+    "certificate_is_unique_family_maximum": true,
+    "empirical_rho_verdict": "RHO2_EQUIVALENT"
+  },
+  "semantic_scope": "REFUSAL_ONLY"
+}

@@ -1,0 +1,19 @@
+{
+  "status": "POSTFREEZE_INTEGRITY_AMENDMENT_COMPLETE",
+  "confirmatory_outputs_or_verdicts_changed": false,
+  "settings_prompts_grid_arms_eta_changed": false,
+  "external_labels_used_for_retuning": false,
+  "affected_output": "exploratory diagnostics only",
+  "cause": "checkpoint regeneration changed CSV row order; original diagnostic subtracted unkeyed arm arrays",
+  "original_reported_mean_abs_action_difference": 0.224145396733445,
+  "corrected_keyed_mean_abs_action_difference": 0.08123784009305167,
+  "matching_keys": [
+    "pid",
+    "family",
+    "epsilon"
+  ],
+  "matched_risk_states_per_arm": 1369,
+  "invalidated_diagnostics_sha256": "c359e64c3ac5ca01714e0d13dee0407d240ec8464876b92cb82b6a96268d3f3b",
+  "corrected_diagnostics_sha256": "971f5d3adfb71013c580e321c8a8104df9641bc1e1e9bdd4bce0f843498bdb39",
+  "overall_verdict": "CONFIRMATORY_CRITERIA_NOT_MET"
+}

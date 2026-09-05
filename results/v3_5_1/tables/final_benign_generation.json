@@ -1,0 +1,22 @@
+{
+  "split": "D_final_v351_benign",
+  "n_prompts": 80,
+  "arms": [
+    "NO_CONTROLLER",
+    "LINEAR",
+    "CANTOR_0.25",
+    "CANTOR_0.28",
+    "CANTOR_0.30",
+    "CANTOR_1/3",
+    "CANTOR_0.36",
+    "CANTOR_0.40",
+    "CANTOR_0.44"
+  ],
+  "expected_rows": 720,
+  "observed_rows": 720,
+  "decoding": "greedy deterministic",
+  "max_new_tokens": 32,
+  "raw_pre_scoring_sha256": "fe6369e9ac700d81ed5c53fa4a304cf0557543d8c2b009229e87104472479c9e",
+  "private_pre_scoring_sha256": "43b20b01573c97141f324a4d4d39efe362d3b8b415c5485211a7f0d340d0ae81",
+  "status": "FINAL_BENIGN_GENERATION_COMPLETE"
+}

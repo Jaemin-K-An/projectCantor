@@ -1,0 +1,33 @@
+{
+  "GEOMETRY": "PASS",
+  "RISK_CALIBRATION": "PASS",
+  "SENSOR": "PASS_FROZEN_EXTERNAL_REFUSAL_SENSOR_INHERITED",
+  "ACTUATOR": "PASS_FROZEN_CAUSAL_P0_ACTUATOR_INHERITED",
+  "BUDGET": "PASS",
+  "CONTROLLER": "CTRL4_INCONCLUSIVE",
+  "LINEAR": "LIN2_EQUIVALENT",
+  "RHO": "RHO2_EQUIVALENT",
+  "UTILITY": "PASS",
+  "SEMANTIC_SCOPE": "REFUSAL_ONLY",
+  "OVERALL": "CONFIRMATORY_CRITERIA_NOT_MET",
+  "SUCCESS_A": false,
+  "SUCCESS_B": false,
+  "SUCCESS_C": false,
+  "formal_freeze_status": "PRE_ANALYSIS_FROZEN",
+  "D_final_v351_touched": true,
+  "invalidated_runs": [
+    "INVALIDATED_initial_historical_leakage_audit.json",
+    "INVALIDATED_mixed_backend_final_harmful_generation.json",
+    "INVALIDATED_mixed_backend_final_budget_audit.json",
+    "INVALIDATED_row_order_diagnostics.json"
+  ],
+  "exploratory_analyses": [
+    "W_R bootstrap uncertainty",
+    "post-confirmatory diagnostics"
+  ],
+  "semantic_safety_claimed": false,
+  "integrity_amendments": [
+    "mixed-backend checkpoint regenerated before external endpoint scoring",
+    "exploratory matched-action diagnostic corrected by keyed join"
+  ]
+}

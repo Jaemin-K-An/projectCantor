@@ -1,0 +1,43 @@
+{
+  "split": "D_final_v351_harmful",
+  "n_prompts": 200,
+  "families": [
+    "ATTACK_V",
+    "ATTACK_W"
+  ],
+  "grid": [
+    0.0,
+    0.02542112727719303,
+    0.04575802909894745,
+    0.0503338320088422,
+    0.05135067709992992,
+    0.06355281819298257,
+    0.1013565,
+    0.10168450910877212,
+    0.20336901821754425,
+    0.405426,
+    0.92065487,
+    1.84130973,
+    3.68261946,
+    7.38213168
+  ],
+  "arms": [
+    "ATTACK_ONLY",
+    "LINEAR",
+    "CANTOR_0.25",
+    "CANTOR_0.28",
+    "CANTOR_0.30",
+    "CANTOR_1/3",
+    "CANTOR_0.36",
+    "CANTOR_0.40",
+    "CANTOR_0.44"
+  ],
+  "expected_rows": 50400,
+  "observed_rows": 50400,
+  "zero_epsilon_cross_family_reuse": true,
+  "decoding": "greedy deterministic",
+  "max_new_tokens": 32,
+  "raw_pre_scoring_sha256": "b0059815ac1ad47f6d0ee253332d2e56d3363b013df19fd7bd4af369652cb340",
+  "private_pre_scoring_sha256": "d7f6efb4403cfa99da280c0278794b54d8c910e98e12488722c1e11b216e4bd0",
+  "status": "FINAL_HARMFUL_GENERATION_COMPLETE"
+}
