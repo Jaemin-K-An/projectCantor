@@ -1,0 +1,10 @@
+{
+  "scope": "development unit test before formal freeze and before primary/secondary trials",
+  "initial_result": "22 passed, 3 failed",
+  "affected_test": "test_exact_distance_matches_independent_constrained_optimization",
+  "rho": [0.25,0.3333333333333333,0.44],
+  "failure": "SLSQP returned status 8: Positive directional derivative for linesearch with default finite-difference gradients at ftol=1e-13",
+  "remediation": "supply exact quadratic objective and affine constraint gradients; retain ftol=1e-13, maxiter=200 and test assertion tolerance 1e-7",
+  "preregistered_primary_tolerance_changed": false,
+  "tests_deleted": false
+}
